@@ -1,47 +1,14 @@
 ---
 sidebar_position: 1
+title: Hi
 ---
 
-# Tutorial Intro
+# :smiley:Hi
+我是"不务正业"学英语的大龄码农**Just**。
 
-Let's discover **Docusaurus in less than 5 minutes**.
+希望通过记录我的英语学习历程，让我的进步可以被复制。
 
-## Getting Started
+## 码上学英语，`Just` do IT
+虽然已经濒临被优化的IT生涯边缘，但是作为一个码农，做IT仍然是我决心马上学英语的初衷。
 
-Get started by **creating a new site**.
-
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
-
-### What you'll need
-
-- [Node.js](https://nodejs.org/en/download/) version 16.14 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
-
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**.
-
-The classic template will automatically be added to your project after you run the command:
-
-```bash
-npm init docusaurus@latest my-website classic
-```
-
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
-
-The command also installs all necessary dependencies you need to run Docusaurus.
-
-## Start your site
-
-Run the development server:
-
-```bash
-cd my-website
-npm run start
-```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+"Just do it"这句话的意思是"做某事"，而"某事"这个单词恰好与"IT"相同，同时**Just**还是一个英文名，所以我选择了**Just**作为我的英文名。
