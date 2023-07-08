@@ -92,7 +92,7 @@ const config = {
               },
               {
                 label: '博客',
-                to: '/docs/blog',
+                to: '/blog',
               },
             ],
           },
