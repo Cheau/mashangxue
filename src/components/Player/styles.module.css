@@ -1,0 +1,51 @@
+.block, .icon, .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.block {
+    position: relative;
+    height: 100%;
+    margin: 5px;
+    padding: .25em 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #eee;
+    font-weight: bold;
+}
+
+.icon {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    font-size: 1.5em;
+}
+
+.badge {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 20px;
+    text-align: center;
+    background: red;
+    color: white;
+    font-size: 16px;
+    font-weight: initial;
+}
+
+@media screen and (max-width: 768px) {
+    .badge {
+        right: -8px;
+        top: -8px;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        border-radius: 16px;
+        font-size: 12px;
+    }
+}

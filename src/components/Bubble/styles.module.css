@@ -1,0 +1,153 @@
+@value blue-light: rgb(156,212,237);
+@value blue-light-alpha: rgba(156,212,237,.5);
+@value blue-dark: #00579B;
+@value red-light: rgb(240,200,221);
+@value red-light-alpha: rgba(240,200,221,.5);
+@value red-dark: #A34075;
+
+@value border-width: 2px;
+
+@value caret-outer-size: 11px;
+@value caret-inner-size: 8px;
+
+@value font-1: 100%;
+@value font-2: 81.25%;
+
+.bubble {
+    position: relative;
+    display: inline-block;
+    width: auto;
+    max-width: 85%;
+    line-height: 1.3;
+    padding: 5px;
+    border-radius: 10px;
+    font-family: -apple-system,Nunito,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
+    font-size: font-1;
+    text-align: left;
+}
+
+.bubble-left {
+    composes: bubble;
+    left: 0;
+    background: blue-light;
+    border: border-width solid blue-dark;
+    color: blue-dark;
+}
+
+.bubble-left:before {
+    content: '';
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: caret-outer-size;
+    left: calc(caret-outer-size * -2);
+    border: caret-outer-size solid;
+    border-color: transparent blue-dark transparent transparent;
+}
+
+.bubble-left:after {
+    content: '';
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: calc(caret-outer-size + caret-outer-size - caret-inner-size);
+    left: calc(caret-inner-size * -2);
+    border: caret-inner-size solid;
+    border-color: transparent blue-light transparent transparent;
+}
+
+.bubble-right {
+    composes: bubble;
+    margin-left: auto;
+    background: red-light;
+    border: border-width solid red-dark;
+    color: red-dark;
+}
+
+.bubble-right:before {
+    content: '';
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: caret-outer-size;
+    right: calc(caret-outer-size * -2);
+    border: caret-outer-size solid;
+    border-color: transparent transparent transparent red-dark;
+}
+
+.bubble-right:after {
+    content: '';
+    position: absolute;
+    height: 0;
+    width: 0;
+    top: calc(caret-outer-size + caret-outer-size - caret-inner-size);
+    right: calc(caret-inner-size * -2);
+    border: caret-inner-size solid;
+    border-color: transparent transparent transparent red-light;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.bubble-left:focus, .bubble-right:focus {
+    outline: none;
+}
+
+.bubble-left:focus .pointer-left, .bubble-right:focus .pointer-right {
+    animation: blink 0.5s infinite;
+    outline: none;
+}
+
+.hint {
+    color: #808080;
+    font-size: font-2;
+    line-height: 1.1;
+    max-width: 100%;
+}
+
+.hint-left {
+    composes: hint;
+    left: 0;
+    color: blue-dark;
+}
+.hint-right {
+    composes: hint;
+    right: 0;
+    margin-left: auto;
+    color: red-dark;
+}
+
+.note-left {
+    color: blue-dark;
+    font-size: font-1;
+}
+
+.note-right {
+    color: red-dark;
+    font-size: font-1;
+}
+
+.pointer-left, .pointer-right {
+    position: absolute;
+    top: 50%;
+    margin-top: -22px;
+    opacity: 0;
+    font-size: 40px;
+}
+
+.pointer-left {
+    right: -50px;
+}
+
+.pointer-right {
+    left: -50px;
+}

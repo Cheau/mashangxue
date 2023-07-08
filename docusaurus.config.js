@@ -6,25 +6,28 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
-  url: 'https://your-docusaurus-test-site.com',
+  title: '码上学英语',
+  tagline: "Practice to Progress",
+  url: 'https://mashangxue.xyz',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
+  customFields: {
+    subtitle: "Just do IT",
+  },
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'Cheau', // Usually your GitHub org/user name.
+  projectName: 'mashangxue', // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
   // to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: 'zh-Hans',
+    locales: ['zh-Hans'],
   },
 
   presets: [
@@ -36,8 +39,8 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          // editUrl:
+            // 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: {
           showReadingTime: true,
@@ -57,19 +60,19 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: '码上学英语',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          alt: 'Logo',
+          src: 'img/logo.png',
         },
         items: [
           {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
+            label: '课程',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          {to: '/blog', label: '博客', position: 'left'},
           {
             href: 'https://github.com/facebook/docusaurus',
             label: 'GitHub',
@@ -81,28 +84,36 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: '学英语，共进步',
             items: [
               {
-                label: 'Tutorial',
+                label: '课程',
                 to: '/docs/intro',
+              },
+              {
+                label: '博客',
+                to: '/docs/blog',
               },
             ],
           },
           {
-            title: 'Community',
+            title: '关注我，不迷路',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: '今日头条',
+                href: 'https://www.toutiao.com/c/user/token/MS4wLjABAAAA6cQ5W5H1CyTtQ6XGNv3onDbwb-1aKZqerd8Awwfggxw-1vRJEJsLoewn8Qyiozxd/?',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: '抖音',
+                href: 'https://www.douyin.com/user/MS4wLjABAAAA2nCt9miTGKqwBjRluIBTJnNQ1ixZV3uqMXunnJBqfcpiTuL1KM-Wclz6xkExqAw7',
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                label: '西瓜视频',
+                href: 'https://www.ixigua.com/home/3127433904798535/',
+              },
+              {
+                label: '哔哩哔哩',
+                href: 'https://space.bilibili.com/1921010525',
               },
             ],
           },
@@ -120,7 +131,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} 码上学英语`,
       },
       prism: {
         theme: lightCodeTheme,

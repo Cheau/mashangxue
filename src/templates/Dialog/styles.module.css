@@ -1,0 +1,13 @@
+.dialog {
+    position: relative;
+}
+
+.dialog :global(.article) {
+}
+
+.dialog :global(.words) {
+    position: absolute;
+    top: 0;
+    right: calc(-32% - 20px);
+    width: 32%;
+}

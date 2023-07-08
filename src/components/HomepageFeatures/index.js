@@ -4,32 +4,32 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: '从零开始帮入门',
+    Svg: require('@site/static/img/start.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        英语，也许你从未接触过，又或者你学过但不得其门而入。<br/>
+        <strong>正所谓温故而知新，让我们一起从零开始学英语，从Newbie迈向牛B。</strong>
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: '英语思维助练成',
+    Svg: require('@site/static/img/atomic.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        你认真学英语，却难以像母语般地道流畅地沟通，很可能是"哑巴英语"让你陷入了"听说"能力陷阱。<br/>
+        <strong>让我们打破"英中思中英"这种转换模式里中文构筑起的包围圈，练成"英思英"的顺畅模式。</strong>
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: '听说读写皆可能',
+    Svg: require('@site/static/img/goal.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        语言是用来交流的，口头交流需要掌握听说能力，书面交流需要掌握读写能力。<br/>
+        <strong>我会记下英语学习过程中积累的知识、方法和经验，帮你复制我的进步，掌握这些能力。</strong>
       </>
     ),
   },

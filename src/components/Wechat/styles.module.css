@@ -1,0 +1,36 @@
+.wechat {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem;
+  padding: .5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.wechat img {
+  height: 160px;
+  width: 160px;
+}
+
+.slogan {
+  margin: 0 .5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .wechat {
+    padding: .5rem;
+    font-size: 1rem;
+  }
+
+  .wechat img {
+    height: 120px;
+    width: 120px;
+  }
+
+  .slogan {
+    margin: 0 .5rem;
+  }
+}

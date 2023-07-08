@@ -1,0 +1,19 @@
+.title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.subtitle {
+    margin-left: 10px;
+    color: #808080;
+    font-size: 70%;
+    font-weight: normal;
+}
+
+.intro {
+    margin: 10px 0;
+    padding: 10px;
+    background: #eee;
+    border-radius: 10px;
+    white-space: break-spaces;
+}
