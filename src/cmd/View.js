@@ -9,7 +9,7 @@ function Block(props) {
 }
 
 export default class View {
-  #count = 0
+  #count
   #marks
 
   constructor(marks = {}) {
@@ -17,6 +17,7 @@ export default class View {
   }
 
   render(lexemes = []) {
+    this.#count = 0
     const words = []
     const sentences = lexemes.map((lexeme, i) => {
       let Component = Block
