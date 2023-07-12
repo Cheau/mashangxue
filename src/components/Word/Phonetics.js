@@ -4,8 +4,13 @@ import { BiVolumeFull } from 'react-icons/bi'
 import Player from '../Player'
 
 function country(audio) {
-  if (audio.endsWith('-uk.mp3')) return '英'
-  if (audio.endsWith('-us.mp3')) return '美'
+  const result = /(?:-)(\w+)(?:\.mp3)$/.exec(audio)
+  switch (result[1]) {
+    case 'au': return '澳'
+    case 'uk': return '英'
+    case 'us': return '美'
+    default: return result[1]
+  }
 }
 
 export default function Phonetics({ phonetics }) {
