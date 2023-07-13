@@ -1,3 +1,5 @@
+@value number-size: 1.5em;
+
 .card {
   position: relative;
   padding: 10px;
@@ -19,8 +21,26 @@
   font-weight: bold;
 }
 
+.matched {
+  margin: 1px -4px;
+  padding: 1px 2px 0 2px;
+  border: 2px black dashed;
+}
+
 .meanings + .meanings {
   border-top: 1px solid #ddd;
+}
+
+.number {
+  display: inline-block;
+  height: number-size;
+  line-height: number-size;
+  width: number-size;
+  margin-right: 5px;
+  text-align: center;
+  background: black;
+  border-radius: 1em;
+  color: white;
 }
 
 .pos {
