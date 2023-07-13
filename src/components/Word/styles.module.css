@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   padding: 10px;
   background: white;
   border-radius: 10px;
@@ -24,4 +25,14 @@
 
 .pos {
   color: #808080;
+}
+
+.toggle {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: black;
+  cursor: pointer;
+  font-size: 20px;
 }
