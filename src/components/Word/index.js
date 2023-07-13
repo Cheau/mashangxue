@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
+import styles from './styles.module.css'
 import { abbreviate } from './PartOfSpeech'
 import { colors } from '../Highlight'
 import CompactCard from './CompactCard'
 import CompletedCard from './CompletedCard'
+import SkeletonCard from './SkeletonCard'
 
 function reduce(data) {
   let phonetics = {}
@@ -30,8 +32,12 @@ export default function Word({ children, index }) {
     const array = await res.json()
     setData(reduce(array))
   }, [word])
-  if (!data) return null
-  const Card = partOfSpeech ? CompactCard : CompletedCard
+  const Card = data ? (partOfSpeech ? CompactCard : CompletedCard) : SkeletonCard
   const highlight = index % 2 === 0 ? colors.green : colors.yellow
-  return <Card data={data} highlight={highlight}>{children}</Card>
+  return (
+      <div className={styles.card}>
+        <span className={styles.title} style={{ background: highlight }}>{word}</span>
+        <Card data={data}>{children}</Card>
+      </div>
+  )
 }

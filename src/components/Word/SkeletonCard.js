@@ -1,0 +1,26 @@
+import React from 'react'
+
+function Block(props) {
+  const style = {
+    background: '#e0e0e0',
+    borderRadius: '5px',
+    height: '20px',
+    marginTop: '10px',
+    maxWidth: '100%',
+    ...props
+  }
+  return <div style={style} />
+}
+
+export default function SkeletonCard({ children }) {
+  const [word] = children.split('/')
+  return (
+      <>
+        <Block marginTop="0" width={`${word.length * 18}px`} />
+        <Block width="50px" />
+        <Block width="100%" />
+        <Block width="100%" />
+        <Block width="100%" />
+      </>
+  )
+}
