@@ -1,13 +1,15 @@
+@Value words-width: 250px;
+@Value gap: 20px;
+
 .dialog {
-    position: relative;
+    display: flex;
 }
 
 .dialog :global(.article) {
+    width: calc(100% - words-width - gap);
 }
 
 .dialog :global(.words) {
-    position: absolute;
-    top: 0;
-    right: calc(-32% - 20px);
-    width: 32%;
+    margin-left: gap;
+    width: words-width;
 }
