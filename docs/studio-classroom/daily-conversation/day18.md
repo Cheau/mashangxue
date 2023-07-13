@@ -18,7 +18,7 @@ sidebar_position: 18
 ## Wow, that's a big one!
 ## I'm glad nobody got hurt, and no buildings [collapsed:collapse/v.].
 # Me, too.
-## On my!
+## Oh my!
 ## Do you feel that?
 # This must be an [aftershock/n.].
 # Stay calm, and let's get outside.
