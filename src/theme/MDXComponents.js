@@ -1,6 +1,7 @@
 import React from 'react'
 import MDXComponents from '@theme-original/MDXComponents'
 
+import './GlobalComponents'
 import Alphabet from '@site/src/components/Alphabet'
 import Box from '@site/src/components/Box'
 import Bubble, { BubbleLeftNote, BubbleRightNote } from '@site/src/components/Bubble'
