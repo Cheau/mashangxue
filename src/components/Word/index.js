@@ -32,20 +32,27 @@ function getCard(data, compact) {
   return compact ? CompactCard : CompletedCard
 }
 
+async function query(word) {
+  if (window.localStorage) {
+    const cache = window.localStorage.getItem(word)
+    if (cache) return JSON.parse(cache)
+  }
+  const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+  if (!res.ok) return null
+  const array = await res.json()
+  const data = reduce(array)
+  if (window.localStorage) window.localStorage.setItem(word,  JSON.stringify(data))
+  return data
+}
+
 export default function Word({ children, color }) {
   const [word, partOfSpeech, defIndex = 1] = children.split('/')
   const [data, setData] = useState()
   const [compact, setCompact] = useState(!!partOfSpeech)
   useEffect(async () => {
-    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
-    if (!res.ok) {
-      setData(null)
-      return
-    }
-    const array = await res.json()
-    const obj = reduce(array)
-    if (partOfSpeech) obj['meanings'][partOfSpeech][defIndex - 1]['matched'] = true
-    setData(obj)
+    const definition = await query(word)
+    if (partOfSpeech) definition['meanings'][partOfSpeech][defIndex - 1]['matched'] = true
+    setData(definition)
   }, [word])
   const Card = getCard(data, compact)
   return (
