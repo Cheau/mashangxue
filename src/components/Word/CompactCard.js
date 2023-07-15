@@ -11,8 +11,10 @@ export default function CompactCard({ children, data }) {
   return (
       <>
         <Phonetics phonetics={phonetics} />
-        <div className={styles.pos}>{partOfSpeech}</div>
-        <div>{definition}</div>
+        <div className={styles.groups}>
+          <div className={styles.pos}>{partOfSpeech}</div>
+          {definition}
+        </div>
       </>
   )
 }

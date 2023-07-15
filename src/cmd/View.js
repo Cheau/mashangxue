@@ -47,7 +47,10 @@ export default class View {
     return (
         <>
           <div className="article">{sentences}</div>
-          <div className="words">{words.map((word, i) => <Word key={i} index={i}>{word}</Word>)}</div>
+          <div className="words">{words.map((word, i) => {
+            const color = i % 2 === 0 ? 'green' : 'yellow'
+            return <Word key={i} color={color}>{word}</Word>
+          })}</div>
         </>
     )
   }

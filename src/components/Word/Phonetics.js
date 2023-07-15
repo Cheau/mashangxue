@@ -15,7 +15,7 @@ function country(audio) {
 
 export default function Phonetics({ phonetics }) {
   return (
-      <div style={{ margin: '-5px' }}>
+      <div>
         {phonetics.map(({ audio, text }, i) => (
           <Player key={`p-${i}`} appearance="button" src={audio}>
             {country(audio)}

@@ -20,7 +20,7 @@ function Meaning({ data, order }) {
 
 export default function CompletedCard({ data }) {
   const groups = Object.entries(data.meanings).map(([abbr, meanings]) => (
-      <div key={abbr} className={styles.meanings}>
+      <div key={abbr} className={styles.group}>
         <div className={styles.pos}>{abbr}</div>
         {meanings.map((m, i) => <Meaning key={`${abbr}-${i}`} data={m} order={i} />)}
       </div>
@@ -28,7 +28,9 @@ export default function CompletedCard({ data }) {
   return (
       <>
         <Phonetics phonetics={data.phonetics} />
-        {groups}
+        <div id="groups" className={styles.groups}>
+          {groups}
+        </div>
       </>
   )
 }

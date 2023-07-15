@@ -25,7 +25,7 @@ function reduce(data) {
   return { phonetics, meanings }
 }
 
-export default function Word({ children, index }) {
+export default function Word({ children, color }) {
   const [word, partOfSpeech, defIndex = 1] = children.split('/')
   const [data, setData] = useState()
   const [compact, setCompact] = useState(!!partOfSpeech)
@@ -37,10 +37,9 @@ export default function Word({ children, index }) {
     setData(obj)
   }, [word])
   const Card = data ? (compact ? CompactCard : CompletedCard) : SkeletonCard
-  const highlight = index % 2 === 0 ? colors.green : colors.yellow
   return (
       <div className={styles.card}>
-        <span className={styles.title} style={{ background: highlight }}>{word}</span>
+        <span className={styles.title} style={{ background: color ? colors[color] : 'unset' }}>{word}</span>
         <Card data={data}>{children}</Card>
         {data && partOfSpeech && <Toggle compact={compact} onClick={setCompact} />}
       </div>

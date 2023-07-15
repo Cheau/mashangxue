@@ -1,0 +1,36 @@
+@value close-size: 40px;
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1024;
+  text-align: center;
+  background: rgba(0, 0, 0, .5);
+}
+
+.close {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  height: close-size;
+  width: close-size;
+  border-radius: close-size;
+  font-size: close-size;
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+
+.close svg {
+  display: inherit;
+}
+
+.wrapper {
+  position: relative;
+  display: inline-block;
+  margin-top: 10%;
+  text-align: initial;
+}
