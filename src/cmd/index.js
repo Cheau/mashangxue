@@ -8,18 +8,18 @@ import View from './View'
  */
 export default class Cmd extends React.Component {
   #lexemes
-  #view
+  #marks
 
   constructor(props) {
     super(props)
     const { children, marks } = props
     const interpreter = new Interpreter(children)
     this.#lexemes = interpreter.run() || []
-    this.#view = new View(marks)
+    this.#marks = marks
   }
 
   render() {
-    return this.#view.render(this.#lexemes)
+    return <View lexemes={this.#lexemes} marks={this.#marks} />
   }
 
 }
