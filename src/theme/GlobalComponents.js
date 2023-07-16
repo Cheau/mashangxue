@@ -11,6 +11,7 @@ function lookup() {
 }
 
 function register() {
+  if (typeof document === 'undefined') return
   document.addEventListener('pointerup', lookup)
 }
 
