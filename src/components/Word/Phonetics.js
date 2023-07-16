@@ -14,7 +14,6 @@ const characters = {
 }
 
 function characterize(search) {
-  console.log(search)
   if (search === null) return ''
   const result = search[1]
   return result
