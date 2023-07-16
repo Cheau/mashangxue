@@ -20,7 +20,7 @@ export default function Modal(props) {
   }
   const modal = (
       <div className={styles.backdrop} onClick={close}>
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
           {props.children}
           <span className={styles.close} onClick={close}><BiX /></span>
         </div>
