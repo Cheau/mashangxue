@@ -8,6 +8,7 @@ import CompletedCard from './CompletedCard'
 import EmptyCard from './EmptyCard'
 import SkeletonCard from './SkeletonCard'
 import Toggle from './Toggle'
+import Phonetics from "./Phonetics"
 
 function reduce(data) {
   let phonetics = {}
@@ -58,6 +59,7 @@ export default function Word({ children, color }) {
   return (
       <div className={styles.card}>
         <span className={styles.title} style={{ background: color ? colors[color] : 'unset' }}>{word}</span>
+        {data && <Phonetics phonetics={data.phonetics} word={word} />}
         <Card data={data}>{children}</Card>
         {data && partOfSpeech && <Toggle compact={compact} onClick={setCompact} />}
       </div>

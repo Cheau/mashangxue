@@ -1,7 +1,6 @@
 import React from 'react'
 
 import styles from './styles.module.css'
-import Phonetics from './Phonetics'
 
 function Number({ children }) {
   return <span className={styles.number}>{children}</span>
@@ -26,11 +25,8 @@ export default function CompletedCard({ data }) {
       </div>
   ))
   return (
-      <>
-        <Phonetics phonetics={data.phonetics} />
-        <div id="groups" className={styles.groups}>
-          {groups}
-        </div>
-      </>
+      <div id="groups" className={styles.groups}>
+        {groups}
+      </div>
   )
 }

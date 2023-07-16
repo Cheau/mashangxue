@@ -1,24 +1,36 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { BiVolumeFull } from 'react-icons/bi'
 
 import Player from '../Player'
 
-function country(audio) {
-  const result = /(?:-)(\w+)(?:\.mp3)$/.exec(audio)
-  switch (result[1]) {
-    case 'au': return '澳'
-    case 'uk': return '英'
-    case 'us': return '美'
-    default: return result[1]
-  }
+const characters = {
+  au: '澳',
+  ca: '加',
+  uk: '英',
+  us: '美',
+  stressed: '重读',
+  unstressed: '非重读',
 }
 
-export default function Phonetics({ phonetics }) {
+function characterize(search) {
+  console.log(search)
+  if (search === null) return ''
+  const result = search[1]
+  return result
+      .split('-')
+      .filter((s) => /\D+/.test(s))
+      .map((s) => characters[s] || s)
+      .join(',')
+}
+
+export default function Phonetics({ phonetics, word }) {
+  const filename = useMemo(
+      () => new RegExp(`(?:\/${word})([^/.]*)(?:\..+)$`, 'i'), [word])
   return (
       <div>
         {phonetics.map(({ audio, text }, i) => (
           <Player key={`p-${i}`} appearance="button" src={audio}>
-            {country(audio)}
+            {characterize(filename.exec(audio))}
             <span style={{ margin: '0 10px' }}>{text}</span>
             <BiVolumeFull alignmentBaseline="middle" fontSize="130%" />
           </Player>
