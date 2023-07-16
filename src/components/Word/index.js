@@ -34,15 +34,15 @@ function getCard(data, compact) {
 }
 
 async function query(word) {
-  if (window.localStorage) {
-    const cache = window.localStorage.getItem(word)
+  if (window.sessionStorage) {
+    const cache = window.sessionStorage.getItem(word)
     if (cache) return JSON.parse(cache)
   }
   const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
   if (!res.ok) return null
   const array = await res.json()
   const data = reduce(array)
-  if (window.localStorage) window.localStorage.setItem(word,  JSON.stringify(data))
+  if (window.sessionStorage) window.sessionStorage.setItem(word,  JSON.stringify(data))
   return data
 }
 
