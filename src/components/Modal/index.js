@@ -4,6 +4,8 @@ import { BiX } from 'react-icons/bi'
 
 import styles from './styles.module.css'
 
+let root
+
 let overflow
 
 export default function Modal(props) {
@@ -17,6 +19,7 @@ export default function Modal(props) {
     setOpen(false)
     document.body.style.overflow = overflow
     overflow = undefined
+    root = root.remove()
   }
   const modal = (
       <div className={styles.backdrop} onClick={close}>
@@ -30,7 +33,7 @@ export default function Modal(props) {
 }
 
 Modal.open = (children) => {
-  const element = document.createElement('div')
+  if (!root) root = document.createElement('div')
   const modal = <Modal open={true}>{children}</Modal>
-  ReactDOM.render(modal, element)
+  ReactDOM.render(modal, root)
 }
