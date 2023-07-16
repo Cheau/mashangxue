@@ -11,11 +11,15 @@ import Toggle from './Toggle'
 import Phonetics from "./Phonetics"
 
 function reduce(data) {
+  let phonetic = {}
   let phonetics = {}
   const meanings = {}
   data.forEach((datum) => {
+    if (datum.phonetic) phonetic[datum.phonetic] = undefined
     datum.phonetics.forEach(({ audio, text }) => {
-      if (audio) phonetics[audio] = text
+      if (!audio) return
+      const raw = text || datum.phonetic || ''
+      phonetics[audio] = raw.replaceAll(/(^\[)|(]$)/g, '/')
     })
     datum.meanings.forEach(({ partOfSpeech, definitions }) => {
       const abbr = abbreviate(partOfSpeech)
@@ -23,8 +27,9 @@ function reduce(data) {
       meanings[abbr] = meanings[abbr].concat(definitions)
     })
   })
+  phonetic = Object.keys(phonetic).map((key) => key).join(', ')
   phonetics = Object.entries(phonetics).map(([audio, text]) => ({ audio, text }))
-  return { phonetics, meanings }
+  return { phonetic, phonetics, meanings }
 }
 
 function getCard(data, compact) {
@@ -59,7 +64,7 @@ export default function Word({ children, color }) {
   return (
       <div className={styles.card}>
         <span className={styles.title} style={{ background: color ? colors[color] : 'unset' }}>{word}</span>
-        {data && <Phonetics phonetics={data.phonetics} word={word} />}
+        {data && <Phonetics {...data} word={word} />}
         <Card data={data}>{children}</Card>
         {data && partOfSpeech && <Toggle compact={compact} onClick={setCompact} />}
       </div>

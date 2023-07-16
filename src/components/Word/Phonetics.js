@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import { BiVolumeFull } from 'react-icons/bi'
 
+import styles from './styles.module.css'
 import Player from '../Player'
 
 const characters = {
@@ -23,11 +24,12 @@ function characterize(search) {
       .join(',')
 }
 
-export default function Phonetics({ phonetics, word }) {
+export default function Phonetics({ phonetic, phonetics, word }) {
   const filename = useMemo(
-      () => new RegExp(`(?:\/${word})([^/.]*)(?:\..+)$`, 'i'), [word])
+      () => new RegExp(`(?:\/en\/${word})([^/.]*)(?:\..+)$`, 'i'), [word])
   return (
       <div>
+        {!phonetics.length && phonetic && <div className={styles.phonetic}>{phonetic}</div>}
         {phonetics.map(({ audio, text }, i) => (
           <Player key={`p-${i}`} appearance="button" src={audio}>
             {characterize(filename.exec(audio))}

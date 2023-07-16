@@ -58,6 +58,15 @@
   color: white;
 }
 
+.phonetic {
+  display: inline-block;
+  margin: 0 5px;
+  padding: 4px 16px;
+  background: #eee;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
 .pos {
   color: #808080;
 }
