@@ -55,10 +55,13 @@ export default function Word({ children, color }) {
   const [word, partOfSpeech, defIndex = 1] = children.split('/')
   const [data, setData] = useState()
   const [compact, setCompact] = useState(!!partOfSpeech)
-  console.log(word, data, compact)
+  if (data && data.word !== word) setData(undefined)
   useEffect(async () => {
     const definition = await query(word)
-    if (partOfSpeech) definition['meanings'][partOfSpeech][defIndex - 1]['matched'] = true
+    if (definition) {
+      definition.word = word
+      if (partOfSpeech) definition['meanings'][partOfSpeech][defIndex - 1]['matched'] = true
+    }
     setData(definition)
   }, [word])
   const Card = getCard(data, compact)
