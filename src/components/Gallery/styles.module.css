@@ -1,0 +1,69 @@
+@value alpha: 0.6;
+
+.placard {
+  position: relative;
+  width: 100%;
+  margin: 20px 0;
+  color: white;
+}
+
+.full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.container {
+  position: relative;
+  height: 100%;
+  background: #eee;
+  border-radius: 20px;
+  box-shadow: 0 0 8px 0 rgba(0,0,0,.5);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.channel {
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 6px 18px;
+  background: rgba(0, 0, 0, alpha);
+  border-radius: 50px;
+  font-weight: bold;
+  line-height: 1.3;
+  text-align: center;
+  white-space: pre;
+}
+
+.main {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 20px;
+  background: rgba(0, 0, 0, alpha);
+}
+
+.title {
+  font-size: 1.5em;
+}
+
+.desc {
+  font-weight: bold;
+}
+
+.attribution {
+  color: #808080;
+  font-size: 8px;
+  text-align: center;
+  vertical-align: middle;
+}
