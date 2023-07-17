@@ -45,6 +45,18 @@
   white-space: pre;
 }
 
+.ribbon {
+  /* https://www.freecodecamp.org/news/make-a-css-only-ribbon/ */
+  position: absolute;
+  inset: 0 0 auto auto;
+  background: black;
+  box-shadow: 0 0 0 999px black;
+  clip-path: inset(0 -100%);
+  font-size: 1.5em;
+  transform: translate(29.3%) rotate(45deg);
+  transform-origin: top left;
+}
+
 .main {
   position: absolute;
   bottom: 0;
