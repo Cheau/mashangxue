@@ -10,8 +10,6 @@
 }
 
 .dialog :global(.words) {
-    display: inline-flex;
-    flex-direction: column;
     margin-left: gap;
     width: words-width;
 }
@@ -21,22 +19,23 @@
         flex-direction: column-reverse;
     }
 
-    .dialog :global(.article) {
+    .dialog :global(.article), .dialog :global(.words) {
         width: auto;
     }
 
     .dialog :global(.words) {
-        flex-direction: row;
-        width: auto;
-        height: max-content;
         margin: -20px -20px 0 -20px;
         padding: 10px;
         overflow-x: auto;
-        overflow-y: visible;
+        white-space: nowrap;
     }
 
     .dialog :global(.words) > div {
-        min-width: 60vw;
+        display: inline-block;
+        width: 70vw;
+        height: 30vh;
         margin: 10px;
+        overflow-y: auto;
+        white-space: normal;
     }
 }
