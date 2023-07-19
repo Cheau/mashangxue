@@ -8,6 +8,12 @@
   max-height: 50vh;
 }
 
+@media screen and (max-width: 996px) {
+  .lookup {
+    width: 80vw;
+  }
+}
+
 .card {
   position: relative;
   padding: 10px 5px;
