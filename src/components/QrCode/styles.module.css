@@ -1,0 +1,39 @@
+.qrCode {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  text-align: center;
+  transform: translateY(-50%);
+}
+
+.qrCode > div {
+  display: inline-block;
+  width: 150px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, .5);
+}
+
+@media screen and (max-width: 996px) {
+  .qrCode {
+    position: static;
+    transform: unset;
+  }
+
+  .qrCode > div {
+    width: 300px;
+    font-size: 1.5em;
+  }
+}
+
+.portrait img {
+  display: block;
+}
+
+.portrait .slogan {
+  line-height: 1.2;
+  margin-bottom: 10px;
+  overflow: hidden;
+  text-align: center;
+  white-space: pre-wrap;
+}
