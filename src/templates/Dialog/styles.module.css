@@ -14,6 +14,11 @@
     width: words-width;
 }
 
+.dialog :global(.words) > div {
+    max-height: 50vh;
+    overflow: auto;
+}
+
 @media screen and (max-width: 767px) {
     .dialog {
         flex-direction: column-reverse;

@@ -67,10 +67,12 @@ export default function Word({ children, color }) {
   const Card = getCard(data, compact)
   return (
       <div className={styles.card}>
-        <span className={styles.title} style={{ background: color ? colors[color] : 'unset' }}>{word}</span>
-        {data && <Phonetics {...data} word={word} />}
+        <div className={styles.header}>
+          <span className={styles.title} style={{ background: color ? colors[color] : 'unset' }}>{word}</span>
+          {data && <Phonetics {...data} word={word} />}
+          {data && partOfSpeech && <Toggle compact={compact} onClick={setCompact} />}
+        </div>
         <Card data={data}>{children}</Card>
-        {data && partOfSpeech && <Toggle compact={compact} onClick={setCompact} />}
       </div>
   )
 }

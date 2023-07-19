@@ -1,33 +1,38 @@
+@value card-background: white;
 @value number-size: 1.5em;
 
 .lookup {
   width: 60vw;
-}
-
-.lookup .groups {
   max-height: 60vh;
+  overflow: auto;
+  border-radius: 10px;
 }
 
 @media screen and (max-width: 996px) {
   .lookup {
     width: 80vw;
-  }
-
-  .lookup .groups {
     max-height: 80vh;
   }
 }
 
 .card {
   position: relative;
-  padding: 10px 5px;
-  background: white;
+  padding: 0 5px 10px 5px;
+  background: card-background;
   border-radius: 10px;
   box-shadow: 0 0 4px 0 rgba(0,0,0,.3);
 }
 
 .card + .card {
   margin-top: 20px;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  background: card-background;
 }
 
 .title {
@@ -46,7 +51,6 @@
 }
 
 .groups {
-  max-height: 30vh;
   padding: 0 5px;
   overflow-x: visible;
   overflow-y: auto;
