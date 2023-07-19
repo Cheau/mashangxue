@@ -37,7 +37,11 @@
   object-fit: cover;
 }
 
-.channel {
+.container:hover .pill, .container:hover .mask {
+  background: rgba(0,0,0,.85);
+}
+
+.pill {
   display: inline-block;
   position: absolute;
   top: 20px;
@@ -45,6 +49,7 @@
   padding: 6px 18px;
   background: rgba(0, 0, 0, alpha);
   border-radius: 50px;
+  font-size: 1.5em;
   font-weight: bold;
   line-height: 1.3;
   text-align: center;
@@ -63,7 +68,7 @@
   transform-origin: top left;
 }
 
-.main {
+.mask {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -71,12 +76,25 @@
   background: rgba(0, 0, 0, alpha);
 }
 
-.title {
+.desc {
+  display: flex;
+  font-weight: bold;
+}
+
+.desc:before {
+  content: '📝';
+  display: inline-flex;
+  align-items: center;
   font-size: 1.5em;
 }
 
-.desc {
-  font-weight: bold;
+.footer {
+  font-size: 1em;
+}
+
+.footer:before {
+  content: '📍';
+  margin: 10px;
 }
 
 .attribution {

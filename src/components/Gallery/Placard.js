@@ -11,11 +11,11 @@ export default function Placard(props) {
         <div className={styles.full}>
           <div className={styles.container} onClick={() => window.location.href = link}>
             <img src={image} alt={title} />
-            <div className={styles.channel}>{channel}</div>
+            <div className={styles.pill}>{title}</div>
             <div className={styles.ribbon}>{badge}</div>
-            <div className={styles.main}>
-              <div className={styles.title}>{title}</div>
+            <div className={styles.mask}>
               <div className={styles.desc}>{desc}</div>
+              <div className={styles.footer}>{channel}</div>
             </div>
           </div>
           <div className={styles.attribution} dangerouslySetInnerHTML={{ __html: attr }} />
