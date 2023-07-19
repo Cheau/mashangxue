@@ -1,5 +1,17 @@
 @value alpha: 0.6;
 
+@media screen and (max-width: 767px) {
+  .gallery :global(.col) {
+    --ifm-col-width: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 996px) {
+  .gallery :global(.col) {
+    --ifm-col-width: 50%;
+  }
+}
+
 .placard {
   position: relative;
   width: 100%;
@@ -78,13 +90,13 @@
 
 .desc {
   display: flex;
+  align-items: center;
   font-weight: bold;
 }
 
 .desc:before {
   content: '📝';
   display: inline-flex;
-  align-items: center;
   font-size: 1.5em;
 }
 

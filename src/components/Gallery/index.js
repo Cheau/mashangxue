@@ -1,6 +1,7 @@
 import React from 'react'
 import clsx from 'clsx';
 
+import styles from './styles.module.css'
 import data from './data'
 import Placard from './Placard'
 
@@ -11,8 +12,10 @@ export default function Gallery() {
       </div>
   ))
   return (
-      <div className="container">
-        <div className="row">{placards}</div>
+      <div className={styles.gallery}>
+        <div className="container">
+          <div className="row">{placards}</div>
+        </div>
       </div>
   )
 }
