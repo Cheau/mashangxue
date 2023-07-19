@@ -5,12 +5,16 @@
 }
 
 .lookup .groups {
-  max-height: 50vh;
+  max-height: 60vh;
 }
 
 @media screen and (max-width: 996px) {
   .lookup {
     width: 80vw;
+  }
+
+  .lookup .groups {
+    max-height: 80vh;
   }
 }
 
