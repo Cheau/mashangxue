@@ -2,14 +2,18 @@
 @value number-size: 1.5em;
 
 .lookup {
-  width: 60vw;
-  max-height: 60vh;
-  overflow: auto;
+  overflow: hidden;
   border-radius: 10px;
 }
 
+.lookup .card {
+  width: 60vw;
+  max-height: 60vh;
+  overflow: auto;
+}
+
 @media screen and (max-width: 996px) {
-  .lookup {
+  .lookup .card {
     width: 80vw;
     max-height: 80vh;
   }
@@ -85,7 +89,7 @@
   color: #808080;
 }
 
-.toggle {
+.actions {
   display: inline-block;
   position: absolute;
   top: 10px;

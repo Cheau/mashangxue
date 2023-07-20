@@ -4,7 +4,7 @@ import { BiX } from 'react-icons/bi'
 
 import styles from './styles.module.css'
 
-export default function Modal({ children, open = false }) {
+export default function Modal({ children, onClose, open = false }) {
   const [isOpen, setIsOpen] = useState()
   const [overflow, setOverflow] = useState()
   useEffect(() => {
@@ -18,6 +18,7 @@ export default function Modal({ children, open = false }) {
     setIsOpen(false)
     document.body.style.overflow = overflow
     setOverflow()
+    if (typeof onClose === 'function') onClose()
   }
   if (!isOpen) return null
   const modal = (

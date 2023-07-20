@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react'
+import React, { useContext, useMemo } from 'react'
 import { BiVolumeFull } from 'react-icons/bi'
 
 import styles from './styles.module.css'
+import { DataContext, WordContext } from './withProviders'
 import Player from '../Player'
 
 const characters = {
@@ -23,9 +24,13 @@ function characterize(search) {
       .join(',')
 }
 
-export default function Phonetics({ phonetic, phonetics, word }) {
+export default function Phonetics() {
+  const { data } = useContext(DataContext)
+  const { word } = useContext(WordContext)
   const filename = useMemo(
       () => new RegExp(`(?:\/en\/${word})([^/.]*)(?:\..+)$`, 'i'), [word])
+  if (!data) return null
+  const { phonetic, phonetics } = data
   return (
       <div>
         {!phonetics.length && phonetic && <div className={styles.phonetic}>{phonetic}</div>}

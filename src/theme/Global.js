@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 import Lookup from "@site/src/components/Word/Lookup"
-import Modal from '@site/src/components/Modal'
 import QrCode from '@site/src/components/QrCode'
 
 const throttle = (fn) => {
@@ -26,9 +25,7 @@ export default function Global() {
   }, [true])
   return (
       <>
-        <Modal open={!!selection}>
-          {selection && <Lookup>{selection}</Lookup>}
-        </Modal>
+        {selection && <Lookup>{selection}</Lookup>}
         <QrCode />
       </>
   )
