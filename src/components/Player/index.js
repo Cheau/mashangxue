@@ -48,7 +48,6 @@ const withPlayer = (Component) => (props) => {
       onClick={onToggle}
       onMouseLeave={() => setHovering(false)}
       onMouseOver={() => setHovering(true)}
-      onStop={onStop}
       status={status}
       style={{
         visibility: children ? 'visible' : 'hidden',
