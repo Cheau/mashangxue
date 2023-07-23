@@ -15,7 +15,7 @@ function Block(props) {
 }
 
 export default function SkeletonCard() {
-  const { word } = useContext(WordContext)
+  const { word = '' } = useContext(WordContext)
   return (
       <>
         <Block marginTop="0" width={`${word.length * 18}px`} />
