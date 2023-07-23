@@ -100,7 +100,7 @@ const Word = withProviders((props) => {
           <Phonetics />
           <Actions onMaximize={onMaximize} />
         </div>
-        <Card data={data}>{children}</Card>
+        <Card />
       </div>
   )
   if (card !== 'lookup') return component

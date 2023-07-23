@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
+
+import { WordContext } from './withProviders'
 
 function Block(props) {
   const style = {
@@ -12,8 +14,8 @@ function Block(props) {
   return <div style={style} />
 }
 
-export default function SkeletonCard({ children }) {
-  const [word] = children.split('/')
+export default function SkeletonCard() {
+  const { word } = useContext(WordContext)
   return (
       <>
         <Block marginTop="0" width={`${word.length * 18}px`} />
