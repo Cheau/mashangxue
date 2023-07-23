@@ -1,11 +1,10 @@
 import React, { useContext } from 'react'
 
 import styles from './styles.module.css'
-import { DataContext, WordContext } from './withProviders'
+import { Context } from './withProviders'
 
 export default function CompactCard() {
-  const { data } = useContext(DataContext)
-  const { partOfSpeech, defIndex } = useContext(WordContext)
+  const { data, partOfSpeech, defIndex } = useContext(Context)
   const { meanings } = data
   const meaning = meanings[partOfSpeech]
   const { definition } = meaning[defIndex - 1]

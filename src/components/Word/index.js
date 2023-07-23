@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 
 import styles from './styles.module.css'
 import { abbreviate } from './PartOfSpeech'
@@ -10,7 +10,7 @@ import EmptyCard from './EmptyCard'
 import Modal from '../Modal'
 import SkeletonCard from './SkeletonCard'
 import Phonetics from "./Phonetics"
-import withProviders, { CardContext, DataContext, WordContext } from './withProviders'
+import withProviders, { Context } from './withProviders'
 
 const cards = {
   compact: CompactCard,
@@ -59,14 +59,14 @@ async function query(word) {
   return data
 }
 
-const Word = withProviders((props) => {
-  const { children, color } = props
+function Word(props) {
+  const { color } = props
   const [context, setContext] = useState({ card: undefined })
+  const local = useContext(Context)
   const {
-    word, partOfSpeech, defIndex, setWord } = useContext(WordContext)
-  useEffect(() => setWord(children), [children])
+    word, partOfSpeech, defIndex, data, setData, card, setCard,
+  } = local
 
-  const { data, setData } = useContext(DataContext)
   useEffect(async () => {
     if (!word) return
     const definition = await query(word)
@@ -78,11 +78,7 @@ const Word = withProviders((props) => {
   }, [word])
   if (data && data.word !== word) setData(undefined)
 
-  const { card, setCard } = useContext(CardContext)
   const Card = getCard(data, card)
-  useEffect(() => {
-    if (props.card) setCard(props.card)
-  }, [props.card])
   if (!Card) return null
 
   const onMaximize = () => {
@@ -109,5 +105,20 @@ const Word = withProviders((props) => {
         <div className={styles.lookup}>{component}</div>
       </Modal>
   )
-})
-export default Word
+}
+
+const arePropsEqual = (oldProps, newProps) => {
+  const oldKeys = Object.keys(oldProps)
+  const newKeys = Object.keys(newProps)
+  if (oldKeys.length !== newKeys.length) return false
+  for (let key of oldKeys) {
+    if (oldProps[key] !== newProps[key]) return false
+  }
+  return true
+}
+
+const ContextualWord = withProviders(memo(
+    Word,
+    (oldProps, newProps) => arePropsEqual(oldProps.context, newProps.context),
+))
+export default ContextualWord

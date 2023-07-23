@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 
 import styles from './styles.module.css'
-import { DataContext } from './withProviders'
+import { Context } from './withProviders'
 
 function Number({ children }) {
   return <span className={styles.number}>{children}</span>
@@ -19,7 +19,7 @@ function Meaning({ data, order }) {
 }
 
 export default function CompletedCard() {
-  const { data } = useContext(DataContext)
+  const { data } = useContext(Context)
   const groups = Object.entries(data.meanings).map(([abbr, meanings]) => (
       <div key={abbr} className={styles.group}>
         <div className={styles.pos}>{abbr}</div>

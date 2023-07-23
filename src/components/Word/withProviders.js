@@ -1,36 +1,37 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 
-export const CardContext = createContext(null)
-export const WordContext = createContext(null)
-export const DataContext= createContext(null)
+export const Context = createContext(null)
 
-function Providers({ children }) {
-  const [card, setCard] = useState()
-  const [word, setWord] = useState()
-  const [partOfSpeech, setPartOfSpeech] = useState()
-  const [defIndex, setDefIndex] = useState()
-  const [data, setData] = useState()
+const init = (props, setter) => {
+  const [ word, partOfSpeech, defIndex = 1] = props.children.split('/')
+  const card = props.card ?? (partOfSpeech ? 'compact' : 'completed')
+  setter({
+    card,
+    word,
+    partOfSpeech,
+    defIndex,
+  })
+}
+
+function Providers(props) {
+  const { card, children, Component } = props
+  const [local, setLocal] = useState({})
+  const setCard = useCallback((card) => setLocal({ ...local, card }), [local])
+  const setData = useCallback((data) => setLocal({ ...local, data }), [local])
+  useEffect(() => init(props, setLocal), [children, card])
+  const context = useMemo(() => ({
+    ...local,
+    setCard,
+    setData,
+  }), [local])
   return (
-      <CardContext.Provider value={{ card, setCard }}>
-        <WordContext.Provider value={{
-          word,
-          partOfSpeech,
-          defIndex,
-          setWord: (text = '') => {
-            const [_word, _partOfSpeech, _defIndex = 1] = text.split('/')
-            setWord(_word)
-            setPartOfSpeech(_partOfSpeech)
-            setDefIndex(_defIndex)
-            setCard(_partOfSpeech ? 'compact' : 'completed')
-          }
-        }}>
-          <DataContext.Provider value={{ data, setData }}>
-            {children}
-          </DataContext.Provider>
-        </WordContext.Provider>
-      </CardContext.Provider>
+      <Context.Provider value={context}>
+        <Component {...props} context={context} />
+      </Context.Provider>
   )
 }
 
-const withProviders = (Component) => (props) => <Providers><Component {...props} /></Providers>
+const withProviders = (Component) => (props) => (
+    <Providers {...props} Component={Component} />
+)
 export default withProviders

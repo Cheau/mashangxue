@@ -2,13 +2,12 @@ import React, { useContext } from 'react'
 import { BiExpand, BiSolidCaretDownCircle, BiSolidCaretUpCircle } from 'react-icons/bi'
 
 import styles from "./styles.module.css"
-import { CardContext, WordContext } from './withProviders'
+import { Context } from './withProviders'
 
 export default function Actions({
   onMaximize = () => {},
 }) {
-  const { card, setCard } = useContext(CardContext)
-  const { partOfSpeech } = useContext(WordContext)
+  const { card, partOfSpeech, setCard } = useContext(Context)
   if (card === 'lookup') return null
   return (
       <div className={styles.actions}>
