@@ -60,7 +60,7 @@ async function query(word) {
 }
 
 function Word(props) {
-  const { color } = props
+  const { color, onClose } = props
   const [context, setContext] = useState({ card: undefined })
   const local = useContext(Context)
   const {
@@ -88,6 +88,7 @@ function Word(props) {
   const onRestore = () => {
     setCard(context.card)
     setContext({ ...context, card: undefined })
+    if (typeof onClose === 'function') onClose()
   }
   const component = (
       <div className={styles.card}>

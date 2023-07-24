@@ -17,7 +17,7 @@ export default function Global() {
   }, [true])
   return (
       <>
-        {selection && <Lookup>{selection}</Lookup>}
+        {selection && <Lookup onClose={() => setSelection()}>{selection}</Lookup>}
         <QrCode />
       </>
   )
