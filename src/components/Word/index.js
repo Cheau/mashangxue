@@ -1,4 +1,4 @@
-import React, { memo, useContext, useEffect, useState } from 'react'
+import React, { memo, useCallback, useContext, useEffect } from 'react'
 
 import styles from './styles.module.css'
 import { abbreviate } from './PartOfSpeech'
@@ -7,7 +7,6 @@ import Actions from './Actions'
 import CompactCard from './CompactCard'
 import CompletedCard from './CompletedCard'
 import EmptyCard from './EmptyCard'
-import Modal from '../Modal'
 import SkeletonCard from './SkeletonCard'
 import Phonetics from "./Phonetics"
 import withProviders, { Context } from './withProviders'
@@ -60,11 +59,10 @@ async function query(word) {
 }
 
 function Word(props) {
-  const { color, onClose } = props
-  const [context, setContext] = useState({ card: undefined })
+  const { color } = props
   const local = useContext(Context)
   const {
-    word, partOfSpeech, defIndex, data, setData, card, setCard,
+    word, partOfSpeech, defIndex, data, setData, card,
   } = local
 
   useEffect(async () => {
@@ -78,19 +76,14 @@ function Word(props) {
   }, [word])
   if (data && data.word !== word) setData(undefined)
 
+  const onMaximize = useCallback(() => {
+    const e = new CustomEvent('lookup', { detail: { word } })
+    document.dispatchEvent(e)
+  }, [word])
+
   const Card = getCard(data, card)
   if (!Card) return null
-
-  const onMaximize = () => {
-    setContext({ ...context, card })
-    setCard('lookup')
-  }
-  const onRestore = () => {
-    setCard(context.card)
-    setContext({ ...context, card: undefined })
-    if (typeof onClose === 'function') onClose()
-  }
-  const component = (
+  return (
       <div className={styles.card}>
         <div className={styles.header}>
           <span className={styles.title} style={{ background: color ? colors[color] : 'unset' }}>{word}</span>
@@ -99,12 +92,6 @@ function Word(props) {
         </div>
         <Card />
       </div>
-  )
-  if (card !== 'lookup') return component
-  return (
-      <Modal open={true} onClose={onRestore}>
-        <div className={styles.lookup}>{component}</div>
-      </Modal>
   )
 }
 
