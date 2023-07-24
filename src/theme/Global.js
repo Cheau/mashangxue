@@ -10,9 +10,9 @@ export default function Global() {
       const text = document.getSelection().toString().trim()
       if (text) setSelection(text)
     }
-    document.addEventListener('pointerup', lookup)
+    document.addEventListener('selectionchange', lookup)
     return () => {
-      document.removeEventListener('pointerup', lookup)
+      document.removeEventListener('selectionchange', lookup)
     }
   }, [true])
   return (
