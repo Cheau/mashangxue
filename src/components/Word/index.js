@@ -26,7 +26,7 @@ function reduce(data) {
     datum.phonetics.forEach(({ audio, text }) => {
       if (!audio) return
       const raw = text || datum.phonetic || ''
-      phonetics[audio] = raw.replaceAll(/(^\[)|(]$)/g, '/')
+      phonetics[audio] = raw.replace(/(^\[)|(]$)/g, '/')
     })
     datum.meanings.forEach(({ partOfSpeech, definitions }) => {
       const abbr = abbreviate(partOfSpeech)
