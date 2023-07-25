@@ -31,6 +31,7 @@
 .wrapper {
   position: relative;
   display: inline-block;
-  margin-top: 10%;
+  margin-top: 50vh;
+  transform: translateY(-50%);
   text-align: initial;
 }
