@@ -28,7 +28,7 @@ export default function Lookup() {
   useEffect(() => {
     const lookup = (e) => {
       const text = read(e)
-      if (!text) return
+      if (!text || text === history[history.length - 1]) return
       setHistory([...history, text])
       setCurrent(history.length)
     }
