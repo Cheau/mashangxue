@@ -6,18 +6,26 @@ import styles from './styles.module.css'
 
 export default function Modal({ children, onClose, open = false }) {
   const [isOpen, setIsOpen] = useState()
-  const [overflow, setOverflow] = useState()
+  const [context, setContext] = useState()
   useEffect(() => {
     setIsOpen(open)
     if (open) {
-      setOverflow(document.body.style.overflow)
-      document.body.style.overflow = 'hidden'
+      const { position, top, width } = document.body.style
+      setContext({ position, top, width })
+      document.body.style.position = 'fixed'
+      document.body.style.top = `-${window.scrollY}px`
+      document.body.style.width = '100%'
     }
   }, [open])
   const close = () => {
     setIsOpen(false)
-    document.body.style.overflow = overflow
-    setOverflow()
+    const scrollY = document.body.style.top || 0
+    const { position, top, width } = context
+    document.body.style.position = position
+    document.body.style.top = top
+    document.body.style.width = width
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    setContext()
     if (typeof onClose === 'function') onClose()
   }
   if (!isOpen) return null
