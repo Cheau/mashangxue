@@ -9,15 +9,28 @@ const read = (e) => {
   return text ? text.trim() : null
 }
 
+function History({ children, current, onClick }) {
+  const words = []
+  for (let i = children.length - 1; i >= 0; i--) {
+    const className = current === i ? styles.current : styles.pill
+    words.push((
+        <span key={i} className={className} onClick={() => onClick(i)}>
+          {children[i]}
+        </span>
+    ))
+  }
+  return <div className={styles.history}>{words}</div>
+}
+
 export default function Lookup() {
   const [history, setHistory] = useState([])
-  const [word, setWord] = useState()
+  const [current, setCurrent] = useState()
   useEffect(() => {
     const lookup = (e) => {
       const text = read(e)
       if (!text) return
       setHistory([...history, text])
-      setWord(text)
+      setCurrent(history.length)
     }
     document.addEventListener('selectionchange', lookup)
     document.addEventListener('lookup', lookup)
@@ -28,15 +41,15 @@ export default function Lookup() {
   }, [history])
   const onClose = useCallback(() => {
     setHistory([])
-    setWord()
+    setCurrent()
   }, [])
-  console.log(history)
-  if (!word) return null
+  if (current === undefined) return null
   return (
       <Modal open={true} onClose={onClose}>
         <div className={styles.lookup}>
+          <History current={current} onClick={(i) => setCurrent(i)}>{history}</History>
           <Word card="lookup">
-            {word}
+            {history[current]}
           </Word>
         </div>
       </Modal>
