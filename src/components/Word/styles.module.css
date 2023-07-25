@@ -20,7 +20,7 @@
 
 .history {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   line-height: 1;
   padding: 10px 10px 0 10px;
   overflow-x: auto;
