@@ -33,9 +33,11 @@ export default function Lookup() {
       setCurrent(history.length)
     }
     document.addEventListener('pointerout', lookup)
+    document.addEventListener('pointerup', lookup)
     document.addEventListener('lookup', lookup)
     return () => {
       document.removeEventListener('pointerout', lookup)
+      document.removeEventListener('pointerup', lookup)
       document.removeEventListener('lookup', lookup)
     }
   }, [history])
