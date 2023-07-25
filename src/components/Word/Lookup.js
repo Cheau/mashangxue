@@ -32,10 +32,10 @@ export default function Lookup() {
       setHistory([...history, text])
       setCurrent(history.length)
     }
-    document.addEventListener('pointerup', lookup)
+    document.addEventListener('pointerout', lookup)
     document.addEventListener('lookup', lookup)
     return () => {
-      document.removeEventListener('pointerup', lookup)
+      document.removeEventListener('pointerout', lookup)
       document.removeEventListener('lookup', lookup)
     }
   }, [history])
