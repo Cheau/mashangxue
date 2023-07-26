@@ -3,12 +3,12 @@ sidebar_position: 19
 ---
 
 # 点冰淇淋
-![earthquake](https://images.pexels.com/photos/4558211/pexels-photo-4558211.jpeg?w=1260&h=750)
+![ice cream](/img/ice-cream.svg)
 <dialog>
 ## Hi!
 ## How can I help you?
 # I'd like two [scoops:scoop/n.] of ice cream.
-## [Cone] or [cup/n.]?
+## [Cone] or cup?
 # What kind of cones do you have?
 ## We have [wafer/n.] and [waffle/n.] cones.
 # I'll have a waffle cone.
