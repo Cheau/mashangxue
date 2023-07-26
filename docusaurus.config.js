@@ -73,11 +73,6 @@ const config = {
             label: '课程',
           },
           {to: '/blog', label: '博客', position: 'left'},
-          {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
-            position: 'right',
-          },
         ],
       },
       footer: {
