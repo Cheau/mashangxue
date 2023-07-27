@@ -2,44 +2,46 @@ import React from 'react';
 import clsx from 'clsx';
 import styles from './styles.module.css';
 
+import Image from '../Image'
+
 const FeatureList = [
   {
-    title: '从零开始帮入门',
-    Svg: require('@site/static/img/start.svg').default,
+    title: '查单词，更便捷',
+    image: <Image src="feat/dict.svg" />,
     description: (
       <>
-        英语，也许你从未接触过，又或者你学过但不得其门而入。<br/>
-        <strong>正所谓温故而知新，让我们一起从零开始学英语，从Newbie迈向牛B。</strong>
+        页面内的任意单词，只要选中即可查询释义<br/>
+        <strong>用鼠标左键双击<br/>或在手机、平板电脑上手指轻轻一按</strong>
       </>
     ),
   },
   {
-    title: '英语思维助练成',
-    Svg: require('@site/static/img/atomic.svg').default,
+    title: '学英语，尽掌握',
+    image: <Image src="feat/handy.svg" />,
     description: (
       <>
-        你认真学英语，却难以像母语般地道流畅地沟通，很可能是"哑巴英语"让你陷入了"听说"能力陷阱。<br/>
-        <strong>让我们打破"英中思中英"这种转换模式里中文构筑起的包围圈，练成"英思英"的顺畅模式。</strong>
+        页面内容对手机和平板电脑进行了适配<br/>
+        <strong>让你随时随地，想学就学</strong>
       </>
     ),
   },
   {
-    title: '听说读写皆可能',
-    Svg: require('@site/static/img/goal.svg').default,
+    title: '用技术，促进步',
+    image: <Image src="feat/tech.svg" />,
     description: (
       <>
-        语言是用来交流的，口头交流需要掌握听说能力，书面交流需要掌握读写能力。<br/>
-        <strong>我会记下英语学习过程中积累的知识、方法和经验，帮你复制我的进步，掌握这些能力。</strong>
+        作为一个技术人，始终相信技术可以帮助学习进步，更多功能持续开发中...<br/>
+        <strong>工欲善其事，必先利其器</strong>
       </>
     ),
   },
 ];
 
-function Feature({Svg, title, description}) {
+function Feature({image, title, description}) {
   return (
     <div className={clsx('col col--4')}>
       <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
+        {image}
       </div>
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
