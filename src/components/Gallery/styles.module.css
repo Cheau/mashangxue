@@ -7,43 +7,19 @@
 }
 
 .placard {
-  position: relative;
-  width: 100%;
-  margin: 20px 0;
+  padding: 20px 0;
   color: white;
 }
 
-.full {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.container {
-  position: relative;
-  height: 100%;
-  background: #eee;
-  border-radius: 20px;
-  box-shadow: 0 0 8px 0 rgba(0,0,0,.4);
-  cursor: pointer;
-  overflow: hidden;
+.placard, .pill, .mask {
   transition: 0.3s;
 }
 
-.container:hover {
-  margin-top: -10px;
-  box-shadow: 0 0 8px 0 rgba(0,0,0,.8);
+.placard:hover {
+  margin-top: -20px;
 }
 
-.container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.container:hover .pill, .container:hover .mask {
+.placard:hover .pill, .placard:hover .mask {
   background: rgba(0,0,0,.85);
 }
 
@@ -108,11 +84,4 @@
   margin-right: 8px;
   width: 24px;
   justify-content: center;
-}
-
-.attribution {
-  color: #808080;
-  font-size: 8px;
-  text-align: center;
-  vertical-align: middle;
 }
