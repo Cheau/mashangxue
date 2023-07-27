@@ -6,7 +6,7 @@ import Highlight from '../Highlight'
 
 const delimiter = /(?<!\\):/
 
-const escape = (str = '') => str.replaceAll('\\:', ':')
+const escape = (str = '') => str.replace(/\\:/g, ':')
 
 export default function Bubble(props) {
   const {
