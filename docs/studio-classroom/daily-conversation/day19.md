@@ -3,7 +3,7 @@ sidebar_position: 19
 ---
 
 # 点冰淇淋
-![ice cream](/img/ice-cream.svg)
+![ice cream](/img/sc-dialog/ice-cream.svg)
 <dialog>
 ## Hi!
 ## How can I help you?

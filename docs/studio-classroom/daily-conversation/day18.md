@@ -3,7 +3,7 @@ sidebar_position: 18
 ---
 
 # 地震
-![earthquake](https://images.pexels.com/photos/4558211/pexels-photo-4558211.jpeg?w=1260&h=750)
+![earthquake](/img/sc-dialog/earthquake.svg)
 <dialog>
 # Did you feel the [earthquake/n.] last night?
 ## Yes, it was a big one.
