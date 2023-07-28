@@ -8,11 +8,13 @@ const cache = {}
 export default function Image({
     alt,
     children,
+    left = 0,
     ratio = 1,
     rounded = false,
     shadowed = false,
     src,
     style,
+    top = 0,
     ...rest
 }) {
   const imageStyle = { ...style, paddingTop: `${ratio * 100}%` }
@@ -30,7 +32,7 @@ export default function Image({
   return (
       <div className={clsx(styles.image, 'image', { children })} style={imageStyle}>
         <div className={clsx('full', { linked: rest.onClick, rounded, shadowed })} {...rest}>
-          <img alt={alt ?? name.split('.')[0]} src={`/img/${src}`} />
+          <img alt={alt ?? name.split('.')[0]} src={`/img/${src}`} style={{ left, top }} />
           {children}
           <div className="attr" dangerouslySetInnerHTML={{ __html: attr }} />
         </div>
