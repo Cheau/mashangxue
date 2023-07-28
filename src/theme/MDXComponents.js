@@ -7,6 +7,7 @@ import Bubble, { BubbleLeftNote, BubbleRightNote } from '@site/src/components/Bu
 import Cmd from '@site/src/cmd'
 import Dialog from '@site/src/templates/Dialog'
 import Highlight from '@site/src/components/Highlight'
+import Image from '@site/src/components/Image'
 import Pangram from '@site/src/components/Pangram'
 import Player from '@site/src/components/Player'
 
@@ -19,6 +20,7 @@ export default {
   brn: BubbleRightNote,
   cmd: Cmd,
   hl: Highlight,
+  image: Image,
   pangram: Pangram,
   player: Player,
   dialog: Dialog,

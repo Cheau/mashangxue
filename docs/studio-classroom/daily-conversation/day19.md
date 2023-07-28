@@ -3,7 +3,7 @@ sidebar_position: 19
 ---
 
 # 点冰淇淋
-![ice cream](/img/sc-dialog/ice-cream.svg)
+<image src="sc-dialog/ice-cream.svg" ratio="0.3" />
 <dialog>
 ## Hi!
 ## How can I help you?

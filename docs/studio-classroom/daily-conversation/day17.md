@@ -3,7 +3,7 @@ sidebar_position: 17
 ---
 
 # 登山踏青
-![hiking](/img/sc-dialog/hiking.svg)
+<image src="sc-dialog/hiking.svg" ratio="0.3" />
 <dialog>
 # Hey Carol, what are you doing this weekend?
 ## I'm going [hiking/n.] with my husband and our hiking [club/n.].
