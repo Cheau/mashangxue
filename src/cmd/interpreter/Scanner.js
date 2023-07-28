@@ -1,10 +1,17 @@
 import Token from './Token'
 import Type from './Type'
+import heading from '../mark/heading'
+import image from '../mark/image'
+
+const markups = {
+  [heading.initial]: ['heading', heading],
+  [image.initial]: ['image', image],
+}
 
 const res = {
   delimiter: /\/|\[|<|\.|!|\?/,
   digit: /[0-9]/,
-  mark: /#/,
+  mark: /[#!]/,
   tagName: /[a-zA-Z-]/,
   terminator: /\.|!|\?/,
 }
@@ -23,8 +30,13 @@ class Scanner {
     return this.#source[this.#current++]
   }
 
-  hasNext() {
-    return this.#current < this.#source.length
+  hasNext(offset = 0) {
+    return this.#current + offset < this.#source.length
+  }
+
+  forward(offset = 1) {
+    if (offset < 0 || offset > this.#source.length - 1 - this.#current) throw new Error('offset is invalid.')
+    this.#current += offset
   }
 
   #isInitial() {
@@ -139,14 +151,16 @@ class Scanner {
     return false
   }
 
-  tagMark() {
+  tagMark(char, obtain = true) {
     if (!this.#isInitial()) return false
-    let offset = -1
-    while (this.match('#', ++offset)) ;
-    if (!this.match(' ', offset)) return false
-    this.#current += offset
-    this.token(Type.TAG_MARK)
-    this.#current++
+    const [literal, processor] = markups[char] ?? []
+    if (!processor) return false
+    const matched = processor(this, obtain)
+    if (!matched) return false
+    if (obtain) {
+      this.token(Type.TAG_MARK, literal)
+      this.forward()
+    }
     return true
   }
 
@@ -166,7 +180,8 @@ class Scanner {
       case '<':
         if (this.tag()) break
       case '#':
-        if (this.tagMark()) break
+      case '!':
+        if (this.tagMark(c)) break
       case ' ':
         if (this.#isInitial() && this.match(res.mark)) break
       default:

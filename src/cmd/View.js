@@ -18,7 +18,7 @@ function render(lexemes, marks, play) {
       switch (type) {
         case Type.TAG_MARK:
         case Type.TAG_HEAD:
-          Component = marks[text]
+          Component = marks[literal]
           break
         case Type.PHRASE:
         case Type.TERMINATOR:
@@ -35,7 +35,7 @@ function render(lexemes, marks, play) {
       }
     })
     const tabIndex = play ? i + 1 : undefined
-    return <Component key={i} tabIndex={tabIndex}>{children}</Component>
+    return <Component key={i} lexeme={lexeme} tabIndex={tabIndex}>{children}</Component>
   })
   return { sentences, words }
 }
