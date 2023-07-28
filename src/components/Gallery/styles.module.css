@@ -59,29 +59,25 @@
   background: rgba(0, 0, 0, alpha);
 }
 
-.desc {
+.desc, .footer {
   display: flex;
   align-items: center;
+}
+
+.desc {
   font-weight: bold;
 }
 
-.desc:before {
-  content: '📝';
-  display: inline-flex;
-  margin-right: 8px;
-  width: 24px;
-  font-size: 24px;
-  overflow: hidden;
+.desc .icon {
+  font-size: 32px;
 }
 
-.footer {
-  font-size: 1em;
-}
-
-.footer:before {
-  content: '📍';
-  display: inline-flex;
-  margin-right: 8px;
-  width: 24px;
+.footer .icon {
   justify-content: center;
+}
+
+.icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 32px;
 }
