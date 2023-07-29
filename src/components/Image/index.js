@@ -29,10 +29,16 @@ export default function Image({
     const attrs = cache[dir]
     if (attrs[name]) setAttr(attrs[name])
   }, [src])
+  const imgStyle = useMemo(() => {
+    const o = {}
+    if (left) o.left = left
+    if (top) o.top = top
+    return o
+  }, [left, top])
   return (
       <div className={clsx(styles.image, 'image', { children })} style={imageStyle}>
         <div className={clsx('full', { linked: rest.onClick, rounded, shadowed })} {...rest}>
-          <img alt={alt ?? name.split('.')[0]} src={`/img/${src}`} style={{ left, top }} />
+          <img alt={alt ?? name.split('.')[0]} src={`/img/${src}`} style={imgStyle} />
           {children}
           <div className="attr" dangerouslySetInnerHTML={{ __html: attr }} />
         </div>
