@@ -1,5 +1,5 @@
 import React from 'react'
-import { FcDocument, FcBookmark } from 'react-icons/fc'
+import { FcOk, FcBookmark } from 'react-icons/fc'
 
 import styles from './styles.module.css'
 import Image from '../Image'
@@ -19,7 +19,7 @@ export default function Placard(props) {
           <div className={styles.ribbon}>{badge}</div>
           <div className={styles.mask}>
             <div className={styles.desc}>
-              <span className={styles.icon}><FcDocument /></span>{desc}</div>
+              <span className={styles.icon}><FcOk /></span>{desc}</div>
             <div className={styles.footer}>
               <span className={styles.icon}><FcBookmark /></span>{channel}</div>
           </div>
