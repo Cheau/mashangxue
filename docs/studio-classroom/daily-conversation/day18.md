@@ -3,7 +3,7 @@ sidebar_position: 18
 ---
 
 # 地震
-<image src="sc-dialog/earthquake.svg" ratio="0.3" top="-200px" />
+<image src="sc-dialog/earthquake.svg" ratio="0.3" top="-80%" />
 <dialog>
 # Did you feel the [earthquake/n.] last night?
 ## Yes, it was a big one.
