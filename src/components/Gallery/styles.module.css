@@ -72,12 +72,9 @@
   font-size: 28px;
 }
 
-.footer .icon {
-  justify-content: center;
-}
-
 .icon {
   display: inline-flex;
   flex-shrink: 0;
+  justify-content: center;
   width: 32px;
 }
