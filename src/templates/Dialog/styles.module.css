@@ -29,10 +29,14 @@
     }
 
     .dialog :global(.words) {
+        position: sticky;
+        top: 0;
         margin: -20px -20px 0 -20px;
-        padding: 10px;
+        padding: 10px 10px 0 10px;
         overflow-x: auto;
+        background: white;
         white-space: nowrap;
+        z-index: 1024;
     }
 
     .dialog :global(.words) > div {
