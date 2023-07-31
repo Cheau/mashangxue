@@ -2,27 +2,24 @@
   position: fixed;
   top: 50%;
   right: 0;
-  text-align: center;
+  width: 150px;
+  line-height: 1.2;
+  overflow: hidden;
   transform: translateY(-50%);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, .5);
+  text-align: center;
 }
 
-.qrCode > div {
-  display: inline-block;
-  width: 150px;
-  overflow: hidden;
-  background: white;
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, .5);
+.domain {
+  margin-bottom: 5px;
 }
 
 @media screen and (max-width: 996px) {
   .qrCode {
     position: static;
-    transform: unset;
-  }
-
-  .qrCode > div {
     width: 300px;
     font-size: 1.5em;
+    transform: unset;
   }
 }
 
@@ -31,9 +28,19 @@
 }
 
 .portrait .slogan {
-  line-height: 1.2;
-  margin-bottom: 10px;
+  margin-top: 10px;
   overflow: hidden;
   text-align: center;
   white-space: pre-wrap;
+}
+
+.alipay {
+  padding: 10px;
+  background: rgb(25, 116, 245);
+  color: white;
+}
+
+.alipay img {
+  padding: 10px;
+  background: white;
 }
