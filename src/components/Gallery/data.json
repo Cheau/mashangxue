@@ -25,5 +25,14 @@
     "image": "sc-dialog/hiking.svg",
     "link": "/docs/studio-classroom/daily-conversation/day17",
     "title": "登山踏青"
+  },
+  {
+    "badge": "Day 16",
+    "channel": "空中英语教室-日常对话",
+    "desc": "check in, baggage, scale, boarding pass, security check",
+    "date": "2023/7/17",
+    "image": "sc-dialog/boarding.svg",
+    "link": "/docs/studio-classroom/daily-conversation/day16",
+    "title": "登机报到"
   }
 ]
