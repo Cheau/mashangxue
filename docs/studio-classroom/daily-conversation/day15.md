@@ -3,7 +3,7 @@ sidebar_position: 15
 ---
 
 # 到警局备案
-<image src="sc-dialog/police.svg" ratio="0.5" />
+<image src="sc-dialog/police" ratio="0.5" />
 <dialog>
 # Hello.
 # How can I help you?

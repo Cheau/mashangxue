@@ -4,7 +4,7 @@
     "channel": "空中英语教室-日常对话",
     "desc": "scoop, cone, wafer, waffle, flavor, sorbet",
     "date": "2023/7/17",
-    "image": "sc-dialog/ice-cream.svg",
+    "image": "sc-dialog/ice-cream",
     "link": "/docs/studio-classroom/daily-conversation/day19",
     "title": "点冰淇淋"
   },
@@ -13,7 +13,7 @@
     "channel": "空中英语教室-日常对话",
     "desc": "earthquake, Richter scale, epicenter, collapse, aftershock",
     "date": "2023/7/17",
-    "image": "sc-dialog/earthquake.svg",
+    "image": "sc-dialog/earthquake",
     "link": "/docs/studio-classroom/daily-conversation/day18",
     "title": "地震"
   },
@@ -22,7 +22,7 @@
     "channel": "空中英语教室-日常对话",
     "desc": "hiking, club, skill, level, oversea, upcoming",
     "date": "2023/7/17",
-    "image": "sc-dialog/hiking.svg",
+    "image": "sc-dialog/hiking",
     "link": "/docs/studio-classroom/daily-conversation/day17",
     "title": "登山踏青"
   },
@@ -31,7 +31,7 @@
     "channel": "空中英语教室-日常对话",
     "desc": "check in, baggage, scale, boarding pass, security check",
     "date": "2023/7/17",
-    "image": "sc-dialog/boarding.svg",
+    "image": "sc-dialog/boarding",
     "link": "/docs/studio-classroom/daily-conversation/day16",
     "title": "登机报到",
     "x": "20%"
@@ -41,7 +41,7 @@
     "channel": "空中英语教室-日常对话",
     "desc": "backpack, stolen, riding, get on, light, forms",
     "date": "2023/7/17",
-    "image": "sc-dialog/police.svg",
+    "image": "sc-dialog/police",
     "link": "/docs/studio-classroom/daily-conversation/day15",
     "title": "到警局备案",
     "x": "5%"

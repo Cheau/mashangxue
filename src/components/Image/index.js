@@ -20,10 +20,10 @@ export default function Image({
   const imageStyle = { ...style, paddingTop: `${ratio * 100}%` }
 
   const [attr, setAttr] = useState()
-  const [dir, name] = useMemo(() => src.split('/'), [src])
+  const [dir, name, ext = 'svg'] = useMemo(() => src.split(/[\/.]/), [src])
   useEffect(async () => {
     if (!cache[dir]) {
-      const res = await fetch(`/img/${dir}/attrs.json`)
+      const res = await fetch(`/img/${dir}/${ext}.json`)
       if (res.ok) cache[dir] = await res.json()
     }
     const attrs = cache[dir]
@@ -38,7 +38,7 @@ export default function Image({
   return (
       <div className={clsx(styles.image, 'image', { children })} style={imageStyle}>
         <div className={clsx('full', { linked: rest.onClick, rounded, shadowed })} {...rest}>
-          <img alt={alt ?? name.split('.')[0]} src={`/img/${src}`} style={imgStyle} />
+          <img alt={alt ?? name.split('.')[0]} src={`/img/${dir}/${name}.${ext}`} style={imgStyle} />
           {children}
           <div className="attr" dangerouslySetInnerHTML={{ __html: attr }} />
         </div>

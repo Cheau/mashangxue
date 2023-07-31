@@ -7,7 +7,7 @@ import Image from '../Image'
 const FeatureList = [
   {
     title: '查单词，更便捷',
-    image: <Image src="feat/dict.svg" />,
+    image: <Image src="feat/dict" />,
     description: (
       <>
         页面内的任意单词，只要选中即可查询释义<br/>
@@ -17,7 +17,7 @@ const FeatureList = [
   },
   {
     title: '学英语，尽掌握',
-    image: <Image src="feat/handy.svg" />,
+    image: <Image src="feat/handy" />,
     description: (
       <>
         页面内容对手机和平板电脑进行了适配<br/>
@@ -27,7 +27,7 @@ const FeatureList = [
   },
   {
     title: '用技术，促进步',
-    image: <Image src="feat/tech.svg" />,
+    image: <Image src="feat/tech" />,
     description: (
       <>
         作为一个技术人，始终相信技术可以帮助学习进步，更多功能持续开发中...<br/>
