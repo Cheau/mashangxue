@@ -45,5 +45,15 @@
     "link": "/docs/studio-classroom/daily-conversation/day15",
     "title": "到警局备案",
     "x": "5%"
+  },
+  {
+    "badge": "Day 14",
+    "bg": "lightblue",
+    "channel": "空中英语教室-日常对话",
+    "desc": "sophomore, freshman, major, minor, workload, graduate",
+    "date": "2023/7/17",
+    "image": "sc-dialog/university",
+    "link": "/docs/studio-classroom/daily-conversation/day14",
+    "title": "大学主修"
   }
 ]
