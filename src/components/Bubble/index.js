@@ -16,7 +16,7 @@ export default function Bubble(props) {
   const [speech, hint] = typeof children === 'string' ? children.split(delimiter) : []
   const Pointer = right ? FaRegHandPointRight : FaRegHandPointLeft
   return (
-      <div style={{ fontSize: '32px', marginBottom: '10px', position: 'relative', textAlign: side }}>
+      <div className="bubble" style={{ marginBottom: '10px', position: 'relative', textAlign: side }}>
         <div className={styles[`bubble-${side}`]} tabIndex={tabIndex} style={rest}>
           {escape(speech) || children}
           <span className={styles[`pointer-${side}`]}><Pointer /></span>

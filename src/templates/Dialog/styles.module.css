@@ -2,53 +2,58 @@
 @Value gap: 20px;
 
 .dialog {
-    display: flex;
+  display: flex;
 }
 
 .dialog :global(.article) {
-    width: calc(100% - words-width - gap);
+  width: calc(100% - words-width - gap);
+  font-size: 24px;
 }
 
 .dialog :global(.words) {
-    margin-left: gap;
-    width: words-width;
+  margin-left: gap;
+  width: words-width;
 }
 
 .dialog :global(.words) > div {
-    max-height: 50vh;
-    overflow: auto;
+  max-height: 50vh;
+  overflow: auto;
 }
 
 @media screen and (max-width: 767px) {
-    .dialog {
-        flex-direction: column-reverse;
-    }
+  .dialog {
+    flex-direction: column-reverse;
+  }
 
-    .dialog :global(.article), .dialog :global(.words) {
-        width: auto;
-    }
+  .dialog :global(.article), .dialog :global(.words) {
+    width: auto;
+  }
 
-    .dialog :global(.words) {
-        position: sticky;
-        top: 60px;
-        margin: -20px -20px 0 -20px;
-        padding: 10px 10px 0 10px;
-        overflow-x: auto;
-        background: white;
-        white-space: nowrap;
-    }
+  .dialog :global(.article) {
+    font-size: unset;
+  }
 
-    .dialog :global(.words) > div {
-        display: inline-block;
-        width: 70vw;
-        height: 30vh;
-        margin: 10px;
-        overflow-y: auto;
-        white-space: normal;
-    }
+  .dialog :global(.words) {
+    position: sticky;
+    top: 60px;
+    margin: -20px -20px 0 -20px;
+    padding: 10px 10px 0 10px;
+    overflow-x: auto;
+    background: white;
+    white-space: nowrap;
+  }
 
-    .dialog :global(.phonetics) {
-      overflow-x: auto;
-      white-space: nowrap;
-    }
+  .dialog :global(.words) > div {
+    display: inline-block;
+    width: 70vw;
+    height: 30vh;
+    margin: 10px;
+    overflow-y: auto;
+    white-space: normal;
+  }
+
+  .dialog :global(.phonetics) {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }
