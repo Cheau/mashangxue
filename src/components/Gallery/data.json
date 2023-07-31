@@ -33,6 +33,17 @@
     "date": "2023/7/17",
     "image": "sc-dialog/boarding.svg",
     "link": "/docs/studio-classroom/daily-conversation/day16",
-    "title": "登机报到"
+    "title": "登机报到",
+    "x": "20%"
+  },
+  {
+    "badge": "Day 15",
+    "channel": "空中英语教室-日常对话",
+    "desc": "backpack, stolen, riding, get on, light, forms",
+    "date": "2023/7/17",
+    "image": "sc-dialog/police.svg",
+    "link": "/docs/studio-classroom/daily-conversation/day15",
+    "title": "到警局备案",
+    "x": "5%"
   }
 ]
