@@ -3,7 +3,7 @@ sidebar_position: 19
 ---
 
 # 点冰淇淋
-<image src="sc-dialog/ice-cream" ratio="0.3" />
+<image src="sc-dialog/ice-cream" ratio="0.5" />
 <dialog>
 ## Hi!
 ## How can I help you?
