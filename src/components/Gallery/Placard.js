@@ -6,14 +6,16 @@ import Image from '../Image'
 
 export default function Placard(props) {
   const {
-     badge, channel, desc, image, link, title,
+     badge, channel, desc, image, link, title, x, y,
   } = props
   return (
       <div className={styles.placard}>
         <Image rounded shadowed
             alt={title}
+            left={x}
             src={image}
             onClick={() => window.location.href = link}
+            top={y}
         >
           <div className={styles.pill}>{title}</div>
           <div className={styles.ribbon}>{badge}</div>
