@@ -7,6 +7,7 @@ const cache = {}
 
 export default function Image({
     alt,
+    background,
     children,
     left = 0,
     ratio = 1,
@@ -17,7 +18,7 @@ export default function Image({
     top = 0,
     ...rest
 }) {
-  const imageStyle = { ...style, paddingTop: `${ratio * 100}%` }
+  const imageStyle = { ...style, background, paddingTop: `${ratio * 100}%` }
 
   const [attr, setAttr] = useState()
   const [dir, name, ext = 'svg'] = useMemo(() => src.split(/[\/.]/), [src])
