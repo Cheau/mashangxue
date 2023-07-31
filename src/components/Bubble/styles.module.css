@@ -139,7 +139,7 @@
 .pointer-left, .pointer-right {
     position: absolute;
     top: 50%;
-    margin-top: -22px;
+    transform: translateY(-45%);
     opacity: 0;
     font-size: 40px;
 }
