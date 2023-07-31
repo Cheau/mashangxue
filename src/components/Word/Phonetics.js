@@ -31,7 +31,7 @@ export default function Phonetics() {
   if (!data) return null
   const { phonetic, phonetics } = data
   return (
-      <div>
+      <div className="phonetics">
         {!phonetics.length && phonetic && <div className={styles.phonetic}>{phonetic}</div>}
         {phonetics.map(({ audio, text }, i) => (
           <Player key={`p-${i}`} appearance="button" src={audio}>

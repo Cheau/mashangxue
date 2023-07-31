@@ -46,4 +46,9 @@
         overflow-y: auto;
         white-space: normal;
     }
+
+    .dialog :global(.phonetics) {
+      overflow-x: auto;
+      white-space: nowrap;
+    }
 }
