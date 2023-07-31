@@ -7,7 +7,7 @@
 
 @value border-width: 2px;
 
-@value caret-outer-size: 11px;
+@value caret-outer-size: 10px;
 @value caret-inner-size: 8px;
 
 @value font-1: 100%;
@@ -39,7 +39,7 @@
     position: absolute;
     height: 0;
     width: 0;
-    top: caret-outer-size;
+    top: calc(caret-outer-size / 2);
     left: calc(caret-outer-size * -2);
     border: caret-outer-size solid;
     border-color: transparent blue-dark transparent transparent;
@@ -50,8 +50,8 @@
     position: absolute;
     height: 0;
     width: 0;
-    top: calc(caret-outer-size + caret-outer-size - caret-inner-size);
-    left: calc(caret-inner-size * -2);
+    top: calc(caret-outer-size / 2 + caret-outer-size - caret-inner-size);
+    left: calc(caret-inner-size * -2 + 1px);
     border: caret-inner-size solid;
     border-color: transparent blue-light transparent transparent;
 }
@@ -69,7 +69,7 @@
     position: absolute;
     height: 0;
     width: 0;
-    top: caret-outer-size;
+    top: calc(caret-outer-size / 2);
     right: calc(caret-outer-size * -2);
     border: caret-outer-size solid;
     border-color: transparent transparent transparent red-dark;
@@ -80,8 +80,8 @@
     position: absolute;
     height: 0;
     width: 0;
-    top: calc(caret-outer-size + caret-outer-size - caret-inner-size);
-    right: calc(caret-inner-size * -2);
+    top: calc(caret-outer-size/ 2 + caret-outer-size - caret-inner-size);
+    right: calc(caret-inner-size * -2 + 1px);
     border: caret-inner-size solid;
     border-color: transparent transparent transparent red-light;
 }
