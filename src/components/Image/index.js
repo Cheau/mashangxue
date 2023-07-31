@@ -37,7 +37,7 @@ export default function Image({
     return o
   }, [left, top])
   return (
-      <div className={clsx(styles.image, 'image', { children })} style={imageStyle}>
+      <div className={clsx(styles.image, 'image', { children, rounded })} style={imageStyle}>
         <div className={clsx('full', { linked: rest.onClick, rounded, shadowed })} {...rest}>
           <img alt={alt ?? name.split('.')[0]} src={`/img/${dir}/${name}.${ext}`} style={imgStyle} />
           {children}

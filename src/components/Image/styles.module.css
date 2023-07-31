@@ -18,7 +18,7 @@
   cursor: pointer;
 }
 
-.image :global(.rounded) {
+.image:global(.rounded), .image :global(.rounded) {
   border-radius: 20px;
 }
 
