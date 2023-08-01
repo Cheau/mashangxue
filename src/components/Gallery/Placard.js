@@ -1,4 +1,5 @@
 import React from 'react'
+import clsx from 'clsx'
 import { FcOk, FcBookmark } from 'react-icons/fc'
 
 import styles from './styles.module.css'
@@ -18,9 +19,9 @@ export default function Placard(props) {
             onClick={() => window.location.href = link}
             top={y}
         >
-          <div className={styles.pill}>{title}</div>
+          <div className={clsx(styles.pill, styles.blur)}>{title}</div>
           <div className={styles.ribbon}>{badge}</div>
-          <div className={styles.mask}>
+          <div className={clsx(styles.mask, styles.blur)}>
             <div className={styles.desc}>
               <span className={styles.icon}><FcOk /></span>{desc}</div>
             <div className={styles.footer}>
