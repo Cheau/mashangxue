@@ -15,7 +15,7 @@ export default function Url() {
               value="https://mashangxue.xyz"
           />
           <div className={styles.slogan}>
-            访问网址，扫一扫<br/>
+            访问网站，扫一扫<br/>
             MaShangXue.xyz
           </div>
         </div>
