@@ -59,7 +59,7 @@ async function query(word) {
 }
 
 function Word(props) {
-  const { color } = props
+  const { color, ...rest } = props
   const local = useContext(Context)
   const {
     word, partOfSpeech, defIndex, data, setData, card,
@@ -84,7 +84,7 @@ function Word(props) {
   const Card = getCard(data, card)
   if (!Card) return null
   return (
-      <div className={styles.card}>
+      <div className={styles.card} {...rest}>
         <div className={styles.header}>
           <span className={styles.title} style={{ background: color ? colors[color] : 'unset' }}>{word}</span>
           <Phonetics />

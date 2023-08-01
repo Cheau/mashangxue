@@ -26,12 +26,22 @@ function render(lexemes, marks, play) {
           break
         case Type.REFER:
           const [word, ...rest] = literal.split('/')
-          const [variant, origin] = word.split(':')
+          const [variant, origin = variant] = word.split(':')
           const green = count % 2 === 0
           const yellow = count % 2 === 1
           count++
-          children.push(<Highlight key={j} green={green} yellow={yellow}>{variant}</Highlight>)
-          words.push(`${origin || variant}/${rest.join('/')}`)
+          children.push(
+              <Highlight key={j} green={green} yellow={yellow} onClick={() => {
+                const e = document.getElementById(origin || variant)
+                if (e) e.parentElement.scrollTo({ top: 0, left: e.offsetLeft - 20, behavior: 'smooth' })
+              }}>
+                {variant}
+              </Highlight>
+          )
+          words.push({
+            text: `${origin}/${rest.join('/')}`,
+            word: origin,
+          })
       }
     })
     const tabIndex = play ? i + 1 : undefined
@@ -55,9 +65,9 @@ export default function View({ lexemes = [], marks = {} }) {
   return (
       <>
         <div className="article">{sentences}</div>
-        <div className="words">{words.map((word, i) => {
+        <div className="words">{words.map(({ text, word }, i) => {
           const color = i % 2 === 0 ? 'green' : 'yellow'
-          return <Word key={i} color={color}>{word}</Word>
+          return <Word key={i} color={color} id={word}>{text}</Word>
         })}</div>
       </>
   )

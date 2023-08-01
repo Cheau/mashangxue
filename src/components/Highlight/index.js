@@ -6,7 +6,7 @@ export const colors = {
 }
 
 export default function Highlight(props) {
-  const { children, green = false, yellow = false } = props
+  const { children, green = false, yellow = false, ...rest } = props
   const bc = green ? 'green' : (yellow ? 'yellow' : undefined)
   const style = {
     backgroundColor: colors[bc],
@@ -14,6 +14,8 @@ export default function Highlight(props) {
     padding: '0 8px',
   }
   return (
-      <span style={style}>{children}</span>
+      <span className="highlight" style={style} {...rest}>
+        {children}
+      </span>
   )
 }

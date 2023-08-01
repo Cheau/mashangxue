@@ -14,7 +14,7 @@ const init = (props, setter) => {
 }
 
 function Providers(props) {
-  const { card, children, Component } = props
+  const { card, children, Component, ...rest } = props
   const [local, setLocal] = useState({})
   const setCard = useCallback((card) => setLocal({ ...local, card }), [local])
   const setData = useCallback((data) => setLocal({ ...local, data }), [local])
@@ -26,7 +26,7 @@ function Providers(props) {
   }), [local])
   return (
       <Context.Provider value={context}>
-        <Component {...props} context={context} />
+        <Component {...rest} context={context} />
       </Context.Provider>
   )
 }
