@@ -1,21 +1,28 @@
 .qrCode {
   position: fixed;
   top: 50%;
-  right: 0;
+  right: 10px;
   line-height: 1.2;
-  overflow: hidden;
   transform: translateY(-50%);
   text-align: center;
 }
 
 .centered {
   display: inline-block;
-  width: 150px;
+  width: 160px;
+  overflow: hidden;
+  border-radius: 10px;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, .5);
 }
 
 .domain {
   margin-bottom: 5px;
+}
+
+@media screen and (min-width: 1920px) {
+  .centered {
+    width: 200px;
+  }
 }
 
 @media screen and (max-width: 996px) {
@@ -51,4 +58,15 @@
 .alipay img {
   padding: 10px;
   background: white;
+}
+
+.url {
+  padding: 10px;
+  background: black;
+  color: white;
+}
+
+.url canvas {
+  height: 100% !important;
+  width: 100% !important;
 }
