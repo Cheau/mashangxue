@@ -2,12 +2,16 @@
   position: fixed;
   top: 50%;
   right: 0;
-  width: 150px;
   line-height: 1.2;
   overflow: hidden;
   transform: translateY(-50%);
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, .5);
   text-align: center;
+}
+
+.centered {
+  display: inline-block;
+  width: 150px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, .5);
 }
 
 .domain {
@@ -17,9 +21,13 @@
 @media screen and (max-width: 996px) {
   .qrCode {
     position: static;
+    margin: 20px auto;
+    transform: unset;
+  }
+
+  .centered {
     width: 300px;
     font-size: 1.5em;
-    transform: unset;
   }
 }
 
