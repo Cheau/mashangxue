@@ -12,10 +12,10 @@ export default function Url() {
               logoImage={logo}
               logoPadding={6}
               qrStyle="dots"
-              value="https://mashangxue.xyz"
+              value={window.location.href}
           />
           <div className={styles.slogan}>
-            访问网站，扫一扫<br/>
+            访问网页，扫一扫<br/>
             MaShangXue.xyz
           </div>
         </div>
