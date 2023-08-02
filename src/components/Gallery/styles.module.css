@@ -8,17 +8,19 @@
   }
 }
 
+@media screen and (min-width: 768px) {
+  .placard:hover {
+    transform: translateY(-10px);
+  }
+}
+
 .placard {
   padding: 20px 0;
   color: white;
 }
 
 .placard, .pill, .mask {
-  transition: 0.3s;
-}
-
-.placard:hover {
-  margin-top: -20px;
+  transition: 0.2s;
 }
 
 .placard .blur {
