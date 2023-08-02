@@ -1,26 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 
 import styles from './styles.module.css'
-import Bubble from '../../components/Bubble'
 import Cmd from '../../cmd'
-import Image from '../../components/Image'
-
-function Heading({ lexeme, ...rest }) {
-  const [token] = lexeme
-  const { text } = token
-  return <Bubble {...rest} right={text === '##'} />
-}
-
-function Img({ lexeme }) {
-  const [token] = lexeme
-  const { text } = token
-  const [, alt, src] = /^!\[(.*)]\((.+)\)$/.exec(text)
-  return <Image alt={alt} src={src} ratio={0.5} />
-}
+import heading from './heading'
+import image from './image'
+import ref from './ref'
+import View from './View'
 
 const marks = {
-  'heading': Heading,
-  'image': Img,
+  '#': heading,
+  '##': heading,
+  '[]': ref,
+  '![]()': image,
 }
 
 let lastId
@@ -45,7 +36,8 @@ const gang = () => {
   lastId = word
 }
 
-export default function Dialog(props) {
+export default function Dialog({ children }) {
+  const lexemes = useMemo(() => new Cmd(children).run(), [children])
   useEffect(() => {
     gang()
     window.addEventListener('scroll', gang)
@@ -53,7 +45,7 @@ export default function Dialog(props) {
   }, [])
   return (
       <div className={styles.dialog}>
-        <Cmd marks={marks}>{props.children}</Cmd>
+        <View lexemes={lexemes} marks={marks} />
       </div>
   )
 }

@@ -28,7 +28,8 @@
     "react-qrcode-logo": "2.9.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.4.1"
+    "@docusaurus/module-type-aliases": "2.4.1",
+    "babel-plugin-wildcard": "^7.0.0"
   },
   "browserslist": {
     "production": [

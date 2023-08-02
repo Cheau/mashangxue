@@ -1,25 +1,38 @@
-import React from 'react'
-
-import Interpreter from './interpreter'
-import View from './View'
+import Parser from './Parser'
+import Scanner from './Scanner'
 
 /**
- * Customizable Minified Markdown
+ * Customizable Markdown
  */
-export default class Cmd extends React.Component {
-  #lexemes
-  #marks
+export default class Cmd {
+  #source
+  #scanner
+  #parser
 
-  constructor(props) {
-    super(props)
-    const { children, marks } = props
-    const interpreter = new Interpreter(children)
-    this.#lexemes = interpreter.run() || []
-    this.#marks = marks
+  constructor(source) {
+    this.#source = this.#stringify(source)
+    this.#scanner = new Scanner(this.#source)
   }
 
-  render() {
-    return <View lexemes={this.#lexemes} marks={this.#marks} />
+  #stringify(strOrArr) {
+    if (typeof strOrArr === 'string') return strOrArr
+    if (Array.isArray(strOrArr)) {
+      return strOrArr.map((item) => {
+        if (typeof item === 'string') return item
+        if (item instanceof Object) {
+          const { props: { mdxType, children } } = item
+          const text = this.#stringify(children)
+          return `<${mdxType}>${text}</${mdxType}>`
+        }
+        return ''
+      }).join('')
+    }
+    return ''
   }
 
+  run() {
+    const tokens = this.#scanner.scan()
+    this.#parser = new Parser(tokens)
+    return this.#parser.parse() || []
+  }
 }

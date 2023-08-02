@@ -13,16 +13,15 @@ export default class Parser {
     let lexeme = []
     for (const token of this.#tokens) {
       switch (token.type) {
-        case Type.TAG_MARK:
-        case Type.TAG_HEAD:
+        case Type.BLOCK:
+        case Type.OPENING_TAG:
           if (lexeme.length) {
             this.#lexemes.push(lexeme)
             lexeme = []
           }
           lexeme.push(token)
           break
-        case Type.TERMINATOR:
-          lexeme.push(token)
+        case Type.CLOSING_TAG:
           this.#lexemes.push(lexeme)
           lexeme = []
           break

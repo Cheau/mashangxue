@@ -5,13 +5,18 @@ export default class Token {
   #start
   #end
 
-  constructor(type, text, literal, start, end) {
+  constructor({
+      type,
+      text,
+      literal,
+      start,
+      end,
+  }) {
     this.#type = type
     this.#text = text
     this.#literal = literal
     this.#start = start
     this.#end = end
-
   }
 
   get type() {
@@ -24,5 +29,13 @@ export default class Token {
 
   get literal() {
     return this.#literal
+  }
+
+  get start() {
+    return this.#start
+  }
+
+  get end() {
+    return this.#end
   }
 }
