@@ -11,7 +11,7 @@ export default function CompactCard() {
   return (
       <>
         <div className={styles.groups}>
-          <div className={styles.pos}>{partOfSpeech}</div>
+          <span className={styles.pos}>{partOfSpeech}</span>
           {definition}
         </div>
       </>
