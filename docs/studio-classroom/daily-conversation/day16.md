@@ -7,18 +7,15 @@ sidebar_position: 16
 <dialog>
 # I would like to [check in/v.] please.
 ## Could you give me your passport?
-# Sure.
-# Here it is.
+# Sure. Here it is.
 ## Where are you flying to today?
 # London.
 ## How many pieces of [baggage/n.] would you like to check in?
 # Two pieces.
-## Please put the baggage on the [scale/n./19].
-## Here is your [boarding pass/n.].
+## Please put the baggage on the [scale/n./19]. Here is your [boarding pass/n.].
 # Thank you.
 ## The boarding time is 9:30 pm, Gate 31.
-## Please make sure your baggage passes the [security/n.] [check/n./2] down there before you leave.
-# OK.
-# Thank you.
+Please make sure your baggage passes the [security/n.] [check/n./2] down there before you leave.
+# OK. Thank you.
 ## Have a nice flight.
 </dialog>
