@@ -10,10 +10,11 @@ export default function Modal({ children, onClose, open = false }) {
   useEffect(() => {
     setIsOpen(open)
     if (open) {
+      const { scrollY } = window
       const { position, top, width } = document.body.style
       setContext({ position, top, width })
       document.body.style.position = 'fixed'
-      document.body.style.top = `-${window.scrollY}px`
+      document.body.style.top = `-${scrollY}px`
       document.body.style.width = '100%'
     }
   }, [open])
