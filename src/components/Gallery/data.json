@@ -58,12 +58,20 @@
   },
   {
     "badge": "Day 13",
-    "bg": "lightblue",
     "channel": "空中英语教室-日常对话",
     "desc": "sophomore, freshman, major, minor, workload, graduate",
     "date": "2023/7/17",
     "image": "sc-dialog/cold",
     "link": "/docs/studio-classroom/daily-conversation/day13",
     "title": "打电话请病假"
+  },
+  {
+    "badge": "Day 12",
+    "channel": "空中英语教室-日常对话",
+    "desc": "book, reservation, hold",
+    "date": "2023/7/17",
+    "image": "sc-dialog/restaurant",
+    "link": "/docs/studio-classroom/daily-conversation/day12",
+    "title": "打电话订餐厅"
   }
 ]
