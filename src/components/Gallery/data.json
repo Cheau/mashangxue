@@ -73,5 +73,14 @@
     "image": "sc-dialog/restaurant",
     "link": "/docs/studio-classroom/daily-conversation/day12",
     "title": "打电话订餐厅"
+  },
+  {
+    "badge": "Day 11",
+    "channel": "空中英语教室-日常对话",
+    "desc": "to go, separate, packed",
+    "date": "2023/7/17",
+    "image": "sc-dialog/pack",
+    "link": "/docs/studio-classroom/daily-conversation/day11",
+    "title": "打包剩余食物"
   }
 ]
