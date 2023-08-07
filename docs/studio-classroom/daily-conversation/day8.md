@@ -3,7 +3,7 @@ sidebar_position: 8
 ---
 
 # 超市询问方向
-<image src="sc-dialog/supermarket" ratio="0.5" ribbon="Day 9" />
+<image src="sc-dialog/supermarket" ratio="0.5" ribbon="Day 8" />
 <dialog>
 # [Excuse/v.] me. Can you tell me where I can find bread?
 ## The [bakery/n.] is at the front of the store.
