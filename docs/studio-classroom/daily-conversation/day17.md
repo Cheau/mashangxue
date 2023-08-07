@@ -13,7 +13,7 @@ We have 30 to 40 people of all ages and [skill/n.] [levels:level/n./3].
 # That's great.
 Do you guys do day hikes or multi-day hikes?
 ## Mostly day hikes, but we do five or six multi-day hikes a year.
-# Do you hike around the island or do you go [overseas:oversea] too?
+# Do you hike around the island or do you go [overseas/adv./2] too?
 ## So far, our hikes are around the island.
 Next year, we will do our first overseas hiking trip by doing a one-week hiking trip to Nepal.
 # That sounds fun. I would love to join your hiking club.
