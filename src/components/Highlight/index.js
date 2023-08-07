@@ -12,6 +12,7 @@ export default function Highlight(props) {
     backgroundColor: colors[bc],
     borderRadius: '100px',
     padding: '0 8px',
+    whiteSpace: 'nowrap',
   }
   return (
       <span className="highlight" style={style} {...rest}>
