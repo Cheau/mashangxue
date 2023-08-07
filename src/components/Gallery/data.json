@@ -82,5 +82,32 @@
     "image": "sc-dialog/pack",
     "link": "/docs/studio-classroom/daily-conversation/day11",
     "title": "打包剩余食物"
+  },
+  {
+    "badge": "Day 10",
+    "channel": "空中英语教室-日常对话",
+    "desc": "flight, process, nightmare, grounded, connection, delay",
+    "date": "2023/7/17",
+    "image": "sc-dialog/delay",
+    "link": "/docs/studio-classroom/daily-conversation/day10",
+    "title": "错过班机"
+  },
+  {
+    "badge": "Day 9",
+    "channel": "空中英语教室-日常对话",
+    "desc": "rescued, shelter, breed, landlord, lease, dog-sit",
+    "date": "2023/7/17",
+    "image": "sc-dialog/dog",
+    "link": "/docs/studio-classroom/daily-conversation/day9",
+    "title": "宠物"
+  },
+  {
+    "badge": "Day 8",
+    "channel": "空中英语教室-日常对话",
+    "desc": "excuse, bakery, cashiers, aisle",
+    "date": "2023/7/17",
+    "image": "sc-dialog/supermarket",
+    "link": "/docs/studio-classroom/daily-conversation/day8",
+    "title": "超市询问方向"
   }
 ]

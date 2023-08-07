@@ -3,17 +3,18 @@ sidebar_position: 9
 ---
 
 # 宠物
+<image src="sc-dialog/dog" ratio="0.5" ribbon="Day 9" />
 <dialog>
-# Do you have any [pets]?
+# Do you have any pets?
 ## No, I don't. What about you?
-# I have a dog. I [rescued] him from the [dog shelter] three years ago.
+# I have a dog. I [rescued/v.] him from the dog [shelter/n./2] three years ago.
 He's five years old.
-## what [breed] is he?
+## what [breed/n.] is he?
 # He's a Golden Retriever.
-## That's nice. I would like a dog but my [landlord] does not allow pets.
-It's written in my apartment [lease].
+## That's nice. I would like a dog but my [landlord/n.] does not allow pets.
+It's written in my apartment [lease/n./2].
 # I'm sorry to hear that.
-## That's OK. At least I save money by not buying dog food or paying [vet bills].
-# Maybe you can [dog-sit] for me when I'm away this summer.
-## Sure! I'd be happy to, [as long as] you're willing to pay.
+## That's OK. At least I save money by not buying dog food or paying vet bills.
+# Maybe you can [dog-sit/v.] for me when I'm away this summer.
+## Sure! I'd be happy to, as long as you're willing to pay.
 </dialog>
