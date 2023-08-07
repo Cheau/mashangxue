@@ -3,7 +3,7 @@ sidebar_position: 15
 ---
 
 # 到警局备案
-<image src="sc-dialog/police" ratio="0.5" />
+<image src="sc-dialog/police" ratio="0.5" ribbon="Day 15" />
 <dialog>
 # Hello. How can I help you?
 ## My [backpack/n.] was [stolen/v.] on the bus just now.

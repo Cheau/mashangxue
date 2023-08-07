@@ -3,7 +3,7 @@ sidebar_position: 13
 ---
 
 # 打电话请病假
-<image src="sc-dialog/cold" ratio="0.5" />
+<image src="sc-dialog/cold" ratio="0.5" ribbon="Day 13" />
 <dialog>
 # Hi Carla, I need to ask for [sick leave/n.] today.
 I caught a [nasty/adj./3] cold and woke up with a terrible headache this morning.

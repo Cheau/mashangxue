@@ -3,7 +3,7 @@ sidebar_position: 16
 ---
 
 # 登机报到
-<image src="sc-dialog/boarding" ratio="0.5" />
+<image src="sc-dialog/boarding" ratio="0.5" ribbon="Day 16" />
 <dialog>
 # I would like to [check in/v.] please.
 ## Could you give me your passport?

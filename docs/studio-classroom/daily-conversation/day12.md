@@ -3,7 +3,7 @@ sidebar_position: 12
 ---
 
 # 打电话订餐厅
-<image src="sc-dialog/restaurant" ratio="0.5" />
+<image src="sc-dialog/restaurant" ratio="0.5" ribbon="Day 12" />
 <dialog>
 # I'd like to [book/v.] a table for this Sunday, June 10, at 7 pm.
 ## For how many people?

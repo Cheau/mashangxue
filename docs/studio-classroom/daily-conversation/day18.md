@@ -3,7 +3,7 @@ sidebar_position: 18
 ---
 
 # 地震
-<image src="sc-dialog/earthquake" ratio="0.5" top="10%" />
+<image src="sc-dialog/earthquake" ratio="0.5" top="10%" ribbon="Day 18" />
 <dialog>
 # Did you feel the [earthquake/n.] last night?
 ## Yes, it was a big one.

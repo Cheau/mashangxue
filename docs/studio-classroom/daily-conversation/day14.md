@@ -3,7 +3,7 @@ sidebar_position: 14
 ---
 
 # 大学主修
-<image src="sc-dialog/university" ratio="0.5" background="lightblue" />
+<image src="sc-dialog/university" ratio="0.5" ribbon="Day 14" background="lightblue" />
 <dialog>
 # Hi Sam, are you enjoying university?
 ## Yes, [sophomore/n.] year is much better than [freshman/n./2] year.

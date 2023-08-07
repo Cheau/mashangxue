@@ -3,7 +3,7 @@ sidebar_position: 19
 ---
 
 # 点冰淇淋
-<image src="sc-dialog/ice-cream" ratio="0.5" />
+<image src="sc-dialog/ice-cream" ratio="0.5" ribbon="Day 19" />
 <dialog>
 ## Hi! How can I help you?
 # I'd like two [scoops:scoop/n.] of ice cream.

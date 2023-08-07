@@ -3,7 +3,7 @@ sidebar_position: 11
 ---
 
 # 打包剩余食物
-<image src="sc-dialog/pack" ratio="0.5" />
+<image src="sc-dialog/pack" ratio="0.5" ribbon="Day 11" />
 <dialog>
 # Can I get this [to go/adj.]?
 ## Sure.
