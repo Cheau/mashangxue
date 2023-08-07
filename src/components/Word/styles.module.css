@@ -109,6 +109,7 @@
   background: black;
   border-radius: 1em;
   color: white;
+  user-select: none;
 }
 
 .phonetic {
