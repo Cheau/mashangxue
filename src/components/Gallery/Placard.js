@@ -15,12 +15,12 @@ export default function Placard(props) {
             alt={title}
             background={bg}
             left={x}
+            ribbon={badge}
             src={image}
             onClick={() => window.location.href = link}
             top={y}
         >
           <div className={clsx(styles.pill, styles.blur)}>{title}</div>
-          <div className={styles.ribbon}>{badge}</div>
           <div className={clsx(styles.mask, styles.blur)}>
             <div className={styles.desc}>
               <span className={styles.icon}><FcOk /></span>{desc}</div>

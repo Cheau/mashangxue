@@ -42,6 +42,19 @@
   overflow: visible;
 }
 
+.image :global(.ribbon) {
+  /* https://www.freecodecamp.org/news/make-a-css-only-ribbon/ */
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: black;
+  box-shadow: 0 0 0 999px black;
+  clip-path: inset(0 -100%);
+  color: white;
+  transform: translate(29.3%) rotate(45deg);
+  transform-origin: top left;
+}
+
 .image :global(.attr) {
   position: fixed;
   bottom: 0;
@@ -57,4 +70,10 @@
 .image:global(.children .attr) {
   top: 100%;
   bottom: unset;
+}
+
+@media screen and (min-width: 768px) {
+  .image :global(.ribbon) {
+    font-size: 1.5em;
+  }
 }

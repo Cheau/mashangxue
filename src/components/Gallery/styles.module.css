@@ -52,19 +52,6 @@
   white-space: pre;
 }
 
-.ribbon {
-  /* https://www.freecodecamp.org/news/make-a-css-only-ribbon/ */
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: black;
-  box-shadow: 0 0 0 999px black;
-  clip-path: inset(0 -100%);
-  font-size: 1.5em;
-  transform: translate(29.3%) rotate(45deg);
-  transform-origin: top left;
-}
-
 .mask {
   position: absolute;
   bottom: 0;

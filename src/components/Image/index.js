@@ -11,6 +11,7 @@ export default function Image({
     children,
     left = 0,
     ratio = 1,
+    ribbon,
     rounded = false,
     shadowed = false,
     src,
@@ -42,6 +43,7 @@ export default function Image({
           <img alt={alt ?? name.split('.')[0]} src={`/img/${dir}/${name}.${ext}`} style={imgStyle} />
           {children}
           <div className="attr" dangerouslySetInnerHTML={{ __html: attr }} />
+          {ribbon && <div className="ribbon">{ribbon}</div>}
         </div>
       </div>
   )
