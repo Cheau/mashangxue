@@ -13,11 +13,14 @@ export default function QrCode() {
     const id = setInterval(() => setIndex(i++ % Components.length), 5000)
     return () => clearInterval(id)
   }, [])
-  const Component = Components[index]
   return (
       <div className={styles.qrCode}>
         <div className={styles.centered}>
-          <Component />
+          {Components.map((Component, i) => (
+              <div key={i} style={{ display: index === i ? 'unset' : 'none' }}>
+                <Component />
+              </div>
+          ))}
         </div>
       </div>
   )
