@@ -9,6 +9,8 @@ const read = (e) => {
   return text ? text.trim() : null
 }
 
+const isEnglish = (text) => /[0-9a-zA-Z -]+/.exec(text)
+
 function History({ children, current, onClick }) {
   const words = []
   for (let i = children.length - 1; i >= 0; i--) {
@@ -29,6 +31,7 @@ export default function Lookup() {
     const lookup = (e) => {
       const text = read(e)
       if (!text || text === history[history.length - 1]) return
+      if (!isEnglish(text)) return
       setHistory([...history, text])
       setCurrent(history.length)
     }
