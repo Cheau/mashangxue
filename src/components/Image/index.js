@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import clsx from 'clsx'
+import LazyLoad from 'react-lazyload'
 
 import styles from './styles.module.css'
 
@@ -9,6 +10,7 @@ export default function Image({
     alt,
     background,
     children,
+    loading = "lazy",
     left = 0,
     ratio = 1,
     ribbon,
@@ -40,7 +42,13 @@ export default function Image({
   return (
       <div className={clsx(styles.image, 'image', { children, rounded })} style={imageStyle}>
         <div className={clsx('full', { linked: rest.onClick, rounded, shadowed })} {...rest}>
-          <img alt={alt ?? name.split('.')[0]} src={`/img/${dir}/${name}.${ext}`} style={imgStyle} />
+          <LazyLoad once offset={100}>
+            <img
+                alt={alt ?? name.split('.')[0]}
+                src={`/img/${dir}/${name}.${ext}`}
+                style={imgStyle}
+            />
+          </LazyLoad>
           {children}
           <div className="attr" dangerouslySetInnerHTML={{ __html: attr }} />
           {ribbon && <div className="ribbon">{ribbon}</div>}
