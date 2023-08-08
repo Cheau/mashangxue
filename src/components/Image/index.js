@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import LazyLoad from 'react-lazyload'
 
 import styles from './styles.module.css'
+import prefetch from '../../common/prefetch'
 
 const cache = {}
 
@@ -26,11 +27,7 @@ export default function Image({
   const [attr, setAttr] = useState()
   const [dir, name, ext = 'svg'] = useMemo(() => src.split(/[\/.]/), [src])
   useEffect(async () => {
-    if (!cache[dir]) {
-      const res = await fetch(`/img/${dir}/${ext}.json`)
-      if (res.ok) cache[dir] = await res.json()
-    }
-    const attrs = cache[dir]
+    const attrs = await prefetch(`/img/${dir}/${ext}.json`)
     if (attrs[name]) setAttr(attrs[name])
   }, [src])
   const imgStyle = useMemo(() => {
