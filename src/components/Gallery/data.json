@@ -109,5 +109,14 @@
     "image": "sc-dialog/supermarket",
     "link": "/docs/studio-classroom/daily-conversation/day8",
     "title": "超市询问方向"
+  },
+  {
+    "badge": "Day 7",
+    "channel": "空中英语教室-日常对话",
+    "desc": "get off, shift, cloth, pad, receipt",
+    "date": "2023/7/17",
+    "image": "sc-dialog/credit-card",
+    "link": "/docs/studio-classroom/daily-conversation/day7",
+    "title": "超市结账"
   }
 ]

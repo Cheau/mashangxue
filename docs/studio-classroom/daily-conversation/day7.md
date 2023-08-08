@@ -3,17 +3,18 @@ sidebar_position: 7
 ---
 
 # 超市结账
+<image src="sc-dialog/credit-card" ratio="0.5" ribbon="Day 7" />
 <dialog>
 # Hi! How are you?
 ## I'm good, thank you. How's your day going?
-# It's ok, 2 more hours until I [get off] my [shift]. 
-## How would you like to [pay] today? Cash or card?
+# It's ok, 2 more hours until I [get off/v./9] my [shift/n./3]. 
+## How would you like to pay today? Cash or card?
 # Credit card. Thanks.
 ## Would you like any bags?
-# No, thank you. I brought my own [cloth bag].
-## Can you sign your name on the [pad]?
+# No, thank you. I brought my own [cloth/n.] bag.
+## Can you sign your name on the [pad/n./13]?
 # Sure.
-## Here is your [receipt].
+## Here is your [receipt/n./4].
 # Have a nice day.
 ## Thank you. Have a nice day, too.
 </dialog>
