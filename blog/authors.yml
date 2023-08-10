@@ -6,6 +6,8 @@ endi:
 
 just:
   name: Just
+  title: 全栈工程师（前端、后端、数据库、运维）
+  image_url: /img/logo.png
 
 yangshun:
   name: Yangshun Tay
