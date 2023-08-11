@@ -118,5 +118,15 @@
     "image": "sc-dialog/credit-card",
     "link": "/docs/studio-classroom/daily-conversation/007",
     "title": "超市结账"
+  },
+  {
+    "badge": "Day 1",
+    "channel": "空中英语教室-日常对话",
+    "desc": "Band-Aid, acne, patch, pimple, over-the-counter, dermatologist, prescription, laser, scars, complain",
+    "date": "2023/7/17",
+    "image": "sc-dialog/pharmacy",
+    "link": "/docs/studio-classroom/daily-conversation/001",
+    "title": "痘痘护理",
+    "x": "100%"
   }
 ]
