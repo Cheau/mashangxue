@@ -5,8 +5,6 @@ import LazyLoad from 'react-lazyload'
 import styles from './styles.module.css'
 import prefetch from '../../common/prefetch'
 
-const cache = {}
-
 export default function Image({
     alt,
     background,
