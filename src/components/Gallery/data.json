@@ -5,7 +5,7 @@
     "desc": "scoop, cone, wafer, waffle, flavor, sorbet",
     "date": "2023/7/17",
     "image": "sc-dialog/ice-cream",
-    "link": "/docs/studio-classroom/daily-conversation/day19",
+    "link": "/docs/studio-classroom/daily-conversation/019",
     "title": "点冰淇淋"
   },
   {
@@ -14,7 +14,7 @@
     "desc": "earthquake, scale, epicenter, collapse, aftershock",
     "date": "2023/7/17",
     "image": "sc-dialog/earthquake",
-    "link": "/docs/studio-classroom/daily-conversation/day18",
+    "link": "/docs/studio-classroom/daily-conversation/018",
     "title": "地震"
   },
   {
@@ -23,7 +23,7 @@
     "desc": "hiking, club, skill, level, overseas, upcoming",
     "date": "2023/7/17",
     "image": "sc-dialog/hiking",
-    "link": "/docs/studio-classroom/daily-conversation/day17",
+    "link": "/docs/studio-classroom/daily-conversation/017",
     "title": "登山踏青"
   },
   {
@@ -32,7 +32,7 @@
     "desc": "check in, baggage, scale, boarding pass, security check",
     "date": "2023/7/17",
     "image": "sc-dialog/boarding",
-    "link": "/docs/studio-classroom/daily-conversation/day16",
+    "link": "/docs/studio-classroom/daily-conversation/016",
     "title": "登机报到",
     "x": "20%"
   },
@@ -42,7 +42,7 @@
     "desc": "backpack, stolen, riding, get on, forms",
     "date": "2023/7/17",
     "image": "sc-dialog/police",
-    "link": "/docs/studio-classroom/daily-conversation/day15",
+    "link": "/docs/studio-classroom/daily-conversation/015",
     "title": "到警局备案",
     "x": "5%"
   },
@@ -53,7 +53,7 @@
     "desc": "sophomore, freshman, major, minor, workload, graduate",
     "date": "2023/7/17",
     "image": "sc-dialog/university",
-    "link": "/docs/studio-classroom/daily-conversation/day14",
+    "link": "/docs/studio-classroom/daily-conversation/014",
     "title": "大学主修"
   },
   {
@@ -62,7 +62,7 @@
     "desc": "sick leave, nasty, take care of, pitch",
     "date": "2023/7/17",
     "image": "sc-dialog/cold",
-    "link": "/docs/studio-classroom/daily-conversation/day13",
+    "link": "/docs/studio-classroom/daily-conversation/013",
     "title": "打电话请病假"
   },
   {
@@ -71,7 +71,7 @@
     "desc": "book, reservation, hold",
     "date": "2023/7/17",
     "image": "sc-dialog/restaurant",
-    "link": "/docs/studio-classroom/daily-conversation/day12",
+    "link": "/docs/studio-classroom/daily-conversation/012",
     "title": "打电话订餐厅"
   },
   {
@@ -80,7 +80,7 @@
     "desc": "to go, separate, packed",
     "date": "2023/7/17",
     "image": "sc-dialog/pack",
-    "link": "/docs/studio-classroom/daily-conversation/day11",
+    "link": "/docs/studio-classroom/daily-conversation/011",
     "title": "打包剩余食物"
   },
   {
@@ -89,7 +89,7 @@
     "desc": "flight, process, nightmare, grounded, connection, delay",
     "date": "2023/7/17",
     "image": "sc-dialog/delay",
-    "link": "/docs/studio-classroom/daily-conversation/day10",
+    "link": "/docs/studio-classroom/daily-conversation/010",
     "title": "错过班机"
   },
   {
@@ -98,7 +98,7 @@
     "desc": "rescued, shelter, breed, landlord, lease, dog-sit",
     "date": "2023/7/17",
     "image": "sc-dialog/dog",
-    "link": "/docs/studio-classroom/daily-conversation/day9",
+    "link": "/docs/studio-classroom/daily-conversation/009",
     "title": "宠物"
   },
   {
@@ -107,7 +107,7 @@
     "desc": "excuse, bakery, cashiers, aisle",
     "date": "2023/7/17",
     "image": "sc-dialog/supermarket",
-    "link": "/docs/studio-classroom/daily-conversation/day8",
+    "link": "/docs/studio-classroom/daily-conversation/008",
     "title": "超市询问方向"
   },
   {
@@ -116,7 +116,7 @@
     "desc": "get off, shift, cloth, pad, receipt",
     "date": "2023/7/17",
     "image": "sc-dialog/credit-card",
-    "link": "/docs/studio-classroom/daily-conversation/day7",
+    "link": "/docs/studio-classroom/daily-conversation/007",
     "title": "超市结账"
   }
 ]
