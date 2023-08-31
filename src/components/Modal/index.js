@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { BiX } from 'react-icons/bi'
 
@@ -23,24 +23,27 @@ const hide = (context) => {
   window.scrollTo(0, parseInt(scrollY || '0') * -1)
 }
 
+const state = { open: undefined }
+
 export default function Modal({ children, onClose, open = false }) {
-  const [isOpen, setIsOpen] = useState()
   const [context, setContext] = useSession('modal')
   useEffect(() => {
-    setIsOpen(open)
+    state.open = open
     if (open) setContext(show())
+    return close
   }, [open])
-  useEffect(() => {
-    if (isOpen !== false) return
+  const close = () => {
+    if (!state.open) return
+    state.open = false
     hide(context)
     if (typeof onClose === 'function') onClose()
-  }, [isOpen])
-  if (!isOpen) return null
+  }
+  if (!open) return null
   const modal = (
-      <div className={styles.backdrop} onClick={() => setIsOpen(false)}>
+      <div className={styles.backdrop} onClick={close}>
         <div className={styles.wrapper} onClick={(e) => e.stopPropagation()}>
           {children}
-          <span className={styles.close} onClick={() => setIsOpen(false)}><BiX /></span>
+          <span className={styles.close} onClick={close}><BiX /></span>
         </div>
       </div>
   )
