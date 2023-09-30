@@ -4,6 +4,7 @@ import LazyLoad from 'react-lazyload'
 
 import styles from './styles.module.css'
 import prefetch from '../../common/prefetch'
+import Ribbon from '../Ribbon'
 
 export default function Image({
     alt,
@@ -46,7 +47,7 @@ export default function Image({
           </LazyLoad>
           {children}
           <div className="attr" dangerouslySetInnerHTML={{ __html: attr }} />
-          {ribbon && <div className="ribbon">{ribbon}</div>}
+          <Ribbon>{ribbon}</Ribbon>
         </div>
       </div>
   )
