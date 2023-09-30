@@ -6,6 +6,7 @@ import Box from '@site/src/components/Box'
 import Bubble, { BubbleLeftNote, BubbleRightNote } from '@site/src/components/Bubble'
 import Cmd from '@site/src/cmd'
 import Dialog from '@site/src/templates/Dialog'
+import Frame from '@site/src/components/Frame'
 import Highlight from '@site/src/components/Highlight'
 import Image from '@site/src/components/Image'
 import Pangram from '@site/src/components/Pangram'
@@ -19,6 +20,7 @@ export default {
   bln: BubbleLeftNote,
   brn: BubbleRightNote,
   cmd: Cmd,
+  frame: Frame,
   hl: Highlight,
   image: Image,
   pangram: Pangram,
