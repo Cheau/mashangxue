@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 
 import Type from '../../cmd/Type'
 import Word from '../../components/Word'
+import { usePresenting } from '../../common/state'
 
 function render(lexemes, marks, play) {
   const global = { sentences: [], words: [] }
@@ -30,17 +31,8 @@ function render(lexemes, marks, play) {
 }
 
 export default function View({ lexemes = [], marks = {} }) {
-  const [play, setPlay] = useState(false)
-  const { sentences, words } = useMemo(() => render(lexemes, marks, play), [play])
-  useEffect(() => {
-    const togglePlay = (e) => {
-      const { ctrlKey, key } = e
-      if (ctrlKey && key === 'p') setPlay(true)
-      else if (ctrlKey && key === 'P') setPlay(false)
-    }
-    document.addEventListener('keypress', togglePlay)
-    return () => document.removeEventListener('keypress', togglePlay)
-  }, [])
+  const presenting = usePresenting()
+  const { sentences, words } = useMemo(() => render(lexemes, marks, presenting.get()), [presenting.get()])
   return (
       <>
         <div className="article">{sentences}</div>
