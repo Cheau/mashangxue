@@ -23,9 +23,13 @@ export default function Placard(props) {
           <div className={clsx(styles.pill, styles.blur)}>{title}</div>
           <div className={clsx(styles.mask, styles.blur)}>
             <div className={styles.desc}>
-              <span className={styles.icon}><FcOk /></span>{desc}</div>
+              <span className={styles.icon}><FcOk /></span>
+              {desc}
+            </div>
             <div className={styles.footer}>
-              <span className={styles.icon}><FcBookmark /></span>{channel}</div>
+              <span className={styles.icon}><FcBookmark /></span>
+              {channel}
+            </div>
           </div>
         </Image>
       </div>
