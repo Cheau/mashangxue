@@ -11,6 +11,10 @@
   overflow: hidden;
 }
 
+.landscape:hover .primary, .landscape:hover .secondary {
+  animation-play-state: paused;
+}
+
 @media screen and (max-width: 996px) {
   .landscape {
     margin: 0 calc(gap * -1);
@@ -28,9 +32,6 @@
 
 .primary, .secondary {
   display: flex;
-}
-
-.primary, .secondary {
   animation: slide 25s linear infinite;
 }
 
