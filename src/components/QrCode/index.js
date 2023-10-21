@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo } from 'react'
+import { useHookstate } from '@hookstate/core'
 
 import styles from './styles.module.css'
 import { usePresenting } from '../../common/state'
@@ -6,25 +7,20 @@ import Alipay from './Alipay'
 import Url from './Url'
 
 export default function QrCode() {
-  const [components, setComponents] = useState([Url, Alipay])
   const presenting = usePresenting()
-  const [index, setIndex] = useState(0)
+  const index = useHookstate(0)
+  const Component = useMemo(() => {
+    const Components = presenting.get() ? [Url] : [Url, Alipay]
+    return Components[index.get() % Components.length]
+  }, [presenting.get(), index.get()])
   useEffect(() => {
-    let i = 0
-    const id = setInterval(() => setIndex(i++ % components.length), 5000)
+    const id = setInterval(() => index.set(i => i + 1), 11000)
     return () => clearInterval(id)
-  }, [components])
-  useEffect(() => {
-    setComponents(presenting.get() ? [Url] : [Url, Alipay])
-  }, [presenting.get()])
+  }, [])
   return (
       <div className={styles.qrCode}>
         <div className={styles.centered}>
-          {components.map((Component, i) => (
-              <div key={i} style={{ display: index === i ? 'unset' : 'none' }}>
-                <Component />
-              </div>
-          ))}
+          <Component />
         </div>
       </div>
   )
