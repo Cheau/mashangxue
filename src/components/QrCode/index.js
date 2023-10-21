@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo } from 'react'
 import { useHookstate } from '@hookstate/core'
+import clsx from 'clsx'
 
 import styles from './styles.module.css'
 import { usePresenting } from '../../common/state'
@@ -19,7 +20,7 @@ export default function QrCode() {
   }, [])
   return (
       <div className={styles.qrCode}>
-        <div className={styles.centered}>
+        <div className={clsx(styles.centered, { [styles.presenting]: presenting.get() })}>
           <Component />
         </div>
       </div>
