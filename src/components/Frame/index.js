@@ -3,11 +3,17 @@ import React from 'react'
 import styles from './styles.module.css'
 import Ribbon from '../Ribbon'
 
-export default function frame({ ratio = 9 / 16, ribbon, ...rest }) {
+export default function frame({
+    allowfullscreen,
+    frameborder,
+    ratio = 9 / 16,
+    ribbon,
+    ...rest
+}) {
   return (
       <div className={styles.frame} style={{ paddingTop: `${ratio * 100}%` }}>
         <div className={styles.full}>
-          <iframe {...rest} />
+          <iframe allowFullScreen={Boolean(allowfullscreen)} frameBorder={frameborder} {...rest} />
           <Ribbon>{ribbon}</Ribbon>
         </div>
       </div>
