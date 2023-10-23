@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: '码上学英语',
-  tagline: "Practice to Progress, Technically",
+  tagline: "Practice to Progress",
   url: 'https://mashangxue.xyz',
   baseUrl: '/',
   onBrokenLinks: 'throw',
