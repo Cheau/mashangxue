@@ -1,0 +1,7 @@
+.tile :global(.icon) {
+    font-size: 1.5em;
+}
+
+.tile :global(.title) {
+    display: none;
+}

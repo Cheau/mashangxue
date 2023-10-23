@@ -19,10 +19,8 @@ export default function QrCode() {
     return () => clearInterval(id)
   }, [])
   return (
-      <div className={styles.qrCode}>
-        <div className={clsx(styles.centered, { [styles.presenting]: presenting.get() })}>
-          <Component />
-        </div>
+      <div className={clsx('qrCode', styles.qrCode)}>
+        <Component />
       </div>
   )
 }

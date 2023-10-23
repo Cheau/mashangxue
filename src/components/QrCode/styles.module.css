@@ -1,40 +1,12 @@
 .qrCode {
-  position: fixed;
-  top: 50%;
-  right: 10px;
-  line-height: 1.2;
-  transform: translateY(-50%);
-  text-align: center;
-}
-
-.centered {
   display: inline-block;
-  width: 160px;
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, .5);
 }
 
-.presenting {
-  width: 300px;
-  font-size: 1.5em;
-}
-
 .domain {
   margin-bottom: 5px;
-}
-
-@media screen and (max-width: 996px) {
-  .qrCode {
-    position: static;
-    margin: 20px auto;
-    transform: unset;
-  }
-
-  .centered {
-    width: 250px;
-    font-size: 1.5em;
-  }
 }
 
 .portrait img {
