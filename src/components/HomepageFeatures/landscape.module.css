@@ -15,6 +15,14 @@
   animation-play-state: paused;
 }
 
+.landscape :global(.feature + .feature), .secondary {
+  margin-left: calc(gap * 1);
+}
+
+.landscape :global(.feature) {
+  width: 250px;
+}
+
 @media screen and (max-width: 996px) {
   .landscape {
     margin: 0 calc(gap * -1);
@@ -33,39 +41,4 @@
 .primary, .secondary {
   display: flex;
   animation: slide 25s linear infinite;
-}
-
-.secondary, .feature + .feature {
-  margin-left: calc(gap * 1);
-}
-
-.feature {
-  display: flex;
-  width: 250px;
-  padding: gap;
-  border-radius: gap;
-  background: white;
-  box-shadow: 0 0 3px 0 rgba(0,0,0,.3);
-}
-
-.icon {
-  display: inline-flex;
-  flex-shrink: 0;
-  margin-right: calc(gap / 2);
-  width: icon-size;
-  font-size: icon-size;
-}
-
-.content {
-  line-height: 1.2;
-}
-
-.title {
-  font-size: 1.1em;
-  font-weight: bold;
-}
-
-.subtitle {
-  color: #808080;
-  font-size: 0.9em;
 }

@@ -1,0 +1,32 @@
+@value gap: 10px;
+@value icon-size: 36px;
+
+.feature {
+    display: flex;
+    padding: gap;
+    background: white;
+    border-radius: gap;
+    box-shadow: 0 0 3px 0 rgba(0,0,0,.3);
+    text-align: left;
+}
+
+.icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    margin-right: calc(gap / 2);
+    font-size: 2em;
+}
+
+.content {
+    line-height: 1.2;
+}
+
+.title {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.subtitle {
+    color: #808080;
+    font-size: 0.9em;
+}
