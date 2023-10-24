@@ -8,7 +8,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: '码上学英语',
   tagline: "Practice to Progress",
-  url: 'https://mashangxue.xyz',
+  url: 'https://justdo.in',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',

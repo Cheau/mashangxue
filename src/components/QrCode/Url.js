@@ -1,11 +1,13 @@
 import React from 'react'
 import { QRCode } from 'react-qrcode-logo'
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import logo from '@site/static/img/logo.png'
 
 import styles from './styles.module.css'
 
 export default function Url() {
-  const url = typeof window === 'undefined' ? 'https://mashangxue.xyz' : window.location.href
+  const { siteConfig } = useDocusaurusContext();
+  const url = typeof window === 'undefined' ? siteConfig.url : window.location.href
   return (
       <div className={styles.url}>
         <div>
@@ -17,7 +19,7 @@ export default function Url() {
           />
           <div className={styles.slogan}>
             访问网页，扫一扫<br/>
-            MaShangXue.xyz
+            {siteConfig.url.substr(siteConfig.url.indexOf('://') + 3)}
           </div>
         </div>
       </div>
