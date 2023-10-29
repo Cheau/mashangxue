@@ -1,12 +1,20 @@
 import { hookstate } from '@hookstate/core'
 import { localstored } from '@hookstate/localstored'
 
-const localStorage = {
-  data: {},
-  getItem: (key) => this.data[key],
-  setItem: (key, value) => this.data[key] = value,
-  removeItem: (key) => delete this.data[key],
-}
+const localStorage = (function () {
+  const data = {}
+  return {
+    getItem: (key) => {
+      return data[key]
+    },
+    setItem: (key, value) => {
+      data[key] = value
+    },
+    removeItem: (key) => {
+      delete data[key]
+    },
+  }
+})()
 
 const local = (key) => {
   const engine = typeof window === 'undefined' ? localStorage : window.localStorage
