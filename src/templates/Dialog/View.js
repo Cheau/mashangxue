@@ -32,7 +32,7 @@ function render(lexemes, marks, play) {
 
 export default function View({ lexemes = [], marks = {} }) {
   const presenting = usePresenting()
-  const { sentences, words } = useMemo(() => render(lexemes, marks, presenting.get()), [presenting.get()])
+  const { sentences, words } = useMemo(() => render(lexemes, marks, presenting.value), [presenting])
   return (
       <>
         <div className="article">{sentences}</div>

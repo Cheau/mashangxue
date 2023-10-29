@@ -16,7 +16,7 @@ export default function Sidebar() {
   const pathname = getPathname()
   return (
       <div className={clsx('sidebar', styles.sidebar)}>
-        <div className={clsx(styles.centered, { [styles.presenting]: presenting.get() })}>
+        <div className={clsx(styles.centered, { [styles.presenting]: presenting.value })}>
           <QrCode />
           {pathname !== '/' && <Features />}
         </div>

@@ -11,9 +11,9 @@ export default function QrCode() {
   const presenting = usePresenting()
   const index = useHookstate(0)
   const Component = useMemo(() => {
-    const Components = presenting.get() ? [Url] : [Url, Alipay]
-    return Components[index.get() % Components.length]
-  }, [presenting.get(), index.get()])
+    const Components = presenting.value ? [Url] : [Url, Alipay]
+    return Components[index.value % Components.length]
+  }, [presenting, index])
   useEffect(() => {
     const id = setInterval(() => index.set(i => i + 1), 11000)
     return () => clearInterval(id)
