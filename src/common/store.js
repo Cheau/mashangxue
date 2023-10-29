@@ -1,11 +1,7 @@
 import { hookstate } from '@hookstate/core'
+import { localstored } from '@hookstate/localstored'
 
-const withSession = (key, initial) => {
-  if (typeof sessionStorage === 'undefined') return hookstate(initial)
-  return hookstate(sessionStorage.getItem(key) ?? initial)
-}
-
-export const presenting = withSession('presenting', false)
+export const presenting = hookstate(false, localstored({ key: 'presenting' }))
 
 export default {
   presenting
