@@ -6,6 +6,8 @@ import styles from './styles.module.css'
 import prefetch from '../../common/prefetch'
 import Ribbon from '../Ribbon'
 
+const path = /(?<dir>.*\/)?(?<name>[^/.]+)(\.(?<ext>[^.]+$))?/
+
 export default function Image({
     alt,
     background,
@@ -24,9 +26,12 @@ export default function Image({
   const imageStyle = { ...style, background, paddingTop: `${ratio * 100}%` }
 
   const [attr, setAttr] = useState()
-  const [dir, name, ext = 'svg'] = useMemo(() => src.split(/[\/.]/), [src])
+  const {dir, name, ext = 'svg'} = useMemo(() => {
+    const { groups } = path.exec(src)
+    return groups
+  }, [src])
   useEffect(async () => {
-    const attrs = await prefetch(`/img/${dir}/${ext}.json`)
+    const attrs = await prefetch(`/img/${dir}${ext}.json`)
     if (attrs[name]) setAttr(attrs[name])
   }, [src])
   const imgStyle = useMemo(() => {
@@ -41,7 +46,7 @@ export default function Image({
           <LazyLoad once offset={100}>
             <img
                 alt={alt ?? name.split('.')[0]}
-                src={`/img/${dir}/${name}.${ext}`}
+                src={`/img/${dir}${name}.${ext}`}
                 style={imgStyle}
             />
           </LazyLoad>
