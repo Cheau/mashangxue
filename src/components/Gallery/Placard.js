@@ -7,8 +7,9 @@ import Image from '../Image'
 
 export default function Placard(props) {
   const {
-     badge, bg, channel, desc, image, link, title, x, y,
+     badge, bg, channel, desc, link, title, x, y,
   } = props
+  const imageSrc = /(?<=\/docs).+/.exec(link)[0]
   return (
       <div className={styles.placard}>
         <Image rounded shadowed
@@ -16,7 +17,7 @@ export default function Placard(props) {
             background={bg}
             left={x}
             ribbon={badge}
-            src={image}
+            src={imageSrc}
             onClick={() => window.location.href = link}
             top={y}
         >
