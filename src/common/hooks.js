@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 
+import { getSessionStorage } from './store'
+
 export const useSession = (key, defaultValue) => {
   const [value, setValue] = useState(() => {
-    const str = sessionStorage.getItem(key)
+    const str = getSessionStorage().getItem(key)
     if (str === undefined) return defaultValue
     try {
       return JSON.parse(str)
@@ -11,7 +13,7 @@ export const useSession = (key, defaultValue) => {
     }
   })
   useEffect(() => {
-    sessionStorage.setItem(key, typeof value === 'object' ? JSON.stringify(value) : value)
+    getSessionStorage().setItem(key, typeof value === 'object' ? JSON.stringify(value) : value)
   }, [value])
   return [value, setValue]
 }

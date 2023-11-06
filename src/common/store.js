@@ -1,7 +1,7 @@
 import { hookstate } from '@hookstate/core'
 import { localstored } from '@hookstate/localstored'
 
-const localStorage = (function () {
+const storage = function () {
   const data = {}
   return {
     getItem: (key) => {
@@ -14,10 +14,21 @@ const localStorage = (function () {
       delete data[key]
     },
   }
-})()
+}
+
+
+const localStorage = storage()
+export function getLocalStorage() {
+  return typeof window === 'undefined' ? localStorage : window.localStorage
+}
+
+const sessionStorage = storage()
+export function getSessionStorage() {
+  return typeof window === 'undefined' ? sessionStorage : window.sessionStorage
+}
 
 const local = (key) => {
-  const engine = typeof window === 'undefined' ? localStorage : window.localStorage
+  const engine = getLocalStorage()
   return localstored({ key, engine })
 }
 
