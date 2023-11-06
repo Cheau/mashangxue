@@ -52,7 +52,7 @@ export default function Image({
           </LazyLoad>
           <div className="full">{children}</div>
           <div className="attr" dangerouslySetInnerHTML={{ __html: attr }} />
-          <Ribbon>{ribbon}</Ribbon>
+          <Ribbon.Corner>{ribbon}</Ribbon.Corner>
         </div>
       </div>
   )
