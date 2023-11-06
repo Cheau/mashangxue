@@ -6,7 +6,7 @@ import logo from '@site/static/img/logo.png'
 import styles from './styles.module.css'
 
 export default function Url() {
-  const { siteConfig } = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext()
   const url = typeof window === 'undefined' ? siteConfig.url : window.location.href
   return (
       <div className={styles.url}>
@@ -18,8 +18,7 @@ export default function Url() {
               value={url}
           />
           <div className={styles.slogan}>
-            访问网页，扫一扫<br/>
-            {siteConfig.url.substr(siteConfig.url.indexOf('://') + 3)}
+            访问网页，扫一扫
           </div>
         </div>
       </div>

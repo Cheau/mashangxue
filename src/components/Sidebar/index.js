@@ -1,5 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 
 import styles from './styles.module.css'
 import { usePresenting } from '../../common/state'
@@ -12,12 +13,16 @@ const getPathname = () => {
 }
 
 export default function Sidebar() {
+  const { siteConfig } = useDocusaurusContext()
   const presenting = usePresenting()
   const pathname = getPathname()
   return (
       <div className={clsx('sidebar', styles.sidebar)}>
         <div className={clsx(styles.centered, { [styles.presenting]: presenting.value })}>
-          <QrCode />
+          <div className={styles.url}>
+            {siteConfig.url.slice(siteConfig.url.indexOf('://') + 3)}
+          </div>
+          {!presenting && <QrCode />}
           {pathname !== '/' && <Features />}
         </div>
       </div>
