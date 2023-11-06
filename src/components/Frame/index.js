@@ -14,7 +14,7 @@ export default function frame({
       <div className={styles.frame} style={{ paddingTop: `${ratio * 100}%` }}>
         <div className={styles.full}>
           <iframe allowFullScreen={Boolean(allowfullscreen)} frameBorder={frameborder} {...rest} />
-          <Ribbon>{ribbon}</Ribbon>
+          <Ribbon.Corner>{ribbon}</Ribbon.Corner>
         </div>
       </div>
   )
