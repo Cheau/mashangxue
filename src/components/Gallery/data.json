@@ -1,9 +1,17 @@
 [
   {
+    "badge": "Day 24",
+    "channel": "空中英语教室-日常对话",
+    "desc": "mandatory basic training, shortened, exchange program, job search",
+    "date": "2023/11/10",
+    "link": "/docs/studio-classroom/daily-conversation/024",
+    "title": "服兵役"
+  },
+  {
     "badge": "Day 23",
     "channel": "空中英语教室-日常对话",
     "desc": "shuttle service, regular schedule, book in advance, pickup location",
-    "date": "2023/10/30",
+    "date": "2023/11/9",
     "link": "/docs/studio-classroom/daily-conversation/023",
     "title": "饭店接驳服务"
   },
@@ -12,7 +20,7 @@
     "bg": "cornsilk",
     "channel": "空中英语教室-日常对话",
     "desc": "message",
-    "date": "2023/9/25",
+    "date": "2023/11/8",
     "link": "/docs/studio-classroom/daily-conversation/022",
     "title": "电话留言",
     "x": "-45%"
@@ -21,7 +29,7 @@
     "badge": "Day 21",
     "channel": "空中英语教室-日常对话",
     "desc": "diet coke, smoothies, mango, passion fruit, strawberry, appetizers",
-    "date": "2023/9/25",
+    "date": "2023/11/7",
     "link": "/docs/studio-classroom/daily-conversation/021",
     "title": "点饮料"
   },
