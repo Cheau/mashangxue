@@ -22,7 +22,7 @@ export default function Sidebar() {
           <div className={styles.url}>
             {siteConfig.url.slice(siteConfig.url.indexOf('://') + 3)}
           </div>
-          {!presenting && <QrCode />}
+          {!presenting.value && <QrCode />}
           {pathname !== '/' && <Features />}
         </div>
       </div>
