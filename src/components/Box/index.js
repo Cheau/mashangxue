@@ -1,4 +1,5 @@
 import React, { useRef } from 'react'
+import domToImage from 'dom-to-image'
 import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
 
@@ -13,18 +14,17 @@ const toCanvas = (src, callback = () => {}) => {
   html2canvas(src).then(callback)
 }
 
-const toJpeg = (src, title) => {
-  toCanvas(src, (canvas) => {
-    canvas.toBlob((blob) => {
-      const a = document.createElement('a')
-      a.href = window.URL.createObjectURL(blob)
-      a.download = `${title || getTitle()}.jpg`
-      a.click()
-    }, 'image/jpeg, 1.0')
+const toJpeg = (src, title, callback) => {
+  domToImage.toJpeg(src).then((dataUrl) => {
+    const a = document.createElement('a')
+    a.href = dataUrl
+    a.download = `${title || getTitle()}.jpg`
+    a.click()
+    callback()
   })
 }
 
-const toPdf = (src, title) => {
+const toPdf = (src, title, callback) => {
   toCanvas(src, (canvas) => {
     const imageData = canvas.toDataURL('image/jpeg', 1.0)
     const pdf = new jsPDF('portrait', 'px', [1600, 2000])
@@ -35,6 +35,7 @@ const toPdf = (src, title) => {
       y: 0,
     })
     pdf.save(`${title || getTitle()}.pdf`)
+    callback()
   })
 }
 
@@ -44,16 +45,23 @@ export default function Box(props) {
   } = props
   const mergedStyle = {
     position: 'relative',
+    width: 'fit-content',
     ...rest,
   }
   const boxRef = useRef()
+  const actionsRef = useRef()
+  const exp = (callback) => {
+    const { display } = actionsRef.current.style
+    actionsRef.current.style.display = 'none'
+    callback(boxRef.current, title, () => actionsRef.current.style.display = display)
+  }
   return (
       <div className={styles[paper]} style={mergedStyle} ref={boxRef}>
         {watermark && <div className={styles.watermark} />}
         {children}
-        <div className={styles.actions}>
-          {pic && <button onClick={() => toJpeg(boxRef.current, title)}>导出JPG</button>}
-          {pdf && <button onClick={() => toPdf(boxRef.current, title)}>导出PDF</button>}
+        <div className={styles.actions} ref={actionsRef}>
+          {pic && <button onClick={() => exp(toJpeg)}>导出JPG</button>}
+          {pdf && <button onClick={() => exp(toPdf)}>导出PDF</button>}
         </div>
       </div>
   )

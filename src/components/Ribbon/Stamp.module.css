@@ -1,0 +1,61 @@
+.stamp {
+    position: relative;
+    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, .35);
+    border-radius: 100%;
+    color: white;
+}
+
+.stamp strong {
+    width: 170%;
+    line-height: 1.5;
+    background: firebrick;
+    border: 2px solid white;
+    border-radius: 10px;
+}
+
+.stamp, .stamp strong {
+    box-shadow: 0 0 20px rgba(0,0,0,0.7);
+}
+
+.up > span, .low > span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    height: 50%;
+    font-weight: bold;
+}
+
+.up > span {
+    top: 0;
+    transform-origin: bottom center;
+}
+
+.low > span {
+    bottom: 0;
+    justify-content: end;
+    transform-origin: top center;
+}
+
+.inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    text-align: center;
+    position: absolute;
+    border: 1px solid white;
+    border-radius: 100%;
+}
+
+.rating {
+    display: inline-flex;
+    margin-top: .35em;
+    color: gold;
+}
+
+.date {
+    line-height: 1.1;
+    font-size: .7em;
+}

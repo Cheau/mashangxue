@@ -15,12 +15,12 @@
     "date": "2023/9/25",
     "link": "/docs/studio-classroom/daily-conversation/022",
     "title": "电话留言",
-    "x": "5%"
+    "x": "-45%"
   },
   {
     "badge": "Day 21",
     "channel": "空中英语教室-日常对话",
-    "desc": "diet, coke, smoothies, mango, passion fruit, strawberry, appetizers",
+    "desc": "diet coke, smoothies, mango, passion fruit, strawberry, appetizers",
     "date": "2023/9/25",
     "link": "/docs/studio-classroom/daily-conversation/021",
     "title": "点饮料"
@@ -64,7 +64,7 @@
     "date": "2023/7/17",
     "link": "/docs/studio-classroom/daily-conversation/016",
     "title": "登机报到",
-    "x": "20%"
+    "x": "-30%"
   },
   {
     "badge": "Day 15",
@@ -73,7 +73,7 @@
     "date": "2023/7/17",
     "link": "/docs/studio-classroom/daily-conversation/015",
     "title": "到警局备案",
-    "x": "5%"
+    "x": "-45%"
   },
   {
     "badge": "Day 14",
@@ -155,8 +155,8 @@
     "date": "2023/7/17",
     "link": "/docs/studio-classroom/daily-conversation/005",
     "title": "暴风雨",
-    "x": "70%",
-    "y": "35%"
+    "x": "20%",
+    "y": "-15%"
   },
   {
     "badge": "Day 4",
@@ -189,6 +189,6 @@
     "date": "2023/7/17",
     "link": "/docs/studio-classroom/daily-conversation/001",
     "title": "痘痘护理",
-    "x": "100%"
+    "x": "50%"
   }
 ]

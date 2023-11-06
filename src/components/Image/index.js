@@ -43,14 +43,14 @@ export default function Image({
   return (
       <div className={clsx(styles.image, 'image', { children, rounded })} style={imageStyle}>
         <div className={clsx('full', { linked: rest.onClick, rounded, shadowed })} {...rest}>
-          <LazyLoad once offset={100}>
+          <LazyLoad once offset={100} height="100%">
             <img
                 alt={alt ?? name.split('.')[0]}
                 src={`/img/${dir}${name}.${ext}`}
                 style={imgStyle}
             />
           </LazyLoad>
-          {children}
+          <div className="full">{children}</div>
           <div className="attr" dangerouslySetInnerHTML={{ __html: attr }} />
           <Ribbon>{ribbon}</Ribbon>
         </div>

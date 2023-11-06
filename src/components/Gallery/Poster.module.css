@@ -1,0 +1,60 @@
+@value gap: 20px;
+@value left-right: 160px;
+
+.poster {
+    max-height: calc(100vh - 80px);
+    max-width: calc(100vw - 80px);
+    overflow: auto;
+    color: white;
+    font-family: xiao-lai, sans-serif;
+    font-size: 56px;
+}
+
+.poster :global(.mail) {
+    position: relative;
+}
+
+.poster :global(.image .attr) {
+    top: unset;
+    bottom: 100px;
+}
+
+.poster .pill {
+    padding: .1em .5em;
+}
+
+.bar {
+    padding: 0 calc(gap * 4);
+    text-align: center;
+}
+
+.panel {
+    line-height: 1.1;
+    width: fit-content;
+    margin: gap left-right;
+    padding: calc(gap / 2) gap;
+    border-radius: gap;
+    font-weight: bold;
+}
+
+.panel > div {
+    display: flex;
+    align-items: center;
+}
+
+.heading {
+    position: absolute;
+    top: gap;
+    left: calc(gap + 80px);
+}
+
+.pill {
+    top: calc(gap * 2);
+    left: left-right;
+}
+
+.stamp {
+    position: absolute;
+    top: calc(gap * 4);
+    right: left-right;
+}
