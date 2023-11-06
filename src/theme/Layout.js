@@ -4,6 +4,7 @@
  */
 
 import React from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import clsx from 'clsx'
 import ErrorBoundary from '@docusaurus/ErrorBoundary'
 import {PageMetadata, ThemeClassNames} from '@docusaurus/theme-common'
@@ -52,6 +53,7 @@ export default function Layout(props) {
         </div>
 
         <Global />
+        <Analytics />
 
         {!noFooter && <Footer />}
       </LayoutProvider>
