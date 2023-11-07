@@ -18,7 +18,7 @@ export default {
     },
     {
       bg: 'cornsilk',
-      desc: 'message',
+      desc: 'out of the office, message, call someone back',
       title: '电话留言',
       x: '-45%',
     },
