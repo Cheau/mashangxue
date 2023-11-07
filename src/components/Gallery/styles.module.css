@@ -120,25 +120,3 @@
 .toolbox > span:hover {
   background: rgba(0, 0, 0, alpha);
 }
-
-.toolbox {
-  display: none;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, alpha);
-  border-radius: 10px 0 0 10px;
-  cursor: default;
-  font-size: 32px;
-  overflow: hidden;
-}
-
-.toolbox > span {
-  display: inline-flex;
-  padding: 10px;
-}
-
-.toolbox > span:hover {
-  background: rgba(0, 0, 0, alpha);
-}
