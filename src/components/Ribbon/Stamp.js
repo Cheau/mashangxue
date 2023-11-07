@@ -56,9 +56,7 @@ export default function Stamp({
       }}>
         {children || (
           <>
-            <div className={styles.rating}>
-              <Rate Icon={Icon} max={3} value={rate} />
-            </div>
+            <Rate Icon={Icon} max={3} value={rate} />
             <strong>{text}</strong>
             <div className={styles.date}>{date instanceof Date ? date.toLocaleDateString('zh-CN') : date}</div>
           </>

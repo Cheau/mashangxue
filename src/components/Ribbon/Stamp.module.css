@@ -18,6 +18,11 @@
     box-shadow: 0 0 20px rgba(0,0,0,0.7);
 }
 
+.stamp :global(.rate) {
+    display: inline-flex;
+    margin-top: .35em;
+}
+
 .up > span, .low > span {
     display: flex;
     flex-direction: column;
@@ -47,11 +52,6 @@
     position: absolute;
     border: 1px solid white;
     border-radius: 100%;
-}
-
-.rating {
-    display: inline-flex;
-    margin-top: .35em;
 }
 
 .date {
