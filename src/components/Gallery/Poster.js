@@ -13,7 +13,7 @@ const height = 720
 
 export default function Poster(props) {
   const {
-    badge, bg, ctx, date, desc, link, title,
+    badge, bg, ctx, date, desc, link, rate, title,
   } = props
   const imageSrc = /(?<=\/docs).+/.exec(link)[0]
   const keywords = desc.split(', ').map((words, i) => <div key={i}><FcApproval />{words}</div>)
@@ -40,7 +40,7 @@ export default function Poster(props) {
               </div>
             </div>
             <div className={poster.stamp} style={{ transform: `rotate(${(Math.random() - 0.5) * 60}deg)` }}>
-              <Ribbon.Stamp text={`${badge} 打卡`} date={date} />
+              <Ribbon.Stamp text={`${badge} 打卡`} date={date} rate={rate} />
             </div>
           </Ribbon.Mail>
         </Box>

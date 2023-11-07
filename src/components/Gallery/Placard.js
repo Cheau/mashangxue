@@ -8,10 +8,13 @@ import { usePresenting } from '../../common/state'
 import Image from '../Image'
 import Modal from '../Modal'
 import Poster from './Poster'
+import Rate from '../Rate'
+
+const difficulties = ['', '较低', '中等', '较高']
 
 export default function Placard(props) {
   const {
-    badge, bg, desc, link, title, x, y,
+    badge, bg, desc, link, rate = 1, title, x, y,
   } = props
   const presenting = usePresenting()
   const [open, setOpen] = useState(false)
@@ -33,6 +36,9 @@ export default function Placard(props) {
         >
           <div className={clsx(styles.pill, styles.blur)}>{title}</div>
           <div className={clsx(styles.footer)}>
+            <div className={styles.rate} title={`难度：${difficulties[rate]}`}>
+              <Rate max={3} value={rate} />
+            </div>
             <div className={clsx(styles.bar, styles.blur)}>
               <div className={styles.main}>
                 <span className={styles.icon}><FcInspection /></span>

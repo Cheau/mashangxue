@@ -8,10 +8,12 @@ export default {
   data: [
     {
       desc: 'mandatory basic training, shortened, exchange program, job search',
+      rate: 2,
       title: '服兵役',
     },
     {
       desc: 'shuttle service, regular schedule, book in advance, pickup location',
+      rate: 3,
       title: '饭店接驳服务',
     },
     {
@@ -22,6 +24,7 @@ export default {
     },
     {
       desc: 'diet coke, smoothies, mango, passion fruit, strawberry, appetizers',
+      rate: 2,
       title: '点饮料',
     },
     {
@@ -31,21 +34,25 @@ export default {
     },
     {
       desc: 'scoop, cone, wafer, waffle, flavor, sorbet',
+      rate: 2,
       title: '点冰淇淋',
     },
     {
       desc: 'earthquake, scale, epicenter, collapse, aftershock',
       date: '2023/11/1',
+      rate: 3,
       title: '地震',
     },
     {
       desc: 'hiking, club, skill, level, overseas, upcoming',
       date: '2023/10/31',
+      rate: 3,
       title: '登山踏青',
     },
     {
       desc: 'check in, baggage, scale, boarding pass, security check',
       date: '2023/10/29',
+      rate: 2,
       title: '登机报到',
       x: '-30%',
     },
@@ -57,10 +64,12 @@ export default {
     {
       bg: 'lightblue',
       desc: 'sophomore, freshman, major, minor, workload, graduate',
+      rate: 3,
       title: '大学主修',
     },
     {
       desc: 'sick leave, nasty, take care of, pitch',
+      rate: 3,
       title: '打电话请病假',
     },
     {
@@ -73,10 +82,12 @@ export default {
     },
     {
       desc: 'flight, process, nightmare, grounded, connection, delay',
+      rate: 3,
       title: '错过班机',
     },
     {
       desc: 'rescued, shelter, breed, landlord, lease, dog-sit',
+      rate: 3,
       title: '宠物',
     },
     {
@@ -89,16 +100,19 @@ export default {
     },
     {
       desc: 'order, restaurant, delivery, venture, lousy, convenient',
+      rate: 2,
       title: '餐饮外送App',
     },
     {
       desc: 'soaked, change, rainstorm, lifesaver, weather forecast',
+      rate: 3,
       title: '暴风雨',
       x: '20%',
       y: '-15%',
     },
     {
       desc: 'sign up, gym, membership, monthly, initiation, fill out',
+      rate: 2,
       title: '报名健身',
     },
     {
@@ -112,6 +126,7 @@ export default {
     {
       desc: 'Band-Aid, acne, patch, pimple, over-the-counter, dermatologist, prescription, laser, scars, complain',
       date: '2023/7/17',
+      rate: 3,
       title: '痘痘护理',
       x: '50%',
     }

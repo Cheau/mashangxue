@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styles from './Stamp.module.css'
-import { FaStar } from 'react-icons/fa'
+import Rate from '../Rate'
 
 const lineHeight = 1.5
 
@@ -27,7 +27,8 @@ const rotate = (fontSize, text, up = false) => {
 export default function Stamp({
   children,
   date = new Date(),
-  rating = <><FaStar /><FaStar /><FaStar /></>,
+  Icon,
+  rate,
   size = 400,
   text = '打卡',
   lower = 'Just do IT',
@@ -55,7 +56,9 @@ export default function Stamp({
       }}>
         {children || (
           <>
-            <div className={styles.rating}>{rating}</div>
+            <div className={styles.rating}>
+              <Rate Icon={Icon} max={3} value={rate} />
+            </div>
             <strong>{text}</strong>
             <div className={styles.date}>{date instanceof Date ? date.toLocaleDateString('zh-CN') : date}</div>
           </>
