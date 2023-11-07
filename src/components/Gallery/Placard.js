@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import clsx from 'clsx'
-import { FcInspection, FcHome } from 'react-icons/fc'
+import { FcInspection } from 'react-icons/fc'
 import { FaStamp } from 'react-icons/fa'
 
 import styles from './styles.module.css'
@@ -11,7 +11,7 @@ import Poster from './Poster'
 
 export default function Placard(props) {
   const {
-    badge, bg, channel, desc, link, title, x, y,
+    badge, bg, desc, link, title, x, y,
   } = props
   const presenting = usePresenting()
   const [open, setOpen] = useState(false)
@@ -37,10 +37,6 @@ export default function Placard(props) {
               <div className={styles.main}>
                 <span className={styles.icon}><FcInspection /></span>
                 {desc}
-              </div>
-              <div className={styles.sub}>
-                <span className={styles.icon}><FcHome /></span>
-                {channel}
               </div>
             </div>
           </div>

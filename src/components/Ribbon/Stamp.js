@@ -57,7 +57,7 @@ export default function Stamp({
           <>
             <div className={styles.rating}>{rating}</div>
             <strong>{text}</strong>
-            <div className={styles.date}>{date.toLocaleDateString('zh-CN')}</div>
+            <div className={styles.date}>{date instanceof Date ? date.toLocaleDateString('zh-CN') : date}</div>
           </>
         )}
       </div>

@@ -1,0 +1,22 @@
+@media screen and (min-width: 768px) and (max-width: 996px) {
+    .gallery :global(.col) {
+        --ifm-col-width: 50%;
+    }
+}
+
+.channel {
+    width: 100%;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.title > svg {
+    margin-right: 10px;
+    font-size: 2em;
+}
