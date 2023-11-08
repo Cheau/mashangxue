@@ -7,6 +7,10 @@ export default {
   dir: '/docs/studio-classroom/daily-conversation',
   data: [
     {
+      desc: 'sweater, in stock, location',
+      title: '服饰店',
+    },
+    {
       desc: 'mandatory basic training, shortened, exchange program, job search',
       rate: 2,
       title: '服兵役',
