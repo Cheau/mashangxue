@@ -1,4 +1,5 @@
 import React from 'react'
+import BrowserOnly from '@docusaurus/BrowserOnly'
 
 import styles from './styles.module.css'
 import Ribbon from '../Ribbon'
@@ -12,6 +13,7 @@ export default function frame({
     ...rest
 }) {
   return (
+    <BrowserOnly>
       <div className={styles.frame} style={{ paddingTop: `${ratio * 100}%` }}>
         <div className={styles.full}>
           <iframe
@@ -23,5 +25,6 @@ export default function frame({
           <Ribbon.Corner>{ribbon}</Ribbon.Corner>
         </div>
       </div>
+    </BrowserOnly>
   )
 }
