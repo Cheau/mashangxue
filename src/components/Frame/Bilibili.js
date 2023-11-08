@@ -11,7 +11,7 @@ export default function Bilibili({
   const isBrowser = useIsBrowser()
   const path = isBrowser ? window.location.pathname : ''
   const { groups = {} } = /(?<index>[1-9]\d*)$/.exec(path) || {}
-  const ribbon = `Day ${groups.index}`
+  const ribbon = groups.index ? `Day ${groups.index}` : undefined
   const src = `//player.bilibili.com/player.html?aid=${aid}&bvid=${bvid}&p=${p ?? groups.index}`
   return <Frame ribbon={ribbon} src={src} />
 }
