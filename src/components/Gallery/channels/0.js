@@ -7,6 +7,11 @@ export default {
   dir: '/docs/studio-classroom/daily-conversation',
   data: [
     {
+      desc: 'telecom store, skybridge, escalators, supermarket',
+      rate: 2,
+      title: '服务台',
+    },
+    {
       desc: 'sweater, in stock, location',
       title: '服饰店',
     },
