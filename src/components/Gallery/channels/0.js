@@ -10,6 +10,11 @@ export default {
   Player: DailyConversation,
   data: [
     {
+      desc: 'dress code, semi-formal, tuxedo, overdressing, business casual, cocktail dress',
+      rate: 3,
+      title: '服装规定',
+    },
+    {
       desc: 'telecom store, skybridge, escalators, supermarket',
       rate: 2,
       title: '服务台',
