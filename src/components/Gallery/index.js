@@ -6,24 +6,23 @@ import * as channels from './channels'
 import Placard from './Placard'
 
 function make(channel) {
-  const {
-    data, dir, icon, title,
-  } = channel
+  const { data, ...ctx} = channel
+  const { dir, icon, title } = ctx
   let date = new Date()
   const cards = []
   for (let i = data.length - 1; i >= 0; i--) {
     const datum = data[i]
     if (datum.date) date = new Date(datum.date)
-    const day = cards.length + 1
-    const link = `${dir}/${day.toString().padStart(3, '0')}`
+    const order = cards.length + 1
+    const link = `${dir}/${order.toString().padStart(3, '0')}`
     cards.unshift((
       <div key={i} className={clsx('col', 'col--4')}>
         <Placard
           {...datum}
-          badge={`Day ${day}`}
-          ctx={{ icon, title }}
+          ctx={ctx}
           date={date.toLocaleDateString('zh-CN')}
           link={link}
+          order={order}
         />
       </div>
     ))

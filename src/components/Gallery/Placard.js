@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import clsx from 'clsx'
 import { FcInspection } from 'react-icons/fc'
-import { FaStamp } from 'react-icons/fa'
+import { FaStamp, FaVideo } from 'react-icons/fa'
 
 import styles from './styles.module.css'
 import { usePresenting } from '../../common/state'
@@ -10,26 +10,30 @@ import Modal from '../Modal'
 import Poster from './Poster'
 import Rate from '../Rate'
 
-const difficulties = ['', '较低', '中等', '较高']
+const difficulties = ['', '较低', '适中', '较高']
+
+const stop = (func) => (e) => {
+  e.stopPropagation()
+  func()
+}
 
 export default function Placard(props) {
   const {
-    badge, bg, desc, link, rate = 1, title, x, y,
+    bg, ctx: { Player }, desc, link, order, rate = 1, title, x, y,
   } = props
   const presenting = usePresenting()
-  const [open, setOpen] = useState(false)
+  const [previewing, setPreviewing] = useState(false)
+  const [punching, setPunching] = useState(false)
   const imageSrc = /(?<=\/docs).+/.exec(link)[0]
-  const punch = (e) => {
-    e.stopPropagation()
-    setOpen(true)
-  }
+  const preview = stop(() => setPreviewing(true))
+  const punch = stop(() => setPunching(true))
   return (
       <div className={styles.placard}>
         <Image rounded shadowed
                alt={title}
                background={bg}
                left={x}
-               ribbon={badge}
+               ribbon={`Day ${order}`}
                src={imageSrc}
                onClick={() => window.location.href = link}
                top={y}
@@ -47,10 +51,14 @@ export default function Placard(props) {
             </div>
           </div>
           {presenting.value && <div className={styles.toolbox}>
+            <span onClick={preview} onDoubleClick={stop(() => setPreviewing(false))} title="预览"><FaVideo /></span>
             <span onClick={punch} title="打卡"><FaStamp /></span>
           </div>}
         </Image>
-        <Modal open={open} onClose={() => setOpen(false)}>
+        {previewing && (
+          <div className={styles.player}><Player order={order} /></div>
+        )}
+        <Modal open={punching} onClose={() => setPunching(false)}>
           <Poster {...props} />
         </Modal>
       </div>

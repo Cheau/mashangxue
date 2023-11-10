@@ -1,4 +1,5 @@
-@value alpha: 0.35;
+@value alpha: 0.3;
+@value alpha-dual: calc(alpha * 2);
 @value blur-radius: 2px;
 @value blur-hover-radius: 4px;
 @value gap: 20px;
@@ -16,6 +17,7 @@
 }
 
 .placard {
+  position: relative;
   padding: gap 0;
   color: white;
 }
@@ -39,20 +41,14 @@
 }
 
 .placard:hover .blur {
+  background: rgba(0,0,0,alpha-dual);
   backdrop-filter: blur(blur-hover-radius);
   -webkit-backdrop-filter: blur(blur-hover-radius);
 }
 
-.placard:hover .blur {
-  background: rgba(0,0,0,calc(alpha * 2));
-}
-
 .placard:hover .toolbox {
   display: flex;
-}
-
-.placard:hover .toolbox {
-  display: flex;
+  flex-direction: column;
 }
 
 .pill {
@@ -125,4 +121,25 @@
 
 .toolbox > span:hover {
   background: rgba(0, 0, 0, alpha);
+}
+
+@value video-width: 640px;
+@value player-border: 10px;
+.player {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% - player-border);
+  width: calc(video-width + player-border * 2);
+  margin-left: calc((video-width + player-border) / -2);
+  border: player-border solid rgba(0, 0, 0, alpha-dual);
+  border-radius: player-border;
+}
+
+.player::after {
+  content: '';
+  position: absolute;
+  top: calc(100% + player-border);
+  left: calc(50% - player-border);
+  border: player-border solid transparent;
+  border-top-color: rgba(0, 0, 0, alpha-dual);
 }

@@ -1,10 +1,13 @@
 import React from 'react'
 import { FcHome } from 'react-icons/fc'
 
+import DailyConversation from '../../Frame/studio-classroom/daily-conversation'
+
 export default {
   icon: <FcHome />,
   title: '空中英语教室-日常对话',
   dir: '/docs/studio-classroom/daily-conversation',
+  Player: DailyConversation,
   data: [
     {
       desc: 'telecom store, skybridge, escalators, supermarket',
