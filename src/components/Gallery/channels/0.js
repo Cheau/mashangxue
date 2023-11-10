@@ -16,7 +16,7 @@ export default {
     },
     {
       desc: 'telecom store, skybridge, escalators, supermarket',
-      rate: 2,
+      rate: 3,
       title: '服务台',
     },
     {
