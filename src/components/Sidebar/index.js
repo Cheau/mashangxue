@@ -20,7 +20,7 @@ export default function Sidebar() {
       <div className={clsx('sidebar', styles.sidebar)}>
         <div className={clsx(styles.centered, { [styles.presenting]: presenting.value })}>
           <div className={styles.url}>
-            {siteConfig.url.slice(siteConfig.url.indexOf('://') + 3)}
+            网站地址<br />{siteConfig.url.slice(siteConfig.url.indexOf('://') + 3)}
           </div>
           {!presenting.value && <QrCode />}
           {pathname !== '/' && <Features />}
