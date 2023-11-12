@@ -10,6 +10,11 @@ export default {
   Player: DailyConversation,
   data: [
     {
+      desc: 'cold, cough, flu, symptom, body aches, fever',
+      rate: 2,
+      title: '感冒和流感',
+    },
+    {
       desc: 'dress code, semi-formal, tuxedo, overdressing, business casual, cocktail dress',
       rate: 3,
       title: '服装规定',
