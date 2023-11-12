@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import clsx from 'clsx'
 import { FcInspection } from 'react-icons/fc'
 import { FaStamp, FaVideo } from 'react-icons/fa'
@@ -23,10 +23,14 @@ export default function Placard(props) {
   } = props
   const presenting = usePresenting()
   const [previewing, setPreviewing] = useState(false)
+  const [visibility, setVisibility] = useState('hidden')
   const [punching, setPunching] = useState(false)
   const imageSrc = /(?<=\/docs).+/.exec(link)[0]
   const preview = stop(() => setPreviewing(true))
   const punch = stop(() => setPunching(true))
+  useEffect(() => {
+    if (!previewing) setVisibility('hidden')
+  }, [previewing])
   return (
       <div className={styles.placard}>
         <Image rounded shadowed
@@ -50,13 +54,21 @@ export default function Placard(props) {
               </div>
             </div>
           </div>
-          {presenting.value && <div className={styles.toolbox}>
-            <span onClick={preview} onDoubleClick={stop(() => setPreviewing(false))} title="预览"><FaVideo /></span>
-            <span onClick={punch} title="打卡"><FaStamp /></span>
-          </div>}
+          {presenting.value && (
+            <div className={styles.toolbox}>
+              <span
+                  onMouseEnter={preview}
+                  onClick={stop(() => setVisibility('visible'))}
+                  onDoubleClick={stop(() => setPreviewing(false))}
+                  title="预览">
+                <FaVideo />
+              </span>
+              <span onClick={punch} title="打卡"><FaStamp /></span>
+            </div>
+          )}
         </Image>
         {previewing && (
-          <div className={styles.player}><Player order={order} /></div>
+          <div className={styles.player} style={{ visibility }}><Player order={order} /></div>
         )}
         <Modal open={punching} onClose={() => setPunching(false)}>
           <Poster {...props} />
