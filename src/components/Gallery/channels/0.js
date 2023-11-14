@@ -10,6 +10,10 @@ export default {
   Player: DailyConversation,
   data: [
     {
+      desc: 'ticket, zone',
+      title: '购买地铁票',
+    },
+    {
       desc: 'cold, cough, flu, symptom, body aches, fever',
       rate: 2,
       title: '感冒和流感',
