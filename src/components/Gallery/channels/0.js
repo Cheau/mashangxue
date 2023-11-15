@@ -14,6 +14,7 @@ export default {
       title: '购买地铁票',
     },
     {
+      date: '2023/11/15',
       desc: 'cold, cough, flu, symptom, body aches, fever',
       rate: 2,
       title: '感冒和流感',
