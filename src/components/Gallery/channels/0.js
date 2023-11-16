@@ -10,6 +10,11 @@ export default {
   Player: DailyConversation,
   data: [
     {
+      desc: 'half size, tight, pinch, comfortable, loose, heel',
+      rate: 2,
+      title: '购买鞋子',
+    },
+    {
       desc: 'ticket, zone',
       title: '购买地铁票',
     },
