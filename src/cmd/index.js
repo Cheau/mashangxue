@@ -20,9 +20,9 @@ export default class Cmd {
       return strOrArr.map((item) => {
         if (typeof item === 'string') return item
         if (item instanceof Object) {
-          const { props: { mdxType, children } } = item
+          const { props: { children }, type: { name } } = item
           const text = this.#stringify(children)
-          return `<${mdxType}>${text}</${mdxType}>`
+          return `<${name}>${text}</${name}>`
         }
         return ''
       }).join('')

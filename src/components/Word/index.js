@@ -65,14 +65,17 @@ function Word(props) {
     word, partOfSpeech, defIndex, data, setData, card,
   } = local
 
-  useEffect(async () => {
-    if (!word) return
-    const definition = await query(word)
-    if (definition) {
-      definition.word = word
-      if (partOfSpeech) definition['meanings'][partOfSpeech][defIndex - 1]['matched'] = true
+  useEffect(() => {
+    async function load() {
+      if (!word) return
+      const definition = await query(word)
+      if (definition) {
+        definition.word = word
+        if (partOfSpeech) definition['meanings'][partOfSpeech][defIndex - 1]['matched'] = true
+      }
+      setData(definition)
     }
-    setData(definition)
+    load()
   }, [word])
   if (data && data.word !== word) setData(undefined)
 

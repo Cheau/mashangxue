@@ -8,8 +8,8 @@ import ref from './ref'
 import View from './View'
 
 const marks = {
-  '#': heading,
-  '##': heading,
+  'h1': heading,
+  'h4': heading,
   '[]': ref,
   '![]()': image,
 }

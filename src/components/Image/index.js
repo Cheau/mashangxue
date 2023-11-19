@@ -30,9 +30,12 @@ export default function Image({
     const { groups } = path.exec(src)
     return groups
   }, [src])
-  useEffect(async () => {
-    const attrs = await prefetch(`/img/${dir}${ext}.json`)
-    if (attrs[name]) setAttr(attrs[name])
+  useEffect(() => {
+    async function load() {
+      const attrs = await prefetch(`/img/${dir}${ext}.json`)
+      if (attrs[name]) setAttr(attrs[name])
+    }
+    load()
   }, [src])
   const imgStyle = useMemo(() => {
     const o = {}

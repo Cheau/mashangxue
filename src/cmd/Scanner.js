@@ -49,7 +49,7 @@ class Scanner {
   }
 
   forward(offset = 1) {
-    if (offset < 0 || offset > this.#source.length - 1 - this.#current) throw new Error('offset is invalid.')
+    if (offset < 0 || offset > this.#source.length - this.#current) throw new Error('offset is invalid.')
     this.#current += offset
   }
 
