@@ -9,6 +9,7 @@ import Image from '../Image'
 import Modal from '../Modal'
 import Poster from './Poster'
 import Rate from '../Rate'
+import Slide from './Slide'
 
 const difficulties = ['', '较低', '适中', '较高']
 
@@ -19,7 +20,7 @@ const stop = (func) => (e) => {
 
 export default function Placard(props) {
   const {
-    bg, ctx: { Player }, desc, link, order, rate = 1, title, x, y,
+    bg, ctx: { Player }, desc, hints = [], link, order, rate = 1, title, x, y,
   } = props
   const presenting = usePresenting()
   const [previewing, setPreviewing] = useState(false)
@@ -42,7 +43,7 @@ export default function Placard(props) {
                onClick={() => window.location.href = link}
                top={y}
         >
-          <div className={clsx(styles.pill, styles.blur)}>{title}</div>
+          {previewing && <Slide>{hints}</Slide>}
           <div className={clsx(styles.footer)}>
             <div className={styles.rate} title={`难度：${difficulties[rate]}`}>
               <Rate max={3} value={rate} />
@@ -54,7 +55,9 @@ export default function Placard(props) {
               </div>
             </div>
           </div>
-          {presenting.value && (
+        </Image>
+        <div className={clsx(styles.pill, styles.blur)}>{title}</div>
+        {presenting.value && (
             <div className={styles.toolbox}>
               <span
                   onMouseEnter={preview}
@@ -65,8 +68,7 @@ export default function Placard(props) {
               </span>
               <span onClick={punch} title="打卡"><FaStamp /></span>
             </div>
-          )}
-        </Image>
+        )}
         {previewing && (
           <div className={styles.player} style={{ visibility }}><Player order={order} /></div>
         )}

@@ -54,7 +54,7 @@
 .pill {
   display: inline-block;
   position: absolute;
-  top: gap;
+  top: calc(gap * 2);
   left: gap;
   background: rgba(0, 0, 0, alpha);
   border-radius: 1.5em;
