@@ -14,7 +14,7 @@ export default function Slide({ children }) {
   const slides = children.map((hint, i) => <SwiperSlide key={i} className={slideNames[i]}>{hint}</SwiperSlide>)
   return (
       <div className={styles.slide}>
-        <Swiper modules={[Keyboard, Pagination]} keyboard pagination>
+        <Swiper modules={[Keyboard, Pagination]} keyboard loop pagination>
           <SwiperSlide />
           {slides}
         </Swiper>
