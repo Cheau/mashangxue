@@ -18,7 +18,7 @@ export default {
     {
       date: '2023/11/20',
       desc: 'half size, tight, pinch, comfortable, loose, heel',
-      hints: ['正好放下一根手指', '太紧', '太松', '感觉舒适'],
+      hints: ['正好放下一根手指', '舒适', '太紧', '太松'],
       rate: 2,
       title: '购买鞋子',
     },
