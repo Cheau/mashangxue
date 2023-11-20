@@ -46,11 +46,6 @@
   -webkit-backdrop-filter: blur(blur-hover-radius);
 }
 
-.placard:hover .toolbox {
-  display: flex;
-  flex-direction: column;
-}
-
 .pill {
   display: inline-block;
   position: absolute;
@@ -102,7 +97,8 @@
 }
 
 .toolbox {
-  display: none;
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 50%;
   right: 0;
@@ -119,7 +115,12 @@
   padding: 10px;
 }
 
-.toolbox > span:hover {
+.toolbox > :global(span.active) {
+  background: rgb(239, 179, 11);
+  color: black;
+}
+
+.toolbox > :global(span:not(.active):hover) {
   background: rgba(0, 0, 0, alpha);
 }
 

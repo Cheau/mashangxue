@@ -68,9 +68,10 @@ export default function Placard(props) {
           </div>
         </Image>
         <div className={clsx(styles.pill, styles.blur)}>{title}</div>
-        {hovering && (
+        {(hovering || visible) && (
             <div className={styles.toolbox}>
               <span
+                className={clsx({ active: visible })}
                 onMouseEnter={preview}
                 onClick={togglePreview}
                 title={visible ? '关闭预览' : '预览视频'}
