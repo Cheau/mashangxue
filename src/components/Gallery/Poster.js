@@ -14,11 +14,11 @@ const height = 720
 
 export default function Poster(props) {
   const {
-    bg, ctx, date, desc, link, order, rate, title,
+    bg, ctx, date, desc, hints, link, order, rate, title,
   } = props
   const presenting = usePresenting()
   const imageSrc = /(?<=\/docs).+/.exec(link)[0]
-  const keywords = desc.split(', ').map((words, i) => <div key={i}><FcApproval />{words}</div>)
+  const keywords = (presenting.value ? (hints ?? desc.split(', ')) : desc.split(', '))
   return (
       <div className={poster.poster}>
         <Box pic>
@@ -32,7 +32,7 @@ export default function Poster(props) {
             <div className={clsx(poster.pill, placard.pill, placard.blur)}>{title}</div>
             <div className={clsx(placard.footer)}>
               <div className={clsx(poster.panel, placard.blur)}>
-                {keywords}
+                {keywords.map((words, i) => <div key={i}><FcApproval />{words}</div>)}
               </div>
               <div className={clsx(poster.bar, placard.bar, placard.blur)}>
                 <div className={placard.sub}>

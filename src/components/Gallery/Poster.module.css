@@ -30,7 +30,7 @@
 
 .panel {
     line-height: 1.1;
-    width: fit-content;
+    max-width: 25%;
     margin: gap left-right;
     padding: calc(gap / 2) gap;
     border-radius: gap;
@@ -40,6 +40,10 @@
 .panel > div {
     display: flex;
     align-items: center;
+}
+
+.panel svg {
+    flex: none;
 }
 
 .heading {
