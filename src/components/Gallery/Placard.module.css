@@ -116,7 +116,7 @@
 }
 
 .toolbox > :global(span.active) {
-  background: rgb(239, 179, 11);
+  background: gold;
   color: black;
 }
 

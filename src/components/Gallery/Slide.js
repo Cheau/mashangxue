@@ -7,7 +7,7 @@ import 'swiper/css/keyboard'
 import 'swiper/css/pagination'
 import styles from './Slide.module.css'
 
-const slideNames = ['blue', 'red', 'yellow', 'green', 'black']
+const slideNames = ['blue', 'red', 'green', 'yellow', 'black']
 
 export default function Slide({ children }) {
   if (!children) return null
