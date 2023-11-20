@@ -10,6 +10,13 @@ export default {
   Player: DailyConversation,
   data: [
     {
+      desc: 'inspection, dent, covered, collision damage waiver',
+      hints: ['还车检出凹痕', '被保险涵盖', '车辆碰撞险'],
+      rate: 3,
+      title: '归还租车',
+    },
+    {
+      date: '2023/11/20',
       desc: 'half size, tight, pinch, comfortable, loose, heel',
       hints: ['正好放下一根手指', '太紧', '太松', '感觉舒适'],
       rate: 2,
