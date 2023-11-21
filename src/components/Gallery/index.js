@@ -7,14 +7,14 @@ import Placard from './Placard'
 
 function make(channel) {
   const { data, ...ctx} = channel
-  const { dir, icon, title } = ctx
+  const { icon, title } = ctx
   let date = new Date()
   const cards = []
   for (let i = data.length - 1; i >= 0; i--) {
     const datum = data[i]
     if (datum.date) date = new Date(datum.date)
     const order = cards.length + 1
-    const link = `${dir}/${order.toString().padStart(3, '0')}`
+    const link = ctx.link(order)
     cards.unshift((
       <div key={i} className={clsx('col', 'col--4')}>
         <Placard
@@ -23,6 +23,9 @@ function make(channel) {
           date={date.toLocaleDateString('zh-CN')}
           link={link}
           order={order}
+          rounded
+          shadowed
+          tool
         />
       </div>
     ))

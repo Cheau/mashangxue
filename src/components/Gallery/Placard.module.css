@@ -4,12 +4,6 @@
 @value blur-hover-radius: 4px;
 @value gap: 20px;
 
-@media screen and (min-width: 768px) {
-  .placard:hover {
-    transform: translateY(-10px);
-  }
-}
-
 .blur {
   background: rgba(0, 0, 0, alpha);
   backdrop-filter: blur(blur-radius);
@@ -18,7 +12,6 @@
 
 .placard {
   position: relative;
-  padding: gap 0;
   color: white;
 }
 
@@ -49,7 +42,7 @@
 .pill {
   display: inline-block;
   position: absolute;
-  top: calc(gap * 2);
+  top: gap;
   left: gap;
   background: rgba(0, 0, 0, alpha);
   border-radius: 1.5em;

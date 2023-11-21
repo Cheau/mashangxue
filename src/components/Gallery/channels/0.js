@@ -6,7 +6,7 @@ import DailyConversation from '../../Frame/studio-classroom/daily-conversation'
 export default {
   icon: <FcHome />,
   title: '空中英语教室-日常对话',
-  dir: '/docs/studio-classroom/daily-conversation',
+  link: (order) => `/docs/studio-classroom/daily-conversation/${order.toString().padStart(3, '0')}`,
   Player: DailyConversation,
   data: [
     {

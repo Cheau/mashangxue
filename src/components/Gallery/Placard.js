@@ -20,7 +20,8 @@ const stop = (func) => (e) => {
 
 export default function Placard(props) {
   const {
-    bg, ctx: { Player }, desc, hints = [], link, order, rate = 1, title, x, y,
+    bg = 'white', ctx, desc, hints = [], link, order,
+    rate = 1, ratio = 1, rounded = false, shadowed = false, title, tool = false, x, y,
   } = props
   const presenting = usePresenting()
   const [hovering, setHovering] = useState(false)
@@ -44,12 +45,13 @@ export default function Placard(props) {
     if (!previewing) setVisible(false)
   }, [previewing])
   return (
-      <div className={styles.placard} onMouseEnter={toggleHover} onMouseLeave={toggleHover}>
-        <Image rounded shadowed
+      <div className={clsx('placard', styles.placard)} onMouseEnter={toggleHover} onMouseLeave={toggleHover}>
+        <Image rounded={rounded} shadowed={shadowed}
                alt={title}
                background={bg}
                left={x}
-               ribbon={`Day ${order}`}
+               ratio={ratio}
+               ribbon={order ? `Day ${order}` : undefined}
                src={imageSrc}
                onClick={() => window.location.href = link}
                top={y}
@@ -59,16 +61,16 @@ export default function Placard(props) {
             <div className={styles.rate} title={`难度：${difficulties[rate]}`}>
               <Rate max={3} value={rate} />
             </div>
-            <div className={clsx(styles.bar, styles.blur)}>
+            {desc && <div className={clsx(styles.bar, styles.blur)}>
               <div className={styles.main}>
                 <span className={styles.icon}><FcInspection /></span>
                 {desc}
               </div>
-            </div>
+            </div>}
           </div>
         </Image>
         <div className={clsx(styles.pill, styles.blur)}>{title}</div>
-        {(hovering || visible) && (
+        {tool && (hovering || visible) && (
             <div className={styles.toolbox}>
               <span
                 className={clsx({ active: visible })}
@@ -81,9 +83,9 @@ export default function Placard(props) {
               <span onClick={punch} title="学习打卡"><FaStamp /></span>
             </div>
         )}
-        {previewing && (
+        {ctx?.Player && previewing && (
           <div className={styles.player} style={{ visibility: visible ? 'visible' : 'hidden' }}>
-            <Player order={order} />
+            <ctx.Player order={order} />
           </div>
         )}
         <Modal open={punching} onClose={() => setPunching(false)}>
