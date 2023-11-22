@@ -28,6 +28,12 @@ const config = {
     locales: ['zh-Hans'],
   },
 
+  // Mermaid config.
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
+
   presets: [
     [
       'classic',
@@ -126,6 +132,10 @@ const config = {
           },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} 码上学英语`,
+      },
+      mermaid: {
+        // https://mermaid.js.org/config/theming.html#available-themes
+        theme: {light: 'base', dark: 'forest'},
       },
       prism: {
         additionalLanguages: ['bash', 'diff', 'json'],
