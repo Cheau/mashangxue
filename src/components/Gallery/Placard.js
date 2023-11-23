@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import clsx from 'clsx'
 import { FcInspection } from 'react-icons/fc'
 import { FaStamp, FaVideo } from 'react-icons/fa'
@@ -24,6 +24,7 @@ export default function Placard(props) {
     rate = 1, ratio = 1, rounded = false, shadowed = false, title, tool = false, x, y,
   } = props
   const presenting = usePresenting()
+  const poster = useMemo(() => <Poster {...props} />, [])
   const [hovering, setHovering] = useState(false)
   const [previewing, setPreviewing] = useState(false)
   const [visible, setVisible] = useState(false)
@@ -89,7 +90,7 @@ export default function Placard(props) {
           </div>
         )}
         <Modal open={punching} onClose={() => setPunching(false)}>
-          <Poster {...props} />
+          {poster}
         </Modal>
       </div>
   )
