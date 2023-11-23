@@ -21,12 +21,11 @@ export default function Poster(props) {
   const keywords = (presenting.value ? (hints ?? desc.split(', ')) : desc.split(', '))
   return (
       <div className={poster.poster}>
-        <Box pic>
-          <Ribbon.Mail background={bg ?? 'white'} height={height} width={width}>
+        <Box print={{ pic: true }} ratio={height / width} width={width}>
+          <Ribbon.Mail background={bg ?? 'white'}>
             <Image
               alt={title}
               background={bg}
-              ratio={height / width}
               src={imageSrc}
             />
             <div className={clsx(poster.pill, placard.pill, placard.blur)}>{title}</div>

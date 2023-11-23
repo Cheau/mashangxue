@@ -4,6 +4,7 @@ import LazyLoad from 'react-lazyload'
 
 import styles from './styles.module.css'
 import prefetch from '../../common/prefetch'
+import Box from '../Box'
 import Ribbon from '../Ribbon'
 
 const path = /(?<dir>.*\/)?(?<name>[^/.]+)(\.(?<ext>[^.]+$))?/
@@ -14,7 +15,7 @@ export default function Image({
     children,
     loading = "lazy",
     left = 0,
-    ratio = 1,
+    ratio,
     ribbon,
     rounded = false,
     shadowed = false,
@@ -23,8 +24,6 @@ export default function Image({
     top = 0,
     ...rest
 }) {
-  const imageStyle = { ...style, background, paddingTop: `${ratio * 100}%` }
-
   const [attr, setAttr] = useState()
   const {dir, name, ext = 'svg'} = useMemo(() => {
     const { groups } = path.exec(src)
@@ -44,19 +43,22 @@ export default function Image({
     return o
   }, [left, top])
   return (
-      <div className={clsx(styles.image, 'image', { children, rounded })} style={imageStyle}>
-        <div className={clsx('full', { linked: rest.onClick, rounded, shadowed })} {...rest}>
-          <LazyLoad once offset={100} height="100%">
-            <img
-                alt={alt ?? name.split('.')[0]}
-                src={`/img/${dir}${name}.${ext}`}
-                style={imgStyle}
-            />
-          </LazyLoad>
-          <div className="full">{children}</div>
-          <div className="attr" dangerouslySetInnerHTML={{ __html: attr }} />
-          <Ribbon.Corner>{ribbon}</Ribbon.Corner>
-        </div>
-      </div>
+      <Box
+        className={clsx('image', styles.image, { children, [styles.linked]: !!rest.onClick, [styles.rounded]: rounded, [styles.shadowed]: shadowed })}
+        ratio={ratio}
+        style={{ background, height: ratio ? undefined : '100%', ...style }}
+        {...rest}
+      >
+        <LazyLoad once offset={100} height="100%">
+          <img
+            alt={alt ?? name.split('.')[0]}
+            src={`/img/${dir}${name}.${ext}`}
+            style={imgStyle}
+          />
+        </LazyLoad>
+        {children}
+        <div className="attr" dangerouslySetInnerHTML={{ __html: attr }} />
+        <Ribbon.Corner>{ribbon}</Ribbon.Corner>
+      </Box>
   )
 }

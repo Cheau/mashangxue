@@ -1,33 +1,16 @@
-.image {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  transform: scale(1);
-}
-
-.image :global(.full) {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 100%;
-  overflow: hidden;
-}
-
-.image :global(.linked) {
+.linked {
   cursor: pointer;
 }
 
-.image:global(.rounded), .image :global(.rounded) {
+.rounded {
   border-radius: 20px;
 }
 
-.image :global(.shadowed) {
+.shadowed {
   box-shadow: 0 0 8px 0 rgba(0,0,0,.4);
 }
 
-.image :global(.shadowed:hover) {
+.shadowed:hover {
   box-shadow: 0 0 8px 0 rgba(0,0,0,.8);
 }
 
@@ -46,8 +29,9 @@
 
 .image :global(.attr) {
   position: fixed;
+  left: 0;
+  right: 0;
   bottom: 0;
-  width: 100%;
   color: #808080;
   font-size: 8px;
   overflow: hidden;

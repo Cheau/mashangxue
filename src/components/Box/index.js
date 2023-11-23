@@ -1,4 +1,5 @@
 import React, { useRef } from 'react'
+import clsx from 'clsx'
 import domToImage from 'dom-to-image'
 import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
@@ -39,15 +40,30 @@ const toPdf = (src, title, callback) => {
   })
 }
 
-export default function Box(props) {
-  const {
-    children, paper, title, pdf = false, pic = false, watermark = false, ...rest
-  } = props
-  const mergedStyle = {
-    position: 'relative',
-    width: 'fit-content',
-    ...rest,
-  }
+function Ratio({ children, ratio}) {
+  if (!ratio) return children
+  return (
+    <div className={clsx('ratio', styles.ratio)} style={{ paddingTop: `${ratio * 100}%`}}>
+      <div className={clsx('full', styles.full)}>
+        {children}
+      </div>
+    </div>
+  )
+}
+
+export default function Box({
+  children,
+  className,
+  paper,
+  print: { pdf = false, pic = false } = {},
+  ratio,
+  style,
+  title,
+  watermark = false,
+  width,
+  ...rest
+}) {
+  const classNames = clsx('box', styles.box, styles[paper], { [styles.bounded]: ratio }, className)
   const boxRef = useRef()
   const actionsRef = useRef()
   const exp = (callback) => {
@@ -56,13 +72,15 @@ export default function Box(props) {
     callback(boxRef.current, title, () => actionsRef.current.style.display = display)
   }
   return (
-      <div className={styles[paper]} style={mergedStyle} ref={boxRef}>
+    <div className={classNames} style={{ width, ...style }} ref={boxRef} {...rest}>
+      <Ratio ratio={ratio}>
         {watermark && <div className={styles.watermark} />}
         {children}
         <div className={styles.actions} ref={actionsRef}>
           {pic && <button onClick={() => exp(toJpeg)}>导出JPG</button>}
           {pdf && <button onClick={() => exp(toPdf)}>导出PDF</button>}
         </div>
-      </div>
+      </Ratio>
+    </div>
   )
 }

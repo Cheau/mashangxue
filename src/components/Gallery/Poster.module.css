@@ -16,7 +16,7 @@
 
 .poster :global(.image .attr) {
     top: unset;
-    bottom: 100px;
+    bottom: 110px;
 }
 
 .poster .pill {
@@ -29,8 +29,8 @@
 }
 
 .panel {
+    display: inline-block;
     line-height: 1.1;
-    max-width: 25%;
     margin: gap left-right;
     padding: calc(gap / 2) gap;
     border-radius: gap;
