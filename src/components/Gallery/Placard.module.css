@@ -121,18 +121,21 @@
 .player {
   position: absolute;
   left: 50%;
-  bottom: calc(100% - player-border);
+  bottom: calc(100% + player-border);
   width: calc(video-width + player-border * 2);
   margin-left: calc((video-width + player-border) / -2);
-  border: player-border solid rgba(0, 0, 0, alpha-dual);
+  padding: player-border;
+  background: rgba(0, 0, 0, alpha);
   border-radius: player-border;
+  backdrop-filter: blur(blur-hover-radius);
+  -webkit-backdrop-filter: blur(blur-hover-radius);
 }
 
 .player::after {
   content: '';
   position: absolute;
-  top: calc(100% + player-border);
+  top: 100%;
   left: calc(50% - player-border);
   border: player-border solid transparent;
-  border-top-color: rgba(0, 0, 0, alpha-dual);
+  border-top-color: rgba(0, 0, 0, alpha);
 }
