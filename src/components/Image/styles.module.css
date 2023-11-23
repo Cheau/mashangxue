@@ -19,6 +19,10 @@
   height: 100%;
 }
 
+.image :global(.lazyload-wrapper) {
+  position: absolute;
+}
+
 .image img {
   position: absolute;
   top: 0;
