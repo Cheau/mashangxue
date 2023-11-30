@@ -11,14 +11,16 @@ export default {
   data: [
     {
       desc: 'inspection, dent, covered, collision damage waiver',
-      hints: ['还车检出凹痕', '被保险涵盖', '车辆碰撞险'],
+      donut: '租的车被检出凹痕怎么办？别慌，先看下是否被车辆碰撞险所涵盖。',
+      hints: ['检出凹痕', '车辆碰撞险', '涵盖'],
       rate: 3,
       title: '归还租车',
     },
     {
       date: '2023/11/20',
-      desc: 'half size, tight, pinch, comfortable, loose, heel',
-      hints: ['正好放下一根手指', '舒适', '太紧', '太松'],
+      desc: 'half size, tight, pinch, comfortable, loose, heel, ring up',
+      donut: '鞋子买多大穿起来才舒服呢？那就是正好能放下一根手指，不然就会太紧或太松。',
+      hints: ['舒服', '正好能放下一根手指', '太紧', '太松'],
       rate: 2,
       title: '购买鞋子',
     },
