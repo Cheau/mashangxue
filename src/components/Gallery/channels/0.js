@@ -17,7 +17,7 @@ export default {
       title: '归还租车',
     },
     {
-      date: '2023/11/20',
+      date: '2023/11/30',
       desc: 'half size, tight, pinch, comfortable, loose, heel, ring up',
       donut: '鞋子买多大穿起来才舒服呢？那就是正好能放下一根手指，不然就会太紧或太松。',
       hints: ['舒服', '正好能放下一根手指', '太紧', '太松'],
