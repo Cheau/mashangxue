@@ -10,6 +10,11 @@ export default {
   Player: DailyConversation,
   data: [
     {
+      desc: 'appointment, restroom, elevator',
+      donut: '【约定】会面的人还有十分钟才来，做点什么好呢？不妨上个【洗手间】压压惊。',
+      title: '和办公室柜台谈话',
+    },
+    {
       desc: 'baggage carousel, hard-shell suitcase, luggage claim form, inconvenience',
       donut: '降落后在【行李传送带】上找不到自己的【旅行箱】？快去行李服务处【填认领表】！',
       rate: 2,
