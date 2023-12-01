@@ -14,10 +14,11 @@ const height = 720
 
 export default function Poster(props) {
   const {
-    bg, ctx, date, desc, hints, link, order, rate, title,
+    bg, ctx, date, desc, donut = '', link, order, rate, title,
   } = props
   const presenting = usePresenting()
   const imageSrc = /(?<=\/docs).+/.exec(link)[0]
+  const hints = donut.match(/(?<=【)[^【】]+(?=】)/g)
   const keywords = (presenting.value ? (hints ?? desc.split(', ')) : desc.split(', '))
   return (
       <div className={poster.poster}>

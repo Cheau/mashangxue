@@ -11,22 +11,20 @@ export default {
   data: [
     {
       desc: 'inspection, dent, covered, collision damage waiver',
-      donut: '租的车被检出凹痕怎么办？别慌，先看下是否被车辆碰撞险所涵盖。',
-      hints: ['检出凹痕', '车辆碰撞险', '涵盖'],
+      donut: '租的车被【检出凹痕】怎么办？别慌，先看下是否被【车辆碰撞险】所【涵盖】。',
       rate: 3,
       title: '归还租车',
     },
     {
       date: '2023/11/30',
       desc: 'half size, tight, pinch, comfortable, loose, heel, ring up',
-      donut: '鞋子买多大穿起来才舒服呢？那就是正好能放下一根手指，不然就会太紧或太松。',
-      hints: ['舒服', '正好能放下一根手指', '太紧', '太松'],
+      donut: '鞋子买多大穿起来才【舒服】呢？那就是脚后跟【正好放下一根手指】，不然就会【太紧】或【太松】。',
       rate: 2,
       title: '购买鞋子',
     },
     {
       desc: 'ticket, zone',
-      hints: ['全日票', '花费'],
+      donut: '一日之内多次乘地铁怎样买票能【花费】更少？没错，就是买【一日票】。',
       title: '购买地铁票',
     },
     {

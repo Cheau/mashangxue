@@ -1,4 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, {
+  memo, useEffect, useMemo, useState,
+} from 'react'
 import clsx from 'clsx'
 import { FcInspection } from 'react-icons/fc'
 import { FaStamp, FaVideo } from 'react-icons/fa'
@@ -18,9 +20,13 @@ const stop = (func) => (e) => {
   func()
 }
 
+const Slides = memo(function Slides({ children }) {
+  return children instanceof String ? <Slide>{children.match(/(?<=【)[^【】]+(?=】)/g)}</Slide> : null
+})
+
 export default function Placard(props) {
   const {
-    bg = 'white', ctx, desc, hints = [], link, order,
+    bg = 'white', ctx, desc, donut, link, order,
     rate = 1, ratio = 1, rounded = false, shadowed = false, title, tool = false, x, y,
   } = props
   const presenting = usePresenting()
@@ -57,7 +63,7 @@ export default function Placard(props) {
                onClick={() => window.location.href = link}
                top={y}
         >
-          {presenting.value && hovering && <Slide>{hints}</Slide>}
+          <Slides>{presenting.value && hovering && donut}</Slides>
           <div className={clsx(styles.footer)}>
             <div className={styles.rate} title={`难度：${difficulties[rate]}`}>
               <Rate max={3} value={rate} />
