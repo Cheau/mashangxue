@@ -10,6 +10,12 @@ export default {
   Player: DailyConversation,
   data: [
     {
+      desc: 'baggage carousel, hard-shell suitcase, luggage claim form, inconvenience',
+      donut: '降落后在【行李传送带】上找不到自己的【旅行箱】？快去行李服务处【填认领表】！',
+      rate: 2,
+      title: '行李遗失',
+    },
+    {
       desc: 'inspection, dent, covered, collision damage waiver',
       donut: '租的车被【检出凹痕】怎么办？别慌，先看下是否被【车辆碰撞险】所【涵盖】。',
       rate: 3,
