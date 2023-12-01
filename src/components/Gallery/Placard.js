@@ -21,7 +21,7 @@ const stop = (func) => (e) => {
 }
 
 const Slides = memo(function Slides({ children }) {
-  return children instanceof String ? <Slide>{children.match(/(?<=【)[^【】]+(?=】)/g)}</Slide> : null
+  return typeof children === 'string' ? <Slide>{children.match(/(?<=【)[^【】]+(?=】)/g)}</Slide> : null
 })
 
 export default function Placard(props) {
