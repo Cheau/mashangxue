@@ -61,6 +61,17 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      './src/plugins/docs-ext',
+      {
+        latest: {
+          filters: ['studio-classroom/daily-conversation'],
+        }
+      }
+    ],
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({

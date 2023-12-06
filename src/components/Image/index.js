@@ -7,7 +7,7 @@ import prefetch from '../../common/prefetch'
 import Box from '../Box'
 import Ribbon from '../Ribbon'
 
-const path = /(?<dir>.*\/)?(?<name>[^/.]+)(\.(?<ext>[^.]+$))?/
+const path = /(?<=\/img\/)(?<dir>.*\/)?(?<name>[^/.]+)(\.(?<ext>[^.]+$))?/
 
 export default function Image({
     alt,

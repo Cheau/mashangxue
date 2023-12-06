@@ -21,13 +21,13 @@ const stop = (func) => (e) => {
 }
 
 const Slides = memo(function Slides({ children }) {
-  return typeof children === 'string' ? <Slide>{children.match(/(?<=【)[^【】]+(?=】)/g)}</Slide> : null
+  return <Slide>{children}</Slide>
 })
 
 export default function Placard(props) {
   const {
-    bg = 'white', ctx, desc, donut, link, order,
-    rate = 1, ratio = 1, rounded = false, shadowed = false, title, tool = false, x, y,
+    bg = 'white', ctx, hints, image, keywords, link, order,
+    rate, ratio = 1, rounded = false, shadowed = false, title, tool = false, x, y,
   } = props
   const presenting = usePresenting()
   const poster = useMemo(() => <Poster {...props} />, [])
@@ -35,7 +35,6 @@ export default function Placard(props) {
   const [previewing, setPreviewing] = useState(false)
   const [visible, setVisible] = useState(false)
   const [punching, setPunching] = useState(false)
-  const imageSrc = /(?<=\/docs).+/.exec(link)[0]
   const toggleHover = stop(() => setHovering(!hovering))
   const preview = stop(() => setPreviewing(true))
   const togglePreview = stop(() => {
@@ -59,19 +58,19 @@ export default function Placard(props) {
                left={x}
                ratio={ratio}
                ribbon={order ? `Day ${order}` : undefined}
-               src={imageSrc}
+               src={image}
                onClick={() => window.location.href = link}
                top={y}
         >
-          <Slides>{presenting.value && hovering && donut}</Slides>
+          <Slides>{presenting.value && hovering && hints}</Slides>
           <div className={clsx(styles.footer)}>
             <div className={styles.rate} title={`难度：${difficulties[rate]}`}>
               <Rate max={3} value={rate} />
             </div>
-            {desc && <div className={clsx(styles.bar, styles.blur)}>
+            {keywords && <div className={clsx(styles.bar, styles.blur)}>
               <div className={styles.main}>
                 <span className={styles.icon}><FcInspection /></span>
-                {desc}
+                <span>{keywords.join(', ')}</span>
               </div>
             </div>}
           </div>

@@ -1,36 +1,36 @@
-import React from 'react'
-import clsx from 'clsx';
+import React, { useMemo } from 'react'
+import clsx from 'clsx'
 
 import styles from './index.module.css'
-import * as channels from './channels'
+import config from './config'
 import Placard from './Placard'
 
-function make(channel) {
-  const { data, ...ctx} = channel
+function assemble(data) {
+  return Object.entries(data).map(([dir, value]) => ({
+    ...config[dir],
+    Player: require(`@site/src/components/Frame/${dir}`).default,
+    data: value.map(({ id, ...rest }) => ({
+      image: `/img/${dir}/${id}.svg`,
+      link: `/docs/${dir}/${id}`,
+      order: Number(id),
+      ...rest,
+    })),
+  }))
+}
+
+function make(group) {
+  const { data, ...ctx} = group
   const { icon, title } = ctx
-  let date = new Date()
-  const cards = []
-  for (let i = data.length - 1; i >= 0; i--) {
-    const datum = data[i]
-    if (datum.date) date = new Date(datum.date)
-    const order = cards.length + 1
-    const link = ctx.link(order)
-    cards.unshift((
-      <div key={i} className={clsx('col', 'col--4')}>
-        <Placard
-          {...datum}
-          ctx={ctx}
-          date={date.toLocaleDateString('zh-CN')}
-          link={link}
-          order={order}
-          rounded
-          shadowed
-          tool
-        />
-      </div>
-    ))
-    date.setDate(date.getDate() + 1)
-  }
+  const cards = data.map((datum, i) => (
+    <div key={i} className={clsx('col', 'col--4')}>
+      <Placard
+        {...datum}
+        ctx={ctx}
+        rounded
+        shadowed
+        tool
+      />
+    </div>))
   return (
     <div key={title}>
       <div className={styles.title}>{icon} {title}</div>
@@ -39,8 +39,9 @@ function make(channel) {
   )
 }
 
-export default function Gallery() {
-  const children = Object.values(channels).reverse().map((channel) => make(channel))
+export default function Gallery({ data }) {
+  const completed = useMemo(() => assemble(data), [data])
+  const children = Object.values(completed).map((group) => make(group))
   return (
       <div className={styles.gallery}>
         <div className="container">

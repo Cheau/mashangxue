@@ -31,29 +31,30 @@ function Subtitle() {
   )
 }
 
-function HomepageHeader() {
+function HomepageHeader({ data }) {
   const { siteConfig } = useDocusaurusContext()
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
         <h1 className="hero__title">{siteConfig.title}</h1>
         <Subtitle />
-        <Carousel />
+        <Carousel data={data} />
       </div>
     </header>
   );
 }
 
-export default function Home() {
+export default function Home({ recommend }) {
   const {siteConfig} = useDocusaurusContext();
+  const { latest, random } = recommend
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
       description="Description will go into a meta tag in <head />">
-      <HomepageHeader />
+      <HomepageHeader data={random} />
       <main>
         <Landscape />
-        <Gallery />
+        <Gallery data={latest} />
       </main>
     </Layout>
   );

@@ -14,12 +14,10 @@ const height = 720
 
 export default function Poster(props) {
   const {
-    bg, ctx, date, desc, donut = '', link, order, rate, title,
+    bg, ctx, date, hints, image, keywords, order, rate, title,
   } = props
   const presenting = usePresenting()
-  const imageSrc = /(?<=\/docs).+/.exec(link)[0]
-  const hints = donut.match(/(?<=【)[^【】]+(?=】)/g)
-  const keywords = (presenting.value ? (hints ?? desc.split(', ')) : desc.split(', '))
+  const words = (presenting.value ? (hints ?? keywords.split(', ')) : keywords.split(', '))
   return (
       <div className={poster.poster}>
         <Box print={{ pic: true }} ratio={height / width} width={width}>
@@ -27,12 +25,12 @@ export default function Poster(props) {
             <Image
               alt={title}
               background={bg}
-              src={imageSrc}
+              src={image}
             />
             <div className={clsx(poster.pill, placard.pill, placard.blur)}>{title}</div>
             <div className={clsx(placard.footer)}>
               <div className={clsx(poster.panel, placard.blur)}>
-                {keywords.map((words, i) => <div key={i}><FcApproval />{words}</div>)}
+                {words.map((words, i) => <div key={i}><FcApproval />{words}</div>)}
               </div>
               <div className={clsx(poster.bar, placard.bar, placard.blur)}>
                 <div className={placard.sub}>
