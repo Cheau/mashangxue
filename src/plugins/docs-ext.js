@@ -42,19 +42,16 @@ function withKeywords(frontMatter, content) {
   })
 }
 
+const toPoint = [0.5, 1, 1.7, 2.5]
 function withRate(frontMatter) {
   const { keywords, rate } = frontMatter
   if (rate) return
-  let count = 0
-  let complexity = 0
-  keywords.map((s) => s.split(/ +/)).forEach((group) => {
-    count += group.length
-    const { length } = group.filter((word) => word.length > 8)
-    complexity += length > 0 ? length : (group.join('').length > 8 ? 1 : 0)
-  })
-  frontMatter.rate = 1
-  if (count > 5) frontMatter.rate++
-  if (complexity > 2) frontMatter.rate++
+  const points = keywords
+      .map((s) => s.split(/ +/))
+      .flat()
+      .map((word) => toPoint[Math.min(Math.floor(word.length / 4), 3)])
+      .reduce((sum, num) => (sum + num), 0)
+  frontMatter.rate = points < 7 ? 1 : (points < 10 ? 2 : 3)
 }
 
 function postprocess(doc) {
@@ -86,7 +83,7 @@ function toComplete(doc) {
 }
 
 function buildLatest(docs, options) {
-  const { filters = [], perSize = 21 } = options
+  const { filters = [], perSize = 41 } = options
   const latest = filters.reduce((json, filter) => {
     json[filter] = []
     return json
