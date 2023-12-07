@@ -42,7 +42,7 @@ export default function Carousel({ data }) {
         slidesPerView={4}
         spaceBetween={-100}
       >
-        {data.map(({ hints, ...rest }, i) => (
+        {data.map(({ hints, x, y, ...rest }, i) => (
           <SwiperSlide key={i}>
             <Placard {...rest} ratio={3 / 4} />
           </SwiperSlide>
