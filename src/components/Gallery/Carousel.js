@@ -22,6 +22,10 @@ export default function Carousel({ data }) {
   return (
     <div className={styles.carousel}>
       <Swiper
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: true,
+        }}
         centeredSlides
         coverflowEffect={{
           rotate: 50,
