@@ -17,7 +17,7 @@ export default function Poster(props) {
     bg, ctx, date, hints, image, keywords, order, rate, title,
   } = props
   const presenting = usePresenting()
-  const words = (presenting.value ? (hints ?? keywords.split(', ')) : keywords.split(', '))
+  const words = (presenting.value ? (hints.length ? hints : keywords) : keywords)
   return (
       <div className={poster.poster}>
         <Box print={{ pic: true }} ratio={height / width} width={width}>
