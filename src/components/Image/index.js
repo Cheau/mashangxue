@@ -43,8 +43,9 @@ export default function Image({
     return o
   }, [left, top])
   return (
+    <div className={clsx('image', styles.image)}>
       <Box
-        className={clsx('image', styles.image, { children, [styles.linked]: !!rest.onClick, [styles.rounded]: rounded, [styles.shadowed]: shadowed })}
+        className={clsx({ children, [styles.linked]: !!rest.onClick, [styles.rounded]: rounded, [styles.shadowed]: shadowed })}
         ratio={ratio}
         style={{ background, height: ratio ? undefined : '100%', ...style }}
         {...rest}
@@ -57,8 +58,9 @@ export default function Image({
           />
         </LazyLoad>
         {children}
-        <div className="attr" dangerouslySetInnerHTML={{ __html: attr }} />
         <Ribbon.Corner>{ribbon}</Ribbon.Corner>
       </Box>
+      <div className="attr" dangerouslySetInnerHTML={{ __html: attr }} />
+    </div>
   )
 }

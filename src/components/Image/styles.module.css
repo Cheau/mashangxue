@@ -32,10 +32,6 @@
 }
 
 .image :global(.attr) {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
   color: #808080;
   font-size: 8px;
   overflow: hidden;
