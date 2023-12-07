@@ -20,12 +20,12 @@ export default class Converter extends Module {
 
   toComplete(doc) {
     const { processor } = super.modules
-    const { permalink } = doc
+    const { permalink: link } = doc
     processor.postprocess(doc)
     const { id, ...rest } = this.toCompact(doc)
     return {
       ...rest,
-      permalink,
+      link,
     }
   }
 }
