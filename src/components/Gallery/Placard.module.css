@@ -13,7 +13,7 @@
 .placard {
   position: relative;
   color: white;
-  z-index: 1000;
+  z-index: 100;
 }
 
 .placard .blur {
