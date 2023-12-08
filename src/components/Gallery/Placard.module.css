@@ -118,6 +118,7 @@
 }
 
 @value video-width: 640px;
+@value video-width-xl: 1024px;
 @value player-border: 10px;
 .player {
   position: absolute;
@@ -130,6 +131,13 @@
   border-radius: player-border;
   backdrop-filter: blur(blur-hover-radius);
   -webkit-backdrop-filter: blur(blur-hover-radius);
+}
+
+@media screen and (min-width: 1920px) {
+  .player {
+    width: calc(video-width-xl + player-border * 2);
+    margin-left: calc((video-width-xl + player-border) / -2);
+  }
 }
 
 .player::after {

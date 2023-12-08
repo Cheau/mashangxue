@@ -15,6 +15,7 @@
   --ifm-color-primary-lighter: #359962;
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
+  --ifm-container-width-xxl: 1660px;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
@@ -33,4 +34,10 @@
 @font-face {
   font-family: xiao-lai;
   src: url("/font/XiaolaiMonoSC-Regular.ttf");
+}
+
+@media (min-width: 1920px) {
+  .container {
+    max-width: var(--ifm-container-width-xxl);
+  }
 }
