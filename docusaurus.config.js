@@ -5,6 +5,15 @@ const { themes } = require('prism-react-renderer')
 const lightCodeTheme = themes.github
 const darkCodeTheme = themes.dracula
 
+const docs = {
+  sidebarCollapsed: false,
+  sidebarPath: require.resolve('./sidebars.js'),
+  // Please change this to your repo.
+  // Remove this to remove the "edit this page" links.
+  // editUrl:
+  // 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: '码上学英语',
@@ -39,14 +48,7 @@ const config = {
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
-          sidebarCollapsed: false,
-          sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          // editUrl:
-            // 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-        },
+        docs: false,
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
@@ -65,9 +67,12 @@ const config = {
     [
       './src/plugins/docs-ext',
       {
-        latest: {
-          filters: ['studio-classroom/daily-conversation'],
-        }
+        ...docs,
+        ext: {
+          latest: {
+            filters: ['studio-classroom/daily-conversation'],
+          }
+        },
       }
     ],
   ],

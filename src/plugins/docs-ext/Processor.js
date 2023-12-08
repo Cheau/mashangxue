@@ -34,6 +34,11 @@ export default class Processor extends Module {
     }
   }
 
+  #withImage(frontMatter, id) {
+    if (frontMatter.image) return
+    frontMatter.image = `/img/${id}.svg`
+  }
+
   #withKeywords(frontMatter, content) {
     if (frontMatter.keywords) return
     const lookups = content.match(/(?<=\[)[a-zA-Z- :]+\/[a-z]+\.(\/\d+)?(?=])/g)
@@ -58,9 +63,9 @@ export default class Processor extends Module {
 
   #dir
   #date
-  #preprocess = async (doc) => {
+  #process = async (doc) => {
     if (!Module.isCourse(doc)) return
-    const { frontMatter, sourceDirName } = doc
+    const { frontMatter, id, sourceDirName } = doc
     if (sourceDirName !== this.#dir) {
       this.#dir = sourceDirName
       this.#date = new Date(frontMatter.date) ?? new Date()
@@ -71,28 +76,13 @@ export default class Processor extends Module {
     this.#date.setDate(this.#date.getDate() + 1)
     const content = await this.loadFile(doc.source)
     this.#withHints(frontMatter, content)
+    this.#withImage(frontMatter, id)
     this.#withKeywords(frontMatter, content)
     this.#withRate(frontMatter)
   }
 
-  preprocess = async ({ allContent }) => {
-    const { docs } = allContent['docusaurus-plugin-content-docs']['default']['loadedVersions'][0]
-    await Promise.all(docs.map(this.#preprocess))
-  }
-
-  #postprocess(doc) {
-    if (!Module.isCourse(doc)) return
-    const { frontMatter, id } = doc
-    if (!frontMatter.image) frontMatter.image = `/img/${id}.svg`
-  }
-
-  postprocess(args) {
-    const { allContent }= args
-    if (allContent) {
-      const { docs } = allContent['docusaurus-plugin-content-docs']['default']['loadedVersions'][0]
-      docs.forEach(this.#postprocess)
-    } else {
-      this.#postprocess(args)
-    }
+  process = async (content) => {
+    const { docs } = content['loadedVersions'][0]
+    await Promise.all(docs.map(this.#process))
   }
 }

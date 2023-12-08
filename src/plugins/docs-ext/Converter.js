@@ -8,7 +8,7 @@ export default class Converter extends Module {
 
   toCompact(doc) {
     const {
-      description, frontMatter, id, title,
+      description, frontMatter: { image, ...frontMatter }, id, title,
     } = doc
     return {
       ...frontMatter,
@@ -19,13 +19,14 @@ export default class Converter extends Module {
   }
 
   toComplete(doc) {
-    const { processor } = super.modules
-    const { permalink: link } = doc
-    processor.postprocess(doc)
-    const { id, ...rest } = this.toCompact(doc)
+    const {
+      description, frontMatter, permalink: link, title,
+    } = doc
     return {
-      ...rest,
+      ...frontMatter,
+      description,
       link,
+      title,
     }
   }
 }
