@@ -16,11 +16,15 @@ export default function Sidebar() {
   const { siteConfig } = useDocusaurusContext()
   const presenting = usePresenting()
   const pathname = getPathname()
+  const { groups: { name, domain } } = /(?<=:\/\/)(?<name>[^.]+)\.(?<domain>[^.]+)$/.exec(siteConfig.url)
   return (
       <div className={clsx('sidebar', styles.sidebar)}>
         <div className={clsx(styles.centered, { [styles.presenting]: presenting.value })}>
           <div className={styles.url}>
-            网站地址<br />{siteConfig.url.slice(siteConfig.url.indexOf('://') + 3)}
+            <div className={styles.name}>
+              {name}<span className={styles.domain}>.{domain}</span>
+            </div>
+            <div className={styles.label}>网站地址</div>
           </div>
           {!presenting.value && <QrCode />}
           {pathname !== '/' && <Features />}

@@ -1,25 +1,32 @@
+@value gap: 10px;
+
 .sidebar {
     position: fixed;
     top: 50%;
-    right: 10px;
+    right: calc(gap * 2);
     line-height: 1.2;
     transform: translateY(-50%);
     text-align: center;
+    z-index: var(--ifm-z-index-fixed);
 }
 
 .centered {
     width: 160px;
 }
 
+.centered > div + div {
+    margin-top: gap;
+}
+
 .presenting {
-    width: 300px;
+    width: 250px;
     font-size: 1.5em;
 }
 
 @media screen and (max-width: 996px) {
     .sidebar {
         position: static;
-        margin: 20px auto;
+        margin: calc(gap * 2) auto;
         transform: unset;
     }
 
@@ -29,10 +36,39 @@
     }
 }
 
+@value bg-color: black;
+@value fg-color: gold;
+.url, .domain {
+    background: bg-color;
+    border-radius: gap;
+    color: fg-color;
+}
+
+.presenting .url {
+    padding: calc(gap * 1.5);
+}
+
 .url {
-    line-height: 1;
-    margin: 10px;
-    font-size: 1.8em;
+    padding: gap;
+}
+
+.name {
+    padding: gap;
+    background: fg-color;
+    color: bg-color;
+    font-size: 1.5em;
     font-weight: bold;
-    letter-spacing: 1px;
+}
+
+.domain {
+    padding: calc(gap / 2);
+}
+
+.presenting .label {
+    margin-top: gap;
+}
+
+.label {
+    margin-top: calc(gap / 2);
+    letter-spacing: 4px;
 }
