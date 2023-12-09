@@ -1,3 +1,7 @@
 .carousel :global(.swiper) {
     padding: 5px 0 30px 0;
 }
+
+.carousel :global(.placard) {
+    max-width: 500px;
+}
