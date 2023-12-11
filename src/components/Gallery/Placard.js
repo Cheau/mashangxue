@@ -33,23 +33,10 @@ export default function Placard(props) {
   const poster = useMemo(() => <Poster {...props} />, [])
   const [hovering, setHovering] = useState(false)
   const [previewing, setPreviewing] = useState(false)
-  const [visible, setVisible] = useState(false)
   const [punching, setPunching] = useState(false)
   const toggleHover = stop(() => setHovering(!hovering))
-  const preview = stop(() => setPreviewing(true))
-  const togglePreview = stop(() => {
-    if (!previewing) {
-      setPreviewing(true)
-    } else if (!visible) {
-      setVisible(true)
-    } else {
-      setPreviewing(false)
-    }
-  })
+  const togglePreview = stop(() => setPreviewing(!previewing))
   const punch = stop(() => setPunching(true))
-  useEffect(() => {
-    if (!previewing) setVisible(false)
-  }, [previewing])
   return (
       <div className={clsx('placard', styles.placard)} onMouseEnter={toggleHover} onMouseLeave={toggleHover}>
         <Image rounded={rounded} shadowed={shadowed}
@@ -76,13 +63,12 @@ export default function Placard(props) {
           </div>
         </Image>
         <div className={clsx(styles.pill, styles.blur)}>{title}</div>
-        {tool && (hovering || visible) && (
+        {tool && (hovering || previewing) && (
             <div className={styles.toolbox}>
               <span
-                className={clsx({ active: visible })}
-                onMouseEnter={preview}
+                className={clsx({ active: previewing })}
                 onClick={togglePreview}
-                title={visible ? '关闭预览' : '预览视频'}
+                title={previewing ? '关闭预览' : '预览视频'}
               >
                 <FaVideo />
               </span>
@@ -90,7 +76,7 @@ export default function Placard(props) {
             </div>
         )}
         {ctx?.Player && previewing && (
-          <div className={styles.player} style={{ visibility: visible ? 'visible' : 'hidden' }}>
+          <div className={styles.player} style={{ visibility: previewing ? 'visible' : 'hidden' }}>
             <ctx.Player order={order} />
           </div>
         )}
