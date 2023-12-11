@@ -9,31 +9,31 @@
     text-align: center;
     padding: 0 60px;
     line-height: 1.1;
+    color: white;
     font-size: 4em;
     font-weight: bold;
 }
 
 .slide :global(.swiper-slide.blue) {
     background: rgb(8, 115, 180);
-    color: white;
 }
 
 .slide :global(.swiper-slide.red) {
     background: rgb(197, 42, 120);
-    color: white;
 }
 
 .slide :global(.swiper-slide.yellow) {
     background: rgb(239, 179, 11);
-    color: black;
 }
 
 .slide :global(.swiper-slide.green) {
     background: rgb(35, 171, 15);
-    color: white;
 }
 
-.slide :global(.swiper-slide.black) {
-    background: black;
-    color: rgb(239, 179, 11);
+.slide :global(.swiper-slide.cyan) {
+    background: rgb(31, 223, 200);
+}
+
+.slide :global(.swiper-slide.orange) {
+    background: rgb(245, 98, 78);
 }

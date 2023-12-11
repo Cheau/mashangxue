@@ -7,11 +7,11 @@ import 'swiper/css/keyboard'
 import 'swiper/css/pagination'
 import styles from './Slide.module.css'
 
-const slideNames = ['blue', 'red', 'green', 'yellow', 'black']
+const slideNames = ['blue', 'red', 'green', 'yellow', 'cyan', 'orange']
 
 export default function Slide({ children }) {
   if (!children) return null
-  const slides = children.map((hint, i) => <SwiperSlide key={i} className={slideNames[i]}>{hint}</SwiperSlide>)
+  const slides = children.map((hint, i) => <SwiperSlide key={i} className={slideNames[i % slideNames.length]}>{hint}</SwiperSlide>)
   return (
       <div className={styles.slide}>
         <Swiper modules={[Keyboard, Pagination]} keyboard loop pagination>
