@@ -9,11 +9,9 @@ export default function CompactCard() {
   const meaning = meanings[partOfSpeech]
   const { definition } = meaning[defIndex - 1]
   return (
-      <>
-        <div className={styles.groups}>
-          <span className={styles.pos}>{partOfSpeech}</span>
-          {definition}
-        </div>
-      </>
+      <div className={styles.groups}>
+        <span className={styles.pos}>{partOfSpeech}</span>
+        {definition}
+      </div>
   )
 }

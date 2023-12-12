@@ -7,8 +7,10 @@ import { Context } from './withProviders'
 export default function Actions({
   onMaximize = () => {},
 }) {
-  const { card, partOfSpeech, setCard } = useContext(Context)
-  if (card === 'lookup') return null
+  const {
+    card, partOfSpeech, meaning, setCard,
+  } = useContext(Context)
+  if (card === 'lookup' || meaning) return null
   return (
       <div className={styles.actions}>
         {card === 'compact' && <BiSolidCaretDownCircle

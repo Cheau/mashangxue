@@ -7,6 +7,7 @@ import Actions from './Actions'
 import CompactCard from './CompactCard'
 import CompletedCard from './CompletedCard'
 import EmptyCard from './EmptyCard'
+import MeaningCard from './MeaningCard'
 import SkeletonCard from './SkeletonCard'
 import Phonetics from "./Phonetics"
 import withProviders, { Context } from './withProviders'
@@ -15,6 +16,7 @@ const cards = {
   compact: CompactCard,
   completed: CompletedCard,
   lookup: CompletedCard,
+  meaning: MeaningCard,
 }
 
 function reduce(data) {
@@ -62,7 +64,7 @@ function Word(props) {
   const { color, ...rest } = props
   const local = useContext(Context)
   const {
-    word, partOfSpeech, defIndex, data, setData, card,
+    word, partOfSpeech, meaning, defIndex, data, setData, card,
   } = local
 
   useEffect(() => {
@@ -75,7 +77,7 @@ function Word(props) {
       }
       setData(definition)
     }
-    load()
+    if (!meaning) load()
   }, [word])
   if (data && data.word !== word) setData(undefined)
 
@@ -84,7 +86,7 @@ function Word(props) {
     document.dispatchEvent(e)
   }, [word])
 
-  const Card = getCard(data, card)
+  const Card = getCard(data || meaning, card)
   if (!Card) return null
   return (
       <div className={styles.card} {...rest}>
