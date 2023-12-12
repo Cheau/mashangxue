@@ -34,11 +34,14 @@ export default function Placard(props) {
   const [hovering, setHovering] = useState(false)
   const [previewing, setPreviewing] = useState(false)
   const [punching, setPunching] = useState(false)
-  const toggleHover = stop(() => setHovering(!hovering))
   const togglePreview = stop(() => setPreviewing(!previewing))
   const punch = stop(() => setPunching(true))
   return (
-      <div className={clsx('placard', styles.placard)} onMouseEnter={toggleHover} onMouseLeave={toggleHover}>
+      <div
+        className={clsx('placard', styles.placard)}
+        onMouseOver={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
+      >
         <Image rounded={rounded} shadowed={shadowed}
                alt={title}
                background={bg}
