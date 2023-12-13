@@ -28,7 +28,7 @@ export default function Phonetics() {
   const { data, word } = useContext(Context)
   const filename = useMemo(
       () => new RegExp(`(?:\/en\/${word})([^/.]*)(?:\..+)$`, 'i'), [word])
-  if (typeof data !== 'object') return null
+  if (!data || typeof data !== 'object') return null
   const { phonetic, phonetics } = data
   return (
       <div className="phonetics">
