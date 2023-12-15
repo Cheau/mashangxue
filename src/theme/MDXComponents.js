@@ -6,7 +6,7 @@ import Dialog from '@site/src/templates/Dialog'
 import Image from '@site/src/components/Image'
 import Pangram from '@site/src/components/Pangram'
 import Player from '@site/src/components/Player'
-import ScDailyConversation from '@site/src/components/Frame/studio-classroom/daily-conversation'
+import ScDc from '@site/src/components/Frame/sc/dc'
 
 export default {
   ...MDXComponents,
@@ -16,5 +16,5 @@ export default {
   Image,
   Pangram,
   Player,
-  ScDailyConversation,
+  ScDc,
 }

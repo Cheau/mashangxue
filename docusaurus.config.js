@@ -70,7 +70,7 @@ const config = {
         ...docs,
         ext: {
           latest: {
-            filters: ['studio-classroom/daily-conversation'],
+            filters: ['sc/dc'],
           }
         },
       }
