@@ -12,7 +12,7 @@ export default async function pluginContentDocsExt(context, options) {
     modules[lowerFirst(classname)] = new Class(context, extOptions, modules)
   })
   const pluginInstance = await pluginContentDocs(context, options)
-  const { loadContent, contentLoaded } = pluginInstance
+  const { loadContent, contentLoaded, configureWebpack } = pluginInstance
   return {
     ...pluginInstance,
     async loadContent() {
@@ -26,6 +26,18 @@ export default async function pluginContentDocsExt(context, options) {
       await recommender.recommend(args)
       await contentLoaded(args)
     },
+    configureWebpack() {
+      const config = configureWebpack(...arguments)
+      const mdxRule = config.module.rules.find((rule) => rule.test.toString() === '/\\.mdx?$/i')
+      const mdxLoader = mdxRule.use.find(({ loader }) => /mdx-loader/.test(loader))
+      const { createAssets } = mdxLoader.options
+      mdxLoader.options.createAssets = (arg) => {
+        const { frontMatter, metadata } = arg
+        Object.entries(metadata.frontMatter).forEach(([key, value]) => frontMatter[key] = value)
+        return createAssets(arg)
+      }
+      return config
+    }
   }
 }
 
