@@ -4,7 +4,7 @@ import Highlight from '../../components/Highlight'
 
 const ref = (token, global) => {
   const {text} = token
-  const [word, ...rest] = text.substring(1, text.length - 1).split('/')
+  const [word, ...rest] = text.substring(1, text.length - 1).split(/(?<!\\)\//)
   const [variant, origin = variant] = word.split(':')
   const {words} = global
   words.push({
@@ -20,7 +20,7 @@ const ref = (token, global) => {
           if (e) e.parentElement.scrollTo(
               {top: 0, left: e.offsetLeft - 20, behavior: 'smooth'})
         }}>
-          {variant}
+          {variant.replace('\\\/', '\/')}
         </Highlight>
     )
   }

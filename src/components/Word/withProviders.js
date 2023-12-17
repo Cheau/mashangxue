@@ -3,12 +3,12 @@ import React, { createContext, useCallback, useEffect, useMemo, useState } from 
 export const Context = createContext(null)
 
 const init = (props, setter) => {
-  const [word, posOrMeaning = '', defIndex = 1] = props.children.split('/')
+  const [word, posOrMeaning = '', defIndex = 1] = props.children.split(/(?<!\\)\//)
   const [partOfSpeech, meaning] = posOrMeaning.split(':')
   const card = props.card ?? (meaning ? 'meaning' : (partOfSpeech ? 'compact' : 'completed'))
   setter({
     card,
-    word,
+    word: word.replace('\\\/', '\/'),
     partOfSpeech,
     meaning,
     defIndex,
