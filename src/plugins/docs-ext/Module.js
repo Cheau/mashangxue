@@ -11,6 +11,10 @@ export default class Module {
     return /\/\d+$/.test(doc.id)
   }
 
+  static isDraft(doc) {
+    return doc.frontMatter.draft
+  }
+
   constructor(context, options, modules) {
     this.#context = context
     this.#options = options

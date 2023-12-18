@@ -6,6 +6,10 @@ export default class Recommender extends Module {
     super(...arguments)
   }
 
+  #isRecommendable(doc) {
+    return Module.isCourse(doc) && !(Module.isDraft(doc) && process.env.NODE_ENV === 'production')
+  }
+
   #buildLatest(docs, options) {
     const { converter } = super.modules
     const { filters = [], perSize = 41 } = options
@@ -15,6 +19,7 @@ export default class Recommender extends Module {
     }, {})
     for (let i = docs.length - 1; i >= 0; i--) {
       const doc = docs[i]
+      if (!this.#isRecommendable(doc)) continue
       const group = latest[doc.sourceDirName]
       if (!group || group.length === perSize) continue
       group.push(converter.toCompact(doc))
@@ -32,7 +37,8 @@ export default class Recommender extends Module {
     const random = {}
     while (Object.keys(random).length < size) {
       const pos = Math.floor(Math.random() * docs.length)
-      if (Module.isCourse(docs[pos])) random[pos] = converter.toComplete(docs[pos])
+      const doc = docs[pos]
+      if (this.#isRecommendable(doc)) random[pos] = converter.toComplete(doc)
     }
     return Object.values(random)
   }
