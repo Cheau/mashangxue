@@ -42,6 +42,7 @@ export default class Processor extends Module {
   #withKeywords(frontMatter, content) {
     if (frontMatter.keywords) return
     const lookups = content.match(/(?<=\[)[a-zA-Z-'() :]+\/([a-z]+\.|:[^\]]+)(\/\d+)?(?=])/g)
+    if (!lookups) return
     frontMatter.keywords = lookups.map((lookup) => {
       const word = lookup.split('/')[0]
       const [variant, original] = word.split(':')
