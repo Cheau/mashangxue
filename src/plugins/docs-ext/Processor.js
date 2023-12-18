@@ -53,7 +53,7 @@ export default class Processor extends Module {
   #toPoint = [0.5, 1, 1.7, 2.5]
   #withRate(frontMatter) {
     const { keywords, rate } = frontMatter
-    if (rate) return
+    if (rate || !keywords) return
     const points = keywords
       .map((s) => s.split(/ +/))
       .flat()
