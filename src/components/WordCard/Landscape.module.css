@@ -1,0 +1,31 @@
+@value gap: 2.5%;
+@value icon-size: 2em;
+
+.landscape > :global(.box) {
+    background-color: white;
+}
+
+.landscape :global(.photo) {
+    width: 40%;
+}
+
+.landscape :global(.watermark) {
+    padding: gap;
+}
+
+.content {
+    flex-grow: 1;
+    line-height: 1;
+}
+
+.content > div {
+    margin: gap;
+}
+
+.content :global(.detail) {
+    padding: gap;
+}
+
+.content :global(.blank) {
+    margin-top: gap;
+}

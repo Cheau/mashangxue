@@ -1,0 +1,35 @@
+@value gap: 2.5%;
+@value icon-size: 2em;
+
+.portrait > :global(.box) {
+    background-color: white;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+.portrait :global(.photo) {
+    border: none;
+    font-size: 1.5em;
+}
+
+.portrait :global(.watermark) {
+    padding: gap;
+}
+
+.content {
+    line-height: 1;
+    margin: gap;
+}
+
+.content :global(.title) {
+    text-align: center;
+}
+
+.content :global(.detail) {
+    margin: gap 0;
+    padding: gap;
+}
+
+.content :global(.blank) {
+    margin-top: gap;
+}

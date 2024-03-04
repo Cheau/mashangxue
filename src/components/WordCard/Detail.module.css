@@ -1,0 +1,22 @@
+@value bgColor: #ebebeb;
+@value fgColor: #808080;
+
+.detail {
+    position: relative;
+    line-height: 1.2;
+    white-space: break-spaces;
+    background: bgColor;
+    color: fgColor;
+    font-weight: lighter;
+}
+
+.detail:before {
+    content: '';
+    position: absolute;
+    top: calc(-1.5em + 1px);
+    left: 1.25em;
+    height: 0;
+    width: 0;
+    border: 0.75em solid;
+    border-color: transparent transparent bgColor transparent;
+}

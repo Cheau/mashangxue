@@ -1,0 +1,44 @@
+@value gap: 1.5%;
+
+.square > :global(.box) {
+    background-color: white;
+}
+
+.square :global(.photo) {
+    font-size: 1.5em;
+}
+
+.square :global(.watermark) {
+    padding: gap;
+}
+
+.content {
+    line-height: 1;
+    padding: gap 0;
+}
+
+.content :global(.detail) {
+    margin: gap;
+    padding: gap;
+}
+
+.content :global(.blank) {
+    margin-top: gap;
+}
+
+.titles {
+    display: flex;
+    align-items: center;
+}
+
+.titles :global(.title) {
+    margin-left: gap;
+}
+
+.divider {
+    display: inline-block;
+    height: 2em;
+    width: 1px;
+    margin: 0 gap;
+    background: #dddddd;
+}

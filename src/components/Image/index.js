@@ -53,6 +53,7 @@ export default function Image({
         <LazyLoad once offset={100} height="100%">
           <img
             alt={alt ?? name.split('.')[0]}
+            className="img"
             src={`/img/${dir}${name}.${ext}`}
             style={imgStyle}
           />

@@ -23,7 +23,7 @@
   position: absolute;
 }
 
-.image img {
+.image :global(.img) {
   position: absolute;
   top: 0;
   left: 0;

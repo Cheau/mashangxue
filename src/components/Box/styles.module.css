@@ -29,6 +29,10 @@
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
+.shadowed {
+    box-shadow: 0 0 8px 0 rgba(0,0,0,.4);
+}
+
 .watermark {
     position: absolute;
     top: 0;

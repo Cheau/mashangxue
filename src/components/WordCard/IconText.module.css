@@ -1,0 +1,30 @@
+@value icon-size: 2em;
+
+.iconText {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    backdrop-filter: blur(3px);
+    border: 1px solid white;
+    border-radius: icon-size;
+    font-size: calc(icon-size * 0.4);
+    font-weight: bold;
+}
+
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: icon-size;
+    width: icon-size;
+    overflow: hidden;
+    background: black;
+    border-radius: icon-size;
+    color: white;
+}
+
+.text {
+    margin-left: calc(icon-size * 0.1);
+    margin-right: calc(icon-size * 0.3);
+    white-space: nowrap;
+}

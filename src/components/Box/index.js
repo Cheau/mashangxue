@@ -57,13 +57,14 @@ export default function Box({
   paper,
   print: { pdf = false, pic = false } = {},
   ratio,
+  shadowed = false,
   style,
   title,
   watermark = false,
   width,
   ...rest
 }) {
-  const classNames = clsx('box', styles.box, styles[paper], { [styles.bounded]: ratio }, className)
+  const classNames = clsx('box', styles.box, styles[paper], { [styles.bounded]: ratio, [styles.shadowed]: shadowed }, className)
   const boxRef = useRef()
   const actionsRef = useRef()
   const exp = (callback) => {
