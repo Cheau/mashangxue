@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import LazyLoad from 'react-lazyload'
+import clsx from 'clsx'
 
+import cards from './shared/cards.module.css'
 import Landscape from './Landscape'
 import Portrait from './Portrait'
 import Printer from './Printer'
@@ -19,14 +21,10 @@ export default function WordCard(props) {
   const card = <Component {...props} print={() => setPrint(true)} />
   return (
     <LazyLoad once>
-      <div style={{ width: '600px', fontSize: '14px' }}>
-        {card}
-      </div>
+      <div className={clsx(cards.normal)}>{card}</div>
       {print && (
         <Printer onClose={() => setPrint(false)}>
-          <div style={{ width: '1600px', fontSize: '36px' }}>
-            {card}
-          </div>
+          <div className={clsx(cards.printer)}>{card}</div>
         </Printer>
       )}
     </LazyLoad>
