@@ -1,0 +1,63 @@
+.checkbox {
+    display: flex;
+    align-items: center;
+    padding: 0 .5em;
+}
+.checkbox:not(.texting) {
+    cursor: pointer;
+}
+.checkbox:not(.texting):hover, .texting .text:hover {
+    background: lightgrey;
+}
+
+.index {
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.5em;
+    text-align: center;
+    margin-right: 1em;
+    background: black;
+    border-radius: 1em;
+    color: white;
+    font-size: .7em;
+}
+
+.check {
+    appearance: none;
+    height: 1.5em;
+    width: 1.5em;
+    margin: 0 0.25em 0 0;
+    border: 2px solid black;
+}
+.checked {
+    position: relative;
+    background: black;
+}
+.checked::before {
+    content: '\2714';
+    position: absolute;
+    color: white;
+    top: 0;
+    left: .25em;
+}
+
+.text {
+    margin: 5px;
+    padding: 0;
+}
+.text:not(.empty) {
+    cursor: text;
+}
+.texting .text {
+    flex-grow: 1;
+    margin: 0;
+    padding: 5px;
+    color: black;
+}
+.texting .text:focus {
+    background: aliceblue;
+}
+
+.empty {
+    color: grey;
+}

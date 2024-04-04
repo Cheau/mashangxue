@@ -1,0 +1,52 @@
+@media screen and (max-width: 768px) {
+    .checkboxes {
+        width: 90%;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .checkboxes {
+        width: 50%;
+    }
+}
+
+.checkboxes {
+    margin: 0 auto;
+}
+
+.checkboxes :global(.checkbox), .checkboxes :global(.checkbox input) {
+    font-size: 24px;
+}
+
+.actions {
+    margin: 1em 0;
+}
+
+.actions button {
+    background: none;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    color: black;
+    cursor: pointer;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.actions button + button {
+    margin-left: .5em;
+}
+.actions button.stateful {
+    padding: .5em;
+}
+.actions button.stateful:hover {
+    background: lightgrey;
+}
+.actions button.stateful.active {
+    background: black;
+    color: white;
+}
+
+.boxes {
+    padding: 1em 0;
+    border-top: 2px dashed lightgrey;
+}
