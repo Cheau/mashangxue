@@ -1,11 +1,16 @@
+@media (any-hover: hover) {
+    .checkbox {
+        padding: 0 .5em;
+    }
+
+    .highlight:not(.texting):hover, .highlight.texting .text:hover {
+        background: lightgrey;
+    }
+}
+
 .checkbox {
     display: flex;
     align-items: center;
-    padding: 0 .5em;
-}
-
-.highlight:not(.texting):hover, .highlight.texting .text:hover {
-    background: lightgrey;
 }
 
 .index {
