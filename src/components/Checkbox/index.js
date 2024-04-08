@@ -8,6 +8,8 @@ const placehold = (text) => text && text.length ? text : 'empty...'
 export default function Checkbox({
   checked = false,
   editable = false,
+  highlight = false,
+  partial = false,
   index,
   text,
   onCheck = (val) => val,
@@ -18,26 +20,34 @@ export default function Checkbox({
     if (!editable) onCheck(!checked)
   }
   const input = (e) => onText(e.target.innerText)
+  const classes = clsx('checkbox', styles.checkbox, {
+    [styles.highlight]: highlight,
+    [styles.texting]: text !== false && editable,
+  })
+  const indexClasses = clsx('index', styles.index, {
+    [styles.empty]: index === undefined || index === null || index === '',
+  })
   const checkClasses = clsx('check', styles.check, {
     [styles.checked]: checked,
+    [styles.partial]: partial,
   })
   const textClasses = clsx('text', styles.text, {
     [styles.empty]: !text,
   })
   return (
-    <label className={clsx('checkbox', styles.checkbox, { [styles.texting]: editable })} onClick={check}>
-      <span className={styles.index}>{index}</span>
+    <label className={classes} onClick={check}>
+      <span className={indexClasses}>{index}</span>
       <input
         className={checkClasses}
         type='checkbox'
       />
-      <div
+      {text !== false && <div
         className={textClasses}
         contentEditable={editable}
         onBlur={input}
       >
         {editable ? text : placehold(text)}
-      </div>
+      </div>}
     </label>
   )
 }

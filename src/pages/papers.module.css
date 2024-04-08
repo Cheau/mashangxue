@@ -1,16 +1,16 @@
 @media screen and (max-width: 768px) {
-    .checkboxes {
+    .central {
         width: 90%;
     }
 }
 
 @media screen and (min-width: 769px) {
-    .checkboxes {
+    .central {
         width: 50%;
     }
 }
 
-.checkboxes {
+.central {
     margin: 0 auto;
 }
 
@@ -19,9 +19,22 @@
 }
 
 .actions {
-    margin: 1em 0;
+    position: sticky;
+    top: 0;
+    background: white;
+    box-shadow: 0 3px 3px rgba(0,0,0,.2);
 }
-
+.actions :global(.index) {
+    background: none !important;
+    color: black;
+    font-weight: bold;
+    transform: scale(1.5);
+}
+.actions .central {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 0;
+}
 .actions button {
     background: none;
     border: none;
@@ -31,12 +44,15 @@
     cursor: pointer;
     font-size: 1.5em;
     font-weight: bold;
+    padding: 0;
 }
 .actions button + button {
     margin-left: .5em;
 }
 .actions button.stateful {
     padding: .5em;
+    border: 1px solid black;
+    border-radius: .25em;
 }
 .actions button.stateful:hover {
     background: lightgrey;
@@ -48,5 +64,4 @@
 
 .boxes {
     padding: 1em 0;
-    border-top: 2px dashed lightgrey;
 }

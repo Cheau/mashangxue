@@ -3,10 +3,8 @@
     align-items: center;
     padding: 0 .5em;
 }
-.checkbox:not(.texting) {
-    cursor: pointer;
-}
-.checkbox:not(.texting):hover, .texting .text:hover {
+
+.highlight:not(.texting):hover, .highlight.texting .text:hover {
     background: lightgrey;
 }
 
@@ -16,34 +14,46 @@
     line-height: 1.5em;
     text-align: center;
     margin-right: 1em;
-    background: black;
     border-radius: 1em;
     color: white;
     font-size: .7em;
 }
+.index:not(.empty) {
+    background: black;
+}
 
 .check {
     appearance: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 1.5em;
     width: 1.5em;
     margin: 0 0.25em 0 0;
     border: 2px solid black;
+    cursor: pointer;
 }
-.checked {
-    position: relative;
+.checked:not(.partial) {
     background: black;
 }
 .checked::before {
     content: '\2714';
-    position: absolute;
     color: white;
-    top: 0;
-    left: .25em;
+    line-height: 1;
+}
+.checked.partial::before {
+    content: '\25FC';
+    color: black;
+    font-size: 1.6em;
+    line-height: 1;
 }
 
 .text {
     margin: 5px;
     padding: 0;
+}
+.text.empty {
+    color: grey;
 }
 .text:not(.empty) {
     cursor: text;
@@ -56,8 +66,4 @@
 }
 .texting .text:focus {
     background: aliceblue;
-}
-
-.empty {
-    color: grey;
 }
