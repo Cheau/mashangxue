@@ -73,8 +73,11 @@ const config = {
             filters: ['sc/dc'],
           }
         },
-      }
+      },
     ],
+    [require.resolve('docusaurus-lunr-search'), {
+      languages: ['en', 'zh'],
+    }],
   ],
 
   themeConfig:

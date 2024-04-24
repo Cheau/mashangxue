@@ -51,8 +51,8 @@ export default class Recommender extends Module {
     }
   }
 
-  async recommend({ actions: { createData, addRoute }, allContent }) {
-    const { docs } = allContent['docusaurus-plugin-content-docs']['default']['loadedVersions'][0]
+  async recommend({ actions: { createData, addRoute }, content }) {
+    const { docs } = content['loadedVersions'][0]
     const data = this.#build(docs)
     const filePath = await createData('recommend.json', JSON.stringify(data))
     addRoute({
