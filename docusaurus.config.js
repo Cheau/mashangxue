@@ -41,7 +41,16 @@ const config = {
   markdown: {
     mermaid: true,
   },
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: [
+    '@docusaurus/theme-mermaid',
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      ({
+        hashed: true,
+        language: ['en', 'zh'],
+      })
+    ]
+  ],
 
   presets: [
     [
@@ -75,9 +84,6 @@ const config = {
         },
       },
     ],
-    [require.resolve('docusaurus-lunr-search'), {
-      languages: ['en', 'zh'],
-    }],
   ],
 
   themeConfig:
