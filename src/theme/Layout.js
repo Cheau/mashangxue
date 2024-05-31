@@ -39,8 +39,6 @@ export default function Layout(props) {
 
         <AnnouncementBar />
 
-        <Global />
-
         <Navbar />
 
         <div
@@ -53,6 +51,8 @@ export default function Layout(props) {
             {children}
           </ErrorBoundary>
         </div>
+
+        <Global />
 
         <Analytics />
 
