@@ -20,6 +20,7 @@
     "@easyops-cn/docusaurus-search-local": "^0.40.1",
     "@hookstate/core": "4.0.1",
     "@hookstate/localstored": "4.0.2",
+    "@ionic/react": "^8.2.1",
     "@mdx-js/react": "^3.0.0",
     "@vercel/analytics": "^1.1.1",
     "clsx": "^1.2.1",
@@ -33,6 +34,7 @@
     "react-icons": "^4.10.1",
     "react-lazyload": "^3.2.0",
     "react-qrcode-logo": "2.9.0",
+    "rsuite": "^5.62.1",
     "swiper": "11.0.4"
   },
   "devDependencies": {

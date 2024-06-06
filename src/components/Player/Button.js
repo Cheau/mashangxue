@@ -1,12 +1,8 @@
 import React from 'react'
 
-import styles from './styles.module.css'
+import Default from './Default'
 
 export default function Button(props) {
-  const { children, hovering, ...rest } = props
-  return (
-      <div className={styles.block} {...rest}>
-        {children}
-      </div>
-  )
+  const { hovering, ...rest } = props
+  return <Default {...rest} />
 }

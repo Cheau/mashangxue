@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react'
 
 import { getSessionStorage } from './store'
 
+export const useRender = () => {
+  const [, setToggle] = useState(false)
+  return () => setToggle(toggle => !toggle)
+}
+
 export const useSession = (key, defaultValue) => {
   const [value, setValue] = useState(() => {
     const str = getSessionStorage().getItem(key)

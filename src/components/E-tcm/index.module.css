@@ -1,0 +1,29 @@
+.etcm {
+    padding: 1em;
+    background: #f5f6f7;
+}
+
+.desc {
+    display: flex;
+    justify-content: space-between;
+}
+
+.iconic {
+    display: inline-flex;
+    align-items: center;
+}
+.iconic svg {
+    font-size: 2em;
+    margin-right: 5px;
+}
+
+.title {
+    font-size: 1.5em;
+    margin-top: 1em;
+    text-align: center;
+}
+
+.subtitle {
+    color: #808080;
+    text-align: center;
+}

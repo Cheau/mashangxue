@@ -1,0 +1,20 @@
+@value column-width: 150px;
+
+.picker, .wrapper {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.button {
+    display: flex;
+    font-size: 16px;
+}
+
+:global(.rs-drawer-wrapper .rs-picker-popup), :global(.rs-drawer-wrapper .rs-picker-toolbar) {
+    max-width: calc(column-width * 2);
+}
+
+:global(.rs-drawer-wrapper .rs-picker-popup .rs-calendar) {
+    margin: 0;
+    min-width: column-width;
+}

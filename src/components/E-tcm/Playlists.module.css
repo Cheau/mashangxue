@@ -1,0 +1,79 @@
+@value gap: 20px;
+
+.playlists :global(.rs-drawer-body) {
+    padding: gap;
+}
+.playlists :global(.rs-panel + .rs-panel) {
+    margin-top: gap;
+}
+.playlists > :global(.rs-popover) {
+    width: 100%;
+}
+
+.playlist :global(.rs-panel-header) {
+    display: flex;
+    align-items: center;
+    background: var(--rs-gray-300);
+}
+.playlist :global(.rs-panel-header svg) {
+    font-size: 1.25em;
+    margin-right: 5px;
+}
+.playlist :global(.rs-panel-body) {
+    padding: 0;
+}
+.playlist :global(.rs-panel-header), .playlists .item, .playlists .ranges {
+    padding: calc(gap / 2) gap;
+}
+.playlist .items {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.playlist .item {
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    color: var(--rs-text-disabled);
+}
+.playlist .item svg, .playlist .ranges :global(.rs-tag-text svg) {
+    font-size: 1.25em;
+    margin-right: .25em;
+}
+.playlist .ranges :global(.rs-tag) {
+    display: inline-flex;
+    height: 31.33px;
+}
+.playlist .ranges :global(.rs-tag-text) {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.playlist.active :global(.rs-panel-header), .tag.active, .tag.active svg {
+    background: black;
+    color: white;
+}
+.playlist.active .item {
+    color: black;
+}
+.playlist.active .item:hover {
+    background: black;
+    color: white;
+}
+.playlist.active .item.active {
+    background: rgba(233, 30, 99, 0.1);
+    color: black;
+}
+.playlist.active .item.playing svg {
+    animation: rotation 5s linear infinite;
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

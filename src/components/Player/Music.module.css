@@ -1,0 +1,58 @@
+.player {
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.disc {
+    margin: 1em;
+    text-align: center;
+}
+
+.disc img {
+    animation-name: rotation;
+    animation-duration: 23s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    border-radius: 100%;
+}
+
+.paused {
+    animation-play-state: paused;
+}
+
+.title {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+.progress {
+    width: 100%;
+}
+
+.time {
+    display: flex;
+    justify-content: space-between;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.actions > * {
+    display: inline-flex;
+    cursor: pointer;
+}
+.actions .main {
+    font-size: 2.5em;
+}
+.actions svg {
+    font-size: 1.5em;
+}
