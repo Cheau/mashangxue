@@ -31,9 +31,10 @@ const box = (source) => {
   return []
 }
 
-const withPlayer = (Component, options = {}) => forwardRef(function Player(props, ref) {
+const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(props, ref) {
   const { src } = props
   const playlist = useMemo(() => box(src), [src])
+  const [opts, setOpts] = useState({})
   const [index, setIndex] = useState(() => props.index ?? 0, [props.index])
   const [audio, setAudio] = useState()
   const [progress, setProgress] = useState(0, [audio])
@@ -56,9 +57,10 @@ const withPlayer = (Component, options = {}) => forwardRef(function Player(props
     if (audio.howl) {
       func(audio.howl, ...args)
     } else if (create) {
-      const sound = new Howl({
+      const options = {
         preload: false,
-        ...options,
+        ...typedOpts,
+        ...opts,
         src: audio.src,
         onend: () => setStatus('ended'),
         onpause: () => setStatus('paused'),
@@ -70,7 +72,8 @@ const withPlayer = (Component, options = {}) => forwardRef(function Player(props
           requestAnimationFrame(step.bind(this))
         },
         onstop: () => setStatus('stopped'),
-      })
+      }
+      const sound = new Howl(options)
       audio.howl = sound
       if (sound.state() === 'unloaded') sound.load()
       sound.once('load', sound.play)
@@ -109,6 +112,7 @@ const withPlayer = (Component, options = {}) => forwardRef(function Player(props
     elapsed={formatTime(elapsed)}
     index={index}
     progress={progress}
+    setOpts={setOpts}
     status={status}
   />
 })

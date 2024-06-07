@@ -2,7 +2,6 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-  useState,
 } from 'react'
 import clsx from 'clsx'
 import {
@@ -23,6 +22,7 @@ import 'rsuite/useToaster/styles/index.css'
 
 import styles from './Music.module.css'
 import withPlayer from './withPlayer'
+import { useSession } from '../../common/hooks'
 
 const path = /(?<dir>.*\/)?(?<name>[^/.]+)(\.(?<ext>[^.]+$))?/
 
@@ -41,13 +41,13 @@ function Music(props) {
   const toaster = useToaster()
   const ref = useRef(null)
   const {
-    actions, duration, elapsed, index, progress, src = [], status,
+    actions, duration, elapsed, index, progress, setOpts, src = [], status,
     onChange = () => {}, onPlaylist = () => {},
   } = props
   const {
     pause, pick, play, seek,
   } = actions
-  const [mode, setMode] = useState(0)
+  const [mode, setMode] = useSession('music.mode', 0)
   const on = useMemo(() => status === 'playing', [status])
   const [modeText, modeIcon] = modes[mode]
   const { groups: { name } } = path.exec(src[index] ?? '') ?? { groups: { name: '' } }
@@ -59,12 +59,12 @@ function Music(props) {
   const onPrevious = () => pick(tick(src, index, false))
   const onToggle = on ? pause : play
   const onNext = () => pick(tick(src, index))
+  useEffect(() => setOpts({ loop: mode === 1 }), [mode])
   useEffect(() => onChange('index', index), [index])
   useEffect(() => {
     onChange('status', status)
     if (status === 'ended') {
       if (mode === 0) onNext()
-      else play()
     }
   }, [status])
   return (
