@@ -14,14 +14,20 @@ const options = (count) => Array(count).fill().map((v, i) => {
 
 export default function RangePicker(props) {
   const {
-    max = 24, min = 0, onChange, value: [start, end]
+    max = 24, min = 0, onChange, value
   } = props
+  if (!value) {
+    const date = new Date()
+    const time = `${padTime(date.getHours())}:00`
+    setTimeout(() => onChange([time, time]))
+    return null
+  }
+  const [start, end] = value
   const [startHour, startMinute] = start.split(':')
   const [endHour, endMinute] = end.split(':')
   const change = (i) => ({ detail }) => {
-    const { value } = detail
     const values = [startHour, startMinute, endHour, endMinute]
-    values[i] = value
+    values[i] = detail.value
     onChange([`${values[0]}:${values[1]}`, `${values[2]}:${values[3]}`])
   }
   return (

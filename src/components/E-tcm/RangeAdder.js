@@ -1,55 +1,28 @@
 import React, { useState } from 'react'
 import { BsPlusLg } from 'react-icons/bs'
-import {
-  Button,
-  DateRangePicker,
-} from 'rsuite'
-
-import 'rsuite/Button/styles/index.css'
-import 'rsuite/DateRangePicker/styles/index.css'
+import { IonButton, IonPopover, IonToolbar } from '@ionic/react'
 
 import styles from './RangeAdder.module.css'
-import { padTime } from './utils'
-
-const format = (date) => `${padTime(date.getHours())}:${padTime(date.getMinutes())}`
+import RangePicker from './RangePicker'
 
 export default function RangeAdder({ children, onChange }) {
   const [typing, setTyping] = useState(false)
-  const change = (value) => {
+  const [value, setValue] = useState()
+  const onOk = () => {
     setTyping(false)
-    if (!value) return
-    const [start, end] = value
-    onChange([format(start), format(end)])
-  }
-  if (typing) {
-    return (
-        <DateRangePicker
-            block
-            className={styles.picker}
-            defaultOpen={true}
-            format="HH:mm"
-            showHeader={false}
-            onClean={() => change()}
-            onOk={change}
-            preventOverflow
-            ranges={[]}
-            size="sm"
-            value={[new Date(), new Date()]}
-        />
-    )
+    onChange(value)
   }
   return (
     <div className={styles.wrapper}>
-      <Button
-          appearance="ghost"
-          block
-          className={styles.button}
-          onClick={() => setTyping(true)}
-          size="sm"
-          startIcon={<BsPlusLg />}
-      >
-        {children}
-      </Button>
+      <IonButton color="primary" expand="block" fill="outline" onClick={() => setTyping(true)}>
+        <BsPlusLg style={{ marginRight: '5px' }} />{children}
+      </IonButton>
+      <IonPopover isOpen={typing} mode="ios" onDidDismiss={() => setTyping(false)}>
+        <RangePicker onChange={setValue} value={value} />
+        <IonToolbar>
+          <IonButton fill="clear" size="small" slot="end" onClick={onOk}>确定</IonButton>
+        </IonToolbar>
+      </IonPopover>
     </div>
   )
 }
