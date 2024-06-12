@@ -1,31 +1,46 @@
-import React, { useMemo } from 'react'
-import { IonRange } from '@ionic/react'
+import React from 'react'
+import { IonPicker, IonPickerColumn, IonPickerColumnOption } from '@ionic/react'
 
-import { hoursToDozens, dozensToTime, timeToDozens } from './utils'
+import './RangePicker.module.css'
+import { padTime } from './utils'
+
+const options = (count) => Array(24).fill().map((v, i) => {
+  const value = padTime(i)
+  return (
+    <IonPickerColumnOption key={i} value={value}>
+      {value}
+    </IonPickerColumnOption>
+)})
 
 export default function RangePicker(props) {
   const {
     max = 24, min = 0, onChange, value: [start, end]
   } = props
-  const maxInDozens = useMemo(() => hoursToDozens(max), [max])
-  const minInDozens = useMemo(() => hoursToDozens(min), [min])
-  const value = { lower: timeToDozens(start), upper: timeToDozens(end) }
-  const change = (e) => {
-    const { lower, upper } = e.detail.value
-    onChange([dozensToTime(lower), dozensToTime(upper)])
+  const [startHour, startMinute] = start.split(':')
+  const [endHour, endMinute] = end.split(':')
+  const change = (i) => ({ detail }) => {
+    const { value } = detail
+    const values = [startHour, startMinute, endHour, endMinute]
+    values[i] = value
+    onChange([`${values[0]}:${values[1]}`, `${values[2]}:${values[3]}`])
   }
   return (
-    <IonRange
-      dualKnobs
-      max={maxInDozens}
-      min={minInDozens}
-      onIonChange={change}
-      pin
-      pinFormatter={dozensToTime}
-      value={value}
-    >
-      <span slot="start">{min}</span>
-      <span slot="end">{max}</span>
-    </IonRange>
+    <IonPicker>
+      <IonPickerColumn onIonChange={change(0)} value={startHour}>
+        {options(24)}
+        <div slot="suffix">:</div>
+      </IonPickerColumn>
+      <IonPickerColumn onIonChange={change(1)} value={startMinute}>
+        {options(60)}
+        <div slot="suffix">~</div>
+      </IonPickerColumn>
+      <IonPickerColumn onIonChange={change(2)} value={endHour}>
+        {options(24)}
+        <div slot="suffix">:</div>
+      </IonPickerColumn>
+      <IonPickerColumn  onIonChange={change(3)} value={endMinute}>
+        {options(60)}
+      </IonPickerColumn>
+    </IonPicker>
   )
 }

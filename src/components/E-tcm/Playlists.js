@@ -3,22 +3,20 @@ import clsx from 'clsx'
 import { FcMusic } from 'react-icons/fc'
 import { BiTime } from 'react-icons/bi'
 import {
-  Drawer,
   Panel,
-  Popover,
   Tag,
   TagGroup,
-  Whisper,
 } from 'rsuite'
+import {
+  IonPopover,
+} from '@ionic/react'
 
-import 'rsuite/Button/styles/index.css'
-import 'rsuite/Drawer/styles/index.css'
 import 'rsuite/Panel/styles/index.css'
-import 'rsuite/Popover/styles/index.css'
 import 'rsuite/Tag/styles/index.css'
 import 'rsuite/TagGroup/styles/index.css'
 
 import styles from './Playlists.module.css'
+import Modal from '../Modal'
 import RangeAdder from './RangeAdder'
 import RangePicker from './RangePicker'
 import { filename } from '../../common/path'
@@ -58,32 +56,22 @@ function Playlist({
           )})}
         </ul>
         <TagGroup className={styles.ranges}>
-          {ranges.map((range, i) => {
-            const speaker = (
-              <Popover arrow={false} title="调整时段">
-                <RangePicker max={max} min={min} onChange={onUpdate(i)} value={range} />
-              </Popover>
-            )
-            return (
-              <Whisper
-                key={i}
-                container={() => document.getElementsByClassName(styles.playlists)[0]}
-                placement="top"
-                preventOverflow
-                speaker={speaker}
-                trigger="click"
-              >
-                <Tag
-                  className={clsx(styles.tag, { [styles.active]: active && i === ri })}
-                  closable={!scoped}
-                  onClose={() => onDelete(i)}
-                  size="lg"
-                >
-                  <BiTime />{formatRange(range)}
-                </Tag>
-              </Whisper>
-            )}
-          )}
+          {ranges.map((range, i) => (
+            <Tag
+              key={i}
+              className={clsx(styles.tag, { [styles.active]: active && i === ri })}
+              closable={!scoped}
+              onClose={() => onDelete(i)}
+              size="lg"
+            >
+              <span id={`range-${id}-${i}`}><BiTime />{formatRange(range)}</span>
+            </Tag>
+          ))}
+          {ranges.map((range, i) => (
+            <IonPopover key={i} mode="ios" trigger={`range-${id}-${i}`}>
+              <RangePicker max={max} min={min} onChange={onUpdate(i)} value={range} />
+            </IonPopover>
+          ))}
           {!scoped && <RangeAdder onChange={onAdd}>添加{part}时段</RangeAdder>}
         </TagGroup>
       </Panel>
@@ -97,23 +85,17 @@ export default function Playlists({
   onPick = () => {},
   open,
 }) {
-  const [placement, size] = window.innerWidth > 768 ? ['right', 'xs'] : ['bottom', 'lg']
+  if (!open) return null
   return (
-      <Drawer
-          className={styles.playlists}
-          open={open}
-          onClose={onClose}
-          placement={placement}
-          size={size}
-      >
-        <Drawer.Header>
-          <Drawer.Title>播放列表</Drawer.Title>
-        </Drawer.Header>
-        <Drawer.Body>
-          {data.map((list, i) => (
-            <Playlist key={i} current={current} id={i} list={list} onPick={onPick} />
-          ))}
-        </Drawer.Body>
-      </Drawer>
+      <Modal open={open} onClose={onClose}>
+        <div className={styles.playlists}>
+          <h2>播放列表</h2>
+          <div>
+            {data.map((list, i) => (
+              <Playlist key={i} current={current} id={i} list={list} onPick={onPick} />
+            ))}
+          </div>
+        </div>
+      </Modal>
   )
 }

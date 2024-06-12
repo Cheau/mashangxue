@@ -1,5 +1,19 @@
 @value gap: 20px;
 
+.playlists {
+    max-height: 90vh;
+    width: 400px;
+    padding: gap;
+    overflow: auto;
+    background: white;
+}
+
+@media screen and (max-width: 767px) {
+    .playlists {
+        width: 90vw;
+    }
+}
+
 .playlists :global(.rs-drawer-body) {
     padding: gap;
 }
