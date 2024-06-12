@@ -4,7 +4,7 @@ import { IonPicker, IonPickerColumn, IonPickerColumnOption } from '@ionic/react'
 import './RangePicker.module.css'
 import { padTime } from './utils'
 
-const options = (count) => Array(24).fill().map((v, i) => {
+const options = (count) => Array(count).fill().map((v, i) => {
   const value = padTime(i)
   return (
     <IonPickerColumnOption key={i} value={value}>
