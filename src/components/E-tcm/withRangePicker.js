@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import {
   IonButton,
   IonPicker,
@@ -41,24 +41,33 @@ const withRangePicker = (Component) => function RangePicker({
 }) {
   const popover = useRef(null)
   const [open, setOpen] = useState(false)
+  const [range, setRange] = useState(() => split(value))
+  const columns = useMemo(() => [
+      { max, min, suffix: ':' },
+      { max: 59, suffix: '~' },
+      { max, min, suffix: ':' },
+      { max: 59 },
+  ], [max, min])
+
   const onPop = (e) => {
     setOpen(true)
     popover.current.event = e
   }
-  const onDismiss = () => setOpen(false)
-
-  const [range, setRange] = useState(() => split(value))
-  const [sHour, sMinute, eHour, eMinute] = range
+  const onDismiss = () => {
+    setOpen(false)
+    setRange(split(value))
+  }
   const onPick = (e, i) => {
     const newRange = [...range]
     newRange[i] = e.detail.value
     setRange(newRange)
   }
   const onOk = () => {
-    const newStart = `${sHour}:${sMinute}`
-    const newEnd = `${eHour}:${eMinute}`
-    const newValue = newEnd < newStart ? [newEnd, newStart] : [newStart, newEnd]
-    onChange(newValue)
+    const start = `${range[0]}:${range[1]}`
+    const end = `${range[2]}:${range[3]}`
+    const ordered = end < start ? [end, start] : [start, end]
+    setRange(split(ordered))
+    onChange(ordered)
     onDismiss()
   }
   return (
@@ -66,21 +75,12 @@ const withRangePicker = (Component) => function RangePicker({
       <Component {...rest} onClick={onPop} />
       <IonPopover isOpen={open} mode="ios" onDidDismiss={onDismiss} ref={popover}>
         <IonPicker>
-          <IonPickerColumn onIonChange={(e) => onPick(e, 0)} value={sHour}>
-            {options(max, min)}
-            <div slot="suffix">:</div>
-          </IonPickerColumn>
-          <IonPickerColumn onIonChange={(e) => onPick(e, 1)} value={sMinute}>
-            {options(59)}
-            <div slot="suffix">~</div>
-          </IonPickerColumn>
-          <IonPickerColumn onIonChange={(e) => onPick(e, 2)} value={eHour}>
-            {options(max, min)}
-            <div slot="suffix">:</div>
-          </IonPickerColumn>
-          <IonPickerColumn  onIonChange={(e) => onPick(e, 3)} value={eMinute}>
-            {options(59)}
-          </IonPickerColumn>
+          {columns.map((column, i) => (
+              <IonPickerColumn key={i} onIonChange={(e) => onPick(e, i)} value={range[i]}>
+                {options(column.max, column.min)}
+                {column.suffix && <div slot="suffix">{column.suffix}</div>}
+              </IonPickerColumn>
+          ))}
         </IonPicker>
         <IonToolbar>
           <IonButton fill="clear" size="small" slot="end" onClick={onOk}>
