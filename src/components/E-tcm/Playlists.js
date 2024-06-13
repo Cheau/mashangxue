@@ -1,26 +1,19 @@
 import React, { useMemo } from 'react'
 import clsx from 'clsx'
 import { FcMusic } from 'react-icons/fc'
-import { BiTime } from 'react-icons/bi'
 import {
   Panel,
-  Tag,
   TagGroup,
 } from 'rsuite'
-import {
-  IonPopover,
-} from '@ionic/react'
 
 import 'rsuite/Panel/styles/index.css'
-import 'rsuite/Tag/styles/index.css'
 import 'rsuite/TagGroup/styles/index.css'
 
 import styles from './Playlists.module.css'
 import Modal from '../Modal'
+import Range from './Range'
 import RangeAdder from './RangeAdder'
-import RangePicker from './RangePicker'
 import { filename } from '../../common/path'
-import { formatRange } from './utils'
 
 function Playlist({
   current: {
@@ -57,22 +50,18 @@ function Playlist({
         </ul>
         <TagGroup className={styles.ranges}>
           {ranges.map((range, i) => (
-            <Tag
+            <Range
               key={i}
-              className={clsx(styles.tag, { [styles.active]: active && i === ri })}
-              closable={!scoped}
-              onClose={() => onDelete(i)}
-              size="lg"
-            >
-              <span id={`range-${id}-${i}`}><BiTime />{formatRange(range)}</span>
-            </Tag>
+              active={active && i === ri }
+              deletable={!scoped}
+              max={max}
+              min={min}
+              onChange={onUpdate(i)}
+              onDelete={() => onDelete(i)}
+              value={range}
+            >{range}</Range>
           ))}
-          {ranges.map((range, i) => (
-            <IonPopover key={i} mode="ios" trigger={`range-${id}-${i}`}>
-              <RangePicker max={max} min={min} onChange={onUpdate(i)} value={range} />
-            </IonPopover>
-          ))}
-          {!scoped && <RangeAdder onChange={onAdd}>添加{part}时段</RangeAdder>}
+          {!scoped && <RangeAdder max={max} min={min} onChange={onAdd}>添加{part}时段</RangeAdder>}
         </TagGroup>
       </Panel>
   )
