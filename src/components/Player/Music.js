@@ -15,10 +15,7 @@ import {
   BsRepeat,
   BsRepeat1,
 } from 'react-icons/bs'
-import { Message, useToaster } from 'rsuite'
-
-import 'rsuite/Message/styles/index.css'
-import 'rsuite/useToaster/styles/index.css'
+import { IonToast } from '@ionic/react'
 
 import styles from './Music.module.css'
 import withPlayer from './withPlayer'
@@ -38,7 +35,6 @@ const modes = [
 ]
 
 function Music(props) {
-  const toaster = useToaster()
   const ref = useRef(null)
   const {
     actions, duration, elapsed, index, progress, setOpts, src = [], status,
@@ -51,11 +47,7 @@ function Music(props) {
   const on = useMemo(() => status === 'playing', [status])
   const [modeText, modeIcon] = modes[mode]
   const { groups: { name } } = path.exec(src[index] ?? '') ?? { groups: { name: '' } }
-  const onMode = () => {
-    const nextMode = tick(modes, mode)
-    setMode(nextMode)
-    toaster.push(<Message showIcon type="info">{modes[nextMode][0]}</Message>)
-  }
+  const onMode = () => setMode(tick(modes, mode))
   const onPrevious = () => pick(tick(src, index, false))
   const onToggle = on ? pause : play
   const onNext = () => pick(tick(src, index))
@@ -82,8 +74,9 @@ function Music(props) {
         <span>{duration}</span>
       </div>
       <div className={clsx('actions', styles.actions)}>
-        <span className={clsx('mode')} onClick={onMode} title={modeText}>
+        <span id="mode" className={clsx('mode')} onClick={onMode} title={modeText}>
           {modeIcon}
+          <IonToast trigger="mode" duration={1000} message={modeText} position="top" />
         </span>
         <span className={clsx(styles.main)} onClick={onPrevious} title="上一首">
           <BiSkipPrevious/>
