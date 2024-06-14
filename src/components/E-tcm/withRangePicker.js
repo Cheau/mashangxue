@@ -1,4 +1,9 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React, {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import {
   IonButton,
   IonPicker,
@@ -17,7 +22,7 @@ const now = () => {
   return [time, time]
 }
 
-const split = (range) => {
+const split = (range = now()) => {
   const [start, end] = range
   const [sHour, sMinute] = start.split(':')
   const [eHour, eMinute] = end.split(':')
@@ -36,7 +41,7 @@ const withRangePicker = (Component) => function RangePicker({
   max = 24,
   min = 0,
   onChange = () => {},
-  value = now(),
+  value,
   ...rest
 }) {
   const popover = useRef(null)
@@ -48,6 +53,7 @@ const withRangePicker = (Component) => function RangePicker({
       { max, min, suffix: ':' },
       { max: 59 },
   ], [max, min])
+  useEffect(() => setRange(split(value)), [value])
 
   const onPop = (e) => {
     setOpen(true)
