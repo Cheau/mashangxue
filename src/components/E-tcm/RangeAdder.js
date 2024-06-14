@@ -7,10 +7,15 @@ import withRangePicker from './withRangePicker'
 
 export default withRangePicker(function RangeAdder({ children, ...rest }) {
   return (
-    <div className={styles.wrapper}>
-      <IonButton color="primary" expand="block" fill="outline" size="small" {...rest}>
-        <BsPlusLg style={{ marginRight: '5px' }} />{children}
-      </IonButton>
-    </div>
+    <IonButton
+      className={styles.adder}
+      color="primary"
+      expand="block"
+      fill="clear"
+      size="default"
+      {...rest}
+    >
+      <BsPlusLg style={{ marginRight: '5px' }} />{children}
+    </IonButton>
   )
 })

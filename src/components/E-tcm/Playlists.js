@@ -2,12 +2,14 @@ import React, { useMemo } from 'react'
 import clsx from 'clsx'
 import { FcMusic } from 'react-icons/fc'
 import {
-  Panel,
-  TagGroup,
-} from 'rsuite'
-
-import 'rsuite/Panel/styles/index.css'
-import 'rsuite/TagGroup/styles/index.css'
+  IonContent,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonListHeader,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/react'
 
 import styles from './Playlists.module.css'
 import Modal from '../Modal'
@@ -33,22 +35,21 @@ function Playlist({
   const onDelete = (i) => onRanges([...ranges.slice(0, i), ...ranges.slice(i + 1)])
   const onUpdate = (i) => (range) => onRanges([...ranges.slice(0, i), range, ...ranges.slice(i + 1)])
   return (
-      <Panel
-        className={clsx(styles.playlist, { [styles.active]: active })}
-        header={<>{icon}{effect}</>}
-        shaded
-      >
-        <ul className={styles.items}>
-          {files.map((file, i) => {
-            const isItemActive = active && i === fi
-            const classes = { [styles.active]: isItemActive, [styles.playing]: isItemActive && playing }
-            return (
-              <li key={i} className={clsx(styles.item, classes)} onClick={() => active && onPick(i)}>
-                {isItemActive && <FcMusic />}{file}
-              </li>
-          )})}
-        </ul>
-        <TagGroup className={styles.ranges}>
+      <IonList className={styles.playlist} inset mode="ios">
+        <IonListHeader className={styles.header} color={active ? 'dark' : 'medium'}>
+          {icon}{effect}
+        </IonListHeader>
+        {files.map((file, i) => {
+          const isItemActive = active && i === fi
+          const color = isItemActive ? 'light' : undefined
+          const classes = clsx(styles.note, { [styles.playing]: isItemActive && playing })
+          return (
+            <IonItem key={i} button color={color} detail={false} onClick={() => active && onPick(i)}>
+              {isItemActive && <FcMusic className={classes} slot="start" />}
+              <IonLabel>{file}</IonLabel>
+            </IonItem>
+        )})}
+        <div className={clsx(styles.ranges, { [styles.scopeless]: !scoped })}>
           {ranges.map((range, i) => (
             <Range
               key={i}
@@ -61,9 +62,13 @@ function Playlist({
               value={range}
             >{range}</Range>
           ))}
-          {!scoped && <RangeAdder max={max} min={min} onChange={onAdd}>添加{part}时段</RangeAdder>}
-        </TagGroup>
-      </Panel>
+          {!scoped && (
+            <IonItem detail={false} lines="none">
+              <RangeAdder max={max} min={min} onChange={onAdd}>添加{part}时段</RangeAdder>
+            </IonItem>
+          )}
+        </div>
+      </IonList>
   )
 }
 
@@ -78,12 +83,14 @@ export default function Playlists({
   return (
       <Modal open={open} onClose={onClose}>
         <div className={styles.playlists}>
-          <h2>播放列表</h2>
-          <div>
+          <IonContent color="light">
+            <IonToolbar>
+              <IonTitle>播放列表</IonTitle>
+            </IonToolbar>
             {data.map((list, i) => (
               <Playlist key={i} current={current} id={i} list={list} onPick={onPick} />
             ))}
-          </div>
+          </IonContent>
         </div>
       </Modal>
   )

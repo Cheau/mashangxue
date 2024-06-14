@@ -1,7 +1,8 @@
-.range {
-
+.range *:nth-child(n+1) {
+    margin-left: 5px;
 }
 
 .active {
-    
+    background: var(--ion-color-dark);
+    color: white;
 }

@@ -1,13 +1,12 @@
 import React from 'react'
 import clsx from 'clsx'
-import { BiTime } from 'react-icons/bi'
-import { Tag } from 'rsuite'
-
-import 'rsuite/Tag/styles/index.css'
+import { BsClockHistory, BsXLg } from 'react-icons/bs'
+import { IonChip, IonLabel } from '@ionic/react'
 
 import styles from './Range.module.css'
 import withRangePicker from './withRangePicker'
 import { formatRange } from './utils'
+import { halt } from '../../common/event'
 
 export default withRangePicker(function Range({
   active = false,
@@ -17,13 +16,10 @@ export default withRangePicker(function Range({
   ...rest
 }) {
   return (
-    <Tag
-        className={clsx(styles.tag, { [styles.active]: active })}
-        closable={deletable}
-        onClose={onDelete}
-        size="lg"
-    >
-        <span {...rest}><BiTime />{formatRange(children)}</span>
-    </Tag>
+    <IonChip className={clsx(styles.range, { [styles.active]: active })} color="medium" {...rest}>
+        <BsClockHistory />
+        <IonLabel>{formatRange(children)}</IonLabel>
+        {deletable && <BsXLg onClick={halt(onDelete)} />}
+    </IonChip>
   )
 })
