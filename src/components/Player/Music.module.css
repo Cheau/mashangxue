@@ -32,15 +32,6 @@
     font-weight: bold;
 }
 
-.progress {
-    width: 100%;
-}
-
-.time {
-    display: flex;
-    justify-content: space-between;
-}
-
 .actions {
     display: flex;
     align-items: center;

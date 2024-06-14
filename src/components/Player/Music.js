@@ -18,6 +18,7 @@ import {
 import { IonToast } from '@ionic/react'
 
 import styles from './Music.module.css'
+import Progress from './Progress'
 import withPlayer from './withPlayer'
 import { useSession } from '../../common/hooks'
 
@@ -37,7 +38,7 @@ const modes = [
 function Music(props) {
   const ref = useRef(null)
   const {
-    actions, duration, elapsed, index, progress, setOpts, src = [], status,
+    actions, duration, elapsed, index, setOpts, src = [], status,
     onChange = () => {}, onPlaylist = () => {},
   } = props
   const {
@@ -65,14 +66,7 @@ function Music(props) {
         <img className={clsx({[styles.paused]: !on})} alt="logo" src="/img/logo.png"/>
       </div>
       <div className={clsx('title', styles.title)}>{name}</div>
-      <input className={clsx('progress', styles.progress)} type="range"
-             min={0} max={100} step={0.01}
-             onChange={(e) => seek(e.target.value)} value={progress}
-      />
-      <div className={clsx('time', styles.time)}>
-        <span>{elapsed}</span>
-        <span>{duration}</span>
-      </div>
+      <Progress max={duration} onChange={(value) => seek(value)} value={elapsed}/>
       <div className={clsx('actions', styles.actions)}>
         <span id="mode" className={clsx('mode')} onClick={onMode} title={modeText}>
           {modeIcon}

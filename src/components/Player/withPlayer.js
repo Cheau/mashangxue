@@ -9,22 +9,6 @@ import { Howl } from 'howler'
 
 import { filename } from '../../common/path'
 
-const padTime = (time = 0) => String(time).padStart(2, 0)
-
-const formatTime = (seconds = 0) => {
-  let hour, minute, second, remain = seconds
-  if (remain > 3600) {
-    hour = Math.floor(remain / 3600)
-    remain = remain - hour * 3600
-  }
-  if (remain > 60) {
-    minute = Math.floor(remain / 60)
-    remain = remain - minute * 60
-  }
-  second = Math.floor(remain)
-  return `${hour ? `${padTime(hour)}:` : ''}${padTime(minute)}:${padTime(second)}`
-}
-
 const box = (source) => {
   if (typeof source === 'string') return [{ howl: null, src: source, title: filename(source) }]
   if (Array.isArray(source)) return source.map((src) => ({ howl: null, src, title: filename(src) }))
@@ -37,16 +21,13 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
   const [opts, setOpts] = useState({})
   const [index, setIndex] = useState(() => props.index ?? 0, [props.index])
   const [audio, setAudio] = useState()
-  const [progress, setProgress] = useState(0, [audio])
+  const [elapsed, setElapsed] = useState(0, [audio])
   const [status, setStatus] = useState(() => audio?.state(), [audio])
-  const duration = audio?.howl?.duration()
-  const elapsed = duration ? duration * progress / 100 : undefined
+  const duration = audio?.howl?.duration() || 0
 
   function step() {
     const sound = this
-    const seek = sound.seek() || 0
-    const percentage = (seek / sound.duration() * 100) || 0
-    setProgress(percentage.toFixed(2))
+    setElapsed(sound.seek())
     if (sound.playing()) requestAnimationFrame(step.bind(sound))
   }
 
@@ -88,7 +69,7 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
   })
   const seek = preprocess((sound, value) => {
     if (sound.playing()) {
-      sound.seek(Number(value) / 100 * sound.duration())
+      sound.seek(value)
     }
   })
   const actions = {
@@ -108,10 +89,9 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
   return <Component
     {...props}
     actions={actions}
-    duration={formatTime(duration)}
-    elapsed={formatTime(elapsed)}
+    duration={duration}
+    elapsed={elapsed}
     index={index}
-    progress={progress}
     setOpts={setOpts}
     status={status}
   />
