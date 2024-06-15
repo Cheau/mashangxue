@@ -19,16 +19,23 @@ const toTime = (seconds = 0) => {
   return `${hour ? `${padTime(hour)}:` : ''}${padTime(minute)}:${padTime(second)}`
 }
 
+let clear = false
+
 export default function Progress({ max, onChange, value }) {
-  const [knob, setKnob] = useState()
+  const [knob, setKnob] = useState(undefined)
   useEffect(() => {
-    if (value === knob) setKnob(undefined)
+    if (clear && value === knob) {
+      clear = false
+      setKnob(undefined)
+    }
   }, [value])
   return (
       <IonRange
           max={max} mode="md"
-          onIonChange={() => onChange(knob)}
-          onIonFocus={() => setKnob(value)}
+          onIonChange={({ detail }) => {
+            clear = true
+            onChange(detail.value)
+          }}
           onIonInput={({ detail }) => setKnob(detail.value)}
           pin
           pinFormatter={toTime}
