@@ -27,7 +27,7 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
 
   function step() {
     const sound = this
-    setElapsed(sound.seek())
+    setElapsed(Math.trunc(sound.seek() * 10) / 10)
     if (sound.playing()) requestAnimationFrame(step.bind(sound))
   }
 
