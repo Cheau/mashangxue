@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { IonRange } from '@ionic/react'
 
+import './Progress.module.css'
+
 const padTime = (time = 0) => String(time).padStart(2, '0')
 
 const toTime = (seconds = 0) => {

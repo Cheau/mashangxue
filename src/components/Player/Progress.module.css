@@ -1,0 +1,4 @@
+ion-range::part(pin) {
+    width: 3rem;
+    border-radius: 4px;
+}
