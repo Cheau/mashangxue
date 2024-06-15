@@ -36,6 +36,11 @@
   src: url("/font/XiaolaiMonoSC-Regular.ttf");
 }
 
+@font-face {
+  font-family: mono-bold;
+  src: url("/font/monospace.bold.ttf");
+}
+
 @media (min-width: 1920px) {
   .container {
     max-width: var(--ifm-container-width-xxl);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { IonRange } from '@ionic/react'
 
-import './Progress.module.css'
+import styles from './Progress.module.css'
 
 const padTime = (time = 0) => String(time).padStart(2, '0')
 
@@ -31,6 +31,7 @@ export default function Progress({ max, onChange, value }) {
   }, [value])
   return (
       <IonRange
+          className={styles.progress}
           max={max} mode="md"
           onIonChange={({ detail }) => {
             clear = true
@@ -41,8 +42,8 @@ export default function Progress({ max, onChange, value }) {
           pinFormatter={toTime}
           value={knob ?? value}
       >
-        <span slot="start">{toTime(value)}</span>
-        <span slot="end">{toTime(max)}</span>
+        <span className={styles.label} slot="start">{toTime(value)}</span>
+        <span className={styles.label} slot="end">{toTime(max)}</span>
       </IonRange>
   )
 }

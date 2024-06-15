@@ -1,3 +1,11 @@
+.progress {
+    font-family: mono-bold;
+}
+
+.label {
+    font-size: 1rem;
+}
+
 ion-range::part(pin) {
     width: 3rem;
     border-radius: 4px;
