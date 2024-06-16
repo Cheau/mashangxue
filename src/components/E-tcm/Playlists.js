@@ -7,6 +7,7 @@ import {
   IonLabel,
   IonList,
   IonListHeader,
+  IonNote,
   IonTitle,
   IonToolbar,
 } from '@ionic/react'
@@ -27,14 +28,14 @@ function Playlist({
 }) {
   const files = useMemo(() => list.files.map(filename), [list.files])
   const {
-    effect, icon, max, min, onRanges, part, ranges,
+    effect, icon, intro, max, min, onRanges, part, ranges,
   } = list
   const active = id === pi
   const scoped = max || min
   const onAdd = (range) => onRanges([...ranges, range].sort())
   const onDelete = (i) => onRanges([...ranges.slice(0, i), ...ranges.slice(i + 1)])
   const onUpdate = (i) => (range) => onRanges([...ranges.slice(0, i), range, ...ranges.slice(i + 1)])
-  return (
+  return (<>
       <IonList className={styles.playlist} inset mode="ios">
         <IonListHeader className={styles.header} color={active ? 'dark' : 'medium'}>
           {icon}{effect}
@@ -69,7 +70,8 @@ function Playlist({
           )}
         </div>
       </IonList>
-  )
+      <IonNote className={styles.intro}>{intro}</IonNote>
+  </>)
 }
 
 export default function Playlists({
