@@ -43,30 +43,30 @@ function Playlist({
           const color = isItemActive ? 'light' : undefined
           const classes = clsx(styles.note, { [styles.playing]: isItemActive && playing })
           return (
-            <IonItem key={i} button color={color} detail={false} onClick={() => active && onPick(i)}>
+            <IonItem key={i} button color={color} detail={false} lines="inset" onClick={() => active && onPick(i)}>
               {isItemActive && <FcMusic className={classes} slot="start" />}
               <IonLabel>{file}</IonLabel>
             </IonItem>
         )})}
-        <div className={clsx(styles.ranges, { [styles.scopeless]: !scoped })}>
-          {ranges.map((range, i) => (
-            <Range
-              key={i}
-              active={active && i === ri }
-              deletable={!scoped}
-              max={max}
-              min={min}
-              onChange={onUpdate(i)}
-              onDelete={() => onDelete(i)}
-              value={range}
-            >{range}</Range>
-          ))}
-          {!scoped && (
-            <IonItem detail={false} lines="none">
-              <RangeAdder max={max} min={min} onChange={onAdd}>添加{part}时段</RangeAdder>
-            </IonItem>
-          )}
-        </div>
+        <IonItem>
+          <div className={clsx(styles.ranges, { [styles.scopeless]: !scoped })}>
+            {ranges.map((range, i) => (
+                <Range
+                    key={i}
+                    active={active && i === ri }
+                    deletable={!scoped}
+                    max={max}
+                    min={min}
+                    onChange={onUpdate(i)}
+                    onDelete={() => onDelete(i)}
+                    value={range}
+                >{range}</Range>
+            ))}
+            {!scoped && (
+                <RangeAdder max={max} min={min} onChange={onAdd}>添加{part}时段</RangeAdder>
+            )}
+          </div>
+        </IonItem>
       </IonList>
       <IonNote className={styles.intro}>{intro}</IonNote>
   </>)

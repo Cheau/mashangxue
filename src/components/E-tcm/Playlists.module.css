@@ -35,7 +35,7 @@
 }
 
 .ranges {
-    margin: 12px;
+    margin: 12px -4px;
 }
 .ranges.scopeless {
     margin-bottom: 0;
