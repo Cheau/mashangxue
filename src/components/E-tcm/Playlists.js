@@ -8,12 +8,10 @@ import {
   IonList,
   IonListHeader,
   IonNote,
-  IonTitle,
-  IonToolbar,
 } from '@ionic/react'
 
 import styles from './Playlists.module.css'
-import Modal from '../Modal'
+import Drawer from '../Drawer'
 import Range from './Range'
 import RangeAdder from './RangeAdder'
 import { filename } from '../../common/path'
@@ -81,19 +79,15 @@ export default function Playlists({
   onPick = () => {},
   open,
 }) {
-  if (!open) return null
   return (
-      <Modal open={open} onClose={onClose}>
+      <Drawer maxWidth="400px" open={open} onClose={onClose} title="播放列表">
         <div className={styles.playlists}>
           <IonContent color="light">
-            <IonToolbar>
-              <IonTitle>播放列表</IonTitle>
-            </IonToolbar>
             {data.map((list, i) => (
               <Playlist key={i} current={current} id={i} list={list} onPick={onPick} />
             ))}
           </IonContent>
         </div>
-      </Modal>
+      </Drawer>
   )
 }

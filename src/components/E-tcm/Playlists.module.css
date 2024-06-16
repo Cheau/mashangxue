@@ -2,16 +2,7 @@
 @value quarter-gap: calc(gap / 4);
 
 .playlists {
-    height: 90vh;
-    width: 400px;
-    overflow: auto;
-    background: white;
-}
-
-@media screen and (max-width: 767px) {
-    .playlists {
-        width: 90vw;
-    }
+    height: 100%;
 }
 
 .playlist {
