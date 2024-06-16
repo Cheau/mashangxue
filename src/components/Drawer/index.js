@@ -1,6 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
-import { BsXLg } from 'react-icons/bs'
+import { BsX } from 'react-icons/bs'
 
 import styles from './styles.module.css'
 import Backdrop from '../Backdrop'
@@ -36,7 +36,7 @@ export default function Drawer(props) {
         <div className={clsx('drawer', styles.drawer, styles[position])} style={style} onClick={halt()}>
           <div className={clsx('header', styles.header)}>
             {title && <div className={clsx('title', styles.title)}>{title}</div>}
-            <BsXLg className={clsx('close', styles.close)} onClick={onClose} />
+            <BsX className={clsx('close', styles.close)} onClick={onClose} />
           </div>
           <div className={clsx('body', styles.body)}>
             {children}

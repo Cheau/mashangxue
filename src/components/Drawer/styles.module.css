@@ -18,21 +18,21 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: calc(header-height * 1.5);
+    height: header-height;
     line-height: 1;
-    padding: calc(header-height / 4);
     border-bottom: 1px solid #ddd;
-    font-size: calc(header-height / 2);
+    font-size: calc(header-height / 3);
 }
 
 .title {
+    margin: 0 calc(header-height / 4);
     font-weight: bold;
 }
 
 .close {
     height: header-height;
     width: header-height;
-    padding: calc(header-height / 4);
+    padding: 8px;
 }
 .close:hover {
     background: #f5f6f7;
@@ -40,5 +40,5 @@
 }
 
 .body {
-    height: calc(100% - header-height * 1.5);
+    height: calc(100% - header-height);
 }
