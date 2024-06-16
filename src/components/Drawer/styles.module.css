@@ -1,0 +1,44 @@
+@value header-height: 48px;
+
+.drawer {
+    position: absolute;
+    overflow: auto;
+    background: white;
+}
+.drawer.top, .drawer.bottom {
+    left: 0;
+    right: 0;
+}
+.drawer.left, .drawer.right {
+    top: 0;
+    bottom: 0;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: calc(header-height * 1.5);
+    line-height: 1;
+    padding: calc(header-height / 4);
+    border-bottom: 1px solid #ddd;
+    font-size: calc(header-height / 2);
+}
+
+.title {
+    font-weight: bold;
+}
+
+.close {
+    height: header-height;
+    width: header-height;
+    padding: calc(header-height / 4);
+}
+.close:hover {
+    background: #f5f6f7;
+    cursor: pointer;
+}
+
+.body {
+    height: calc(100% - header-height * 1.5);
+}

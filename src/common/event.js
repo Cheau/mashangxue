@@ -1,4 +1,4 @@
-export const halt = (func) => (e) => {
+export const halt = (func = () => {}) => (e) => {
     e.stopPropagation()
     func(e)
 }

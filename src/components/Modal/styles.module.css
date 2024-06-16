@@ -1,14 +1,11 @@
 @value close-size: 40px;
 
-.backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1024;
-  text-align: center;
-  background: rgba(0, 0, 0, .5);
+.modal {
+  position: relative;
+  display: inline-block;
+  margin-top: 50vh;
+  margin-left: 50vw;
+  transform: translate(-50%, -50%);
 }
 
 .close {
@@ -26,12 +23,4 @@
 
 .close svg {
   display: inherit;
-}
-
-.wrapper {
-  position: relative;
-  display: inline-block;
-  margin-top: 50vh;
-  transform: translateY(-50%);
-  text-align: initial;
 }
