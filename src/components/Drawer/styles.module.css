@@ -1,4 +1,4 @@
-@value header-height: 48px;
+@value header-height: 54px;
 
 .drawer {
     position: absolute;
@@ -25,14 +25,14 @@
 }
 
 .title {
-    margin: 0 calc(header-height / 4);
+    margin: 0 1em;
     font-weight: bold;
 }
 
 .close {
     height: header-height;
     width: header-height;
-    padding: 8px;
+    padding: calc(header-height / 6);
 }
 .close:hover {
     background: #f5f6f7;
