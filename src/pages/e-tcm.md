@@ -1,7 +1,13 @@
 ---
 title: E-TCM Player
 description: 电子中药播放器是按照中医五音疗法，因人而异、适时播放五行音乐，从而来调适五脏养生。
-keywords: 电子中药,中医,五音疗法,五行,五脏,养生音乐
+keywords:
+  - 电子中药
+  - 中医
+  - 五音疗法
+  - 五行
+  - 五脏
+  - 养生音乐
 ---
 
 import Tabs from '@theme/Tabs'
