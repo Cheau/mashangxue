@@ -50,3 +50,11 @@
     margin: 16px 16px 48px 16px;
     white-space: pre-line;
 }
+
+ion-alert:global(.ios), ion-alert:global(.md) {
+    position: fixed;
+}
+
+ion-toast {
+    position: fixed;
+}

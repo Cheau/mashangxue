@@ -2,12 +2,15 @@ import React, { useMemo } from 'react'
 import clsx from 'clsx'
 import { FcMusic } from 'react-icons/fc'
 import {
+  IonButton,
   IonContent,
   IonItem,
   IonLabel,
   IonList,
   IonListHeader,
   IonNote,
+  useIonAlert,
+  useIonToast,
 } from '@ionic/react'
 
 import styles from './Playlists.module.css'
@@ -77,8 +80,23 @@ export default function Playlists({
   data = [],
   onClose = () => {},
   onPick = () => {},
+  onReset = () => {},
   open,
 }) {
+  const [alert] = useIonAlert()
+  const [toast] = useIonToast()
+  const reset = () => {
+    onReset()
+    toast({ message: '已恢复', duration: 1500, position: 'top' })
+  }
+  const confirmReset = () => alert({
+    header: '恢复默认设置',
+    message: '播放列表所有改动将被还原，是否恢复',
+    buttons: [
+      { text: '取消', role: 'cancel' },
+      { text: '确定', role: 'confirm', handler: reset },
+    ],
+  })
   return (
       <Drawer maxWidth="400px" open={open} onClose={onClose} title="播放列表">
         <div className={styles.playlists}>
@@ -86,6 +104,9 @@ export default function Playlists({
             {data.map((list, i) => (
               <Playlist key={i} current={current} id={i} list={list} onPick={onPick} />
             ))}
+            <IonButton color="dark" expand="block" onClick={confirmReset}>
+              恢复默认设置
+            </IonButton>
           </IonContent>
         </div>
       </Drawer>

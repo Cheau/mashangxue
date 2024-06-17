@@ -41,7 +41,7 @@ export default function ETcm() {
   const [fi, setFi] = useState(0)
   const [open, setOpen] = useState(false)
   const [playing, setPlaying] = useState(false)
-  const [order] = useSession('e-tcm.order', data.order)
+  const [order, setOrder] = useSession('e-tcm.order', data.order)
   const [ranges, setRanges] = useSession('e-tcm.ranges', data.ranges)
   const playlists = useMemo(() => order.map((key) => ({
     ...data.profiles[key],
@@ -59,6 +59,10 @@ export default function ETcm() {
       case 'status': setPlaying(value === 'playing'); break
       default: break
     }
+  }
+  const onReset = () => {
+    setOrder(data.order)
+    setRanges(data.ranges)
   }
   const render = useRender()
   useEffect(() => {
@@ -101,6 +105,7 @@ export default function ETcm() {
                   data={playlists.filter((list) => list.files.length)}
                   onClose={() => setOpen(false)}
                   onPick={player.current?.pick}
+                  onReset={onReset}
                   open={open}
               />
           )
