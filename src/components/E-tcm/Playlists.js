@@ -62,11 +62,11 @@ function Playlist({
                     value={range}
                 >{range}</Range>
             ))}
-            {!scoped && (
-                <RangeAdder max={max} min={min} onChange={onAdd}>添加{part}时段</RangeAdder>
-            )}
           </div>
         </IonItem>
+        {!scoped && (
+            <RangeAdder max={max} min={min} onChange={onAdd}>添加{part}时段</RangeAdder>
+        )}
       </IonList>
       <IonNote className={styles.intro}>{intro}</IonNote>
   </>)

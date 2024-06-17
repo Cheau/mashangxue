@@ -4,6 +4,9 @@
 .playlists {
     height: 100%;
 }
+.playlists ion-button:global(.button-block) {
+    display: block;
+}
 
 .playlist {
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
