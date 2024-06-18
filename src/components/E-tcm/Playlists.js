@@ -101,7 +101,7 @@ export default function Playlists({
             {data.map((list, i) => (
               <Playlist key={i} current={current} id={i} list={list} onPick={onPick} />
             ))}
-            <IonButton color="dark" expand="block" onClick={confirmReset}>
+            <IonButton className={styles.reset} color="dark" expand="block" onClick={confirmReset}>
               恢复默认设置
             </IonButton>
           </IonContent>

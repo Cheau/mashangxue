@@ -44,8 +44,12 @@
 .intro {
     display: block;
     font-size: 14px;
-    margin: 16px 16px 48px 16px;
+    margin: gap gap calc(gap * 3) gap;
     white-space: pre-line;
+}
+
+.reset {
+    margin-bottom: calc(gap * 3);
 }
 
 ion-alert:global(.ios), ion-alert:global(.md) {
