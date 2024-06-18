@@ -38,10 +38,7 @@
 }
 
 .ranges {
-    margin: 12px -4px;
-}
-.ranges.scopeless {
-    margin-bottom: 0;
+    margin: 12px -4px 0;
 }
 
 .intro {

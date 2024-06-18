@@ -32,7 +32,6 @@ function Playlist({
     effect, icon, intro, max, min, onRanges, part, ranges,
   } = list
   const active = id === pi
-  const scoped = max || min
   const onAdd = (range) => onRanges([...ranges, range].sort())
   const onDelete = (i) => onRanges([...ranges.slice(0, i), ...ranges.slice(i + 1)])
   const onUpdate = (i) => (range) => onRanges([...ranges.slice(0, i), range, ...ranges.slice(i + 1)])
@@ -52,24 +51,22 @@ function Playlist({
             </IonItem>
         )})}
         <IonItem>
-          <div className={clsx(styles.ranges, { [styles.scopeless]: !scoped })}>
+          <div className={clsx(styles.ranges)}>
             {ranges.map((range, i) => (
-                <Range
-                    key={i}
-                    active={active && i === ri }
-                    deletable={!scoped}
-                    max={max}
-                    min={min}
-                    onChange={onUpdate(i)}
-                    onDelete={() => onDelete(i)}
-                    value={range}
-                >{range}</Range>
+              <Range
+                key={i}
+                active={active && i === ri }
+                deletable
+                max={max}
+                min={min}
+                onChange={onUpdate(i)}
+                onDelete={() => onDelete(i)}
+                value={range}
+              >{range}</Range>
             ))}
           </div>
         </IonItem>
-        {!scoped && (
-            <RangeAdder max={max} min={min} onChange={onAdd}>添加{part}时段</RangeAdder>
-        )}
+        <RangeAdder max={max} min={min} onChange={onAdd}>添加{part}时段</RangeAdder>
       </IonList>
       <IonNote className={styles.intro}>{intro}</IonNote>
   </>)
