@@ -35,7 +35,7 @@ export default function Backdrop({
   ...rest
 }) {
   const [context, setContext] = useSession('backdrop')
-  const [fadeOut, setFadeOut] = useState(false)
+  const [fadeOut, setFadeOut] = useState(!open)
   const close = () => {
     if (!global.open) return
     if (global.context) {
