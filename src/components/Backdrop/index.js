@@ -60,9 +60,7 @@ export default function Backdrop({
   }, [open])
   if (!open && fadeOut) return null
   const classes = clsx('backdrop', className, styles.backdrop, styles[String(open)])
-  const onAnimated = (e) => {
-    if (/fadeOut.+Backdrop-styles-module/.test(e.animationName)) setFadeOut(true)
-  }
+  const onAnimated = () => setFadeOut(!open)
   const backdrop = (
       <div className={classes} {...rest} onClick={close} onAnimationEnd={onAnimated} />
   )
