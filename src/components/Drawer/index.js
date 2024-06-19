@@ -1,9 +1,9 @@
 import React from 'react'
+import BrowserOnly from '@docusaurus/BrowserOnly'
 import clsx from 'clsx'
 import { BsX } from 'react-icons/bs'
 
 import styles from './styles.module.css'
-import Backdrop from '../Backdrop'
 import { halt } from '../../common/event'
 
 export const POSITION = {
@@ -45,16 +45,23 @@ export default function Drawer(props) {
     animationName: styles[`${position}${open ? 'In' : 'Out'}`],
   }
   return (
-      <Backdrop open={open} onClose={onClose}>
-        <div className={drawerClasses} style={style} onClick={halt()}>
-          <div className={clsx('header', styles.header)}>
-            {title && <div className={clsx('title', styles.title)}>{title}</div>}
-            <BsX className={clsx('close', styles.close)} onClick={onClose} />
-          </div>
-          <div className={clsx('body', styles.body)}>
-            {children}
-          </div>
-        </div>
-      </Backdrop>
+      <BrowserOnly fallback={<div>Loading...</div>}>
+        {() => {
+          const Backdrop = require('@site/src/components/Backdrop').default
+          return (
+              <Backdrop open={open} onClose={onClose}>
+                <div className={drawerClasses} style={style} onClick={halt()}>
+                  <div className={clsx('header', styles.header)}>
+                    {title && <div className={clsx('title', styles.title)}>{title}</div>}
+                    <BsX className={clsx('close', styles.close)} onClick={onClose} />
+                  </div>
+                  <div className={clsx('body', styles.body)}>
+                    {children}
+                  </div>
+                </div>
+              </Backdrop>
+          )
+        }}
+      </BrowserOnly>
   )
 }
