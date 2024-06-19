@@ -14,7 +14,7 @@ const height = 720
 
 export default function Poster(props) {
   const {
-    bg, ctx, date, hints, image, keywords, order, rate, title,
+    bg, ctx = {}, date, hints, image, keywords, order, rate, title,
   } = props
   const presenting = usePresenting()
   const words = (presenting.value ? (hints.length ? hints : keywords) : keywords)
