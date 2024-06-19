@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import clsx from 'clsx'
 
@@ -35,7 +35,7 @@ export default function Backdrop({
   ...rest
 }) {
   const [context, setContext] = useSession('backdrop')
-  const [fadeOut, setFadeOut] = useSession(false)
+  const [fadeOut, setFadeOut] = useState(false)
   const close = () => {
     if (!global.open) return
     if (global.context) {
