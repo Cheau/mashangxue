@@ -1,3 +1,5 @@
+@value duration: .5s;
+
 .backdrop {
     position: fixed;
     top: 0;
@@ -5,5 +7,33 @@
     right: 0;
     bottom: 0;
     z-index: 1024;
+    animation-duration: duration;
+}
+.backdrop.false {
+    background: transparent;
+    animation-name: fadeOut;
+}
+.backdrop.true {
     background: rgba(0, 0, 0, .5);
+    animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+    from {
+        background: transparent;
+    }
+
+    to {
+        background: rgba(0, 0, 0, .5);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        background: rgba(0, 0, 0, .5);
+    }
+
+    to {
+        background: transparent;
+    }
 }

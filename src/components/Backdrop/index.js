@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
+import clsx from 'clsx'
 
 import styles from './styles.module.css'
 import { useSession } from '../../common/hooks'
@@ -27,8 +28,14 @@ const global = {
   open: undefined,
 }
 
-export default function Backdrop({ onClose, open = false, ...rest }) {
+export default function Backdrop({
+  className,
+  onClose,
+  open = false,
+  ...rest
+}) {
   const [context, setContext] = useSession('backdrop')
+  const [fadeOut, setFadeOut] = useSession(false)
   const close = () => {
     if (!global.open) return
     if (global.context) {
@@ -44,13 +51,20 @@ export default function Backdrop({ onClose, open = false, ...rest }) {
     global.open = open
   }, [context, open])
   useEffect(() => {
-    if (open) setContext(show())
+    if (open) {
+      setContext(show())
+      setFadeOut(false)
+    }
     else close()
     return close
   }, [open])
-  if (!open) return null
+  if (!open && fadeOut) return null
+  const classes = clsx('backdrop', className, styles.backdrop, styles[String(open)])
+  const onAnimated = (e) => {
+    if (/fadeOut.+Backdrop-styles-module/.test(e.animationName)) setFadeOut(true)
+  }
   const backdrop = (
-      <div className={styles.backdrop} {...rest} onClick={close} />
+      <div className={classes} {...rest} onClick={close} onAnimationEnd={onAnimated} />
   )
   return ReactDOM.createPortal(backdrop, document.body)
 }

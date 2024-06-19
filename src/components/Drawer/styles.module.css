@@ -1,9 +1,11 @@
+@value duration: .5s;
 @value header-height: 54px;
 
 .drawer {
     position: absolute;
     overflow: auto;
     background: white;
+    animation-duration: duration;
 }
 .drawer.top, .drawer.bottom {
     left: 0;
@@ -12,6 +14,74 @@
 .drawer.left, .drawer.right {
     top: 0;
     bottom: 0;
+}
+
+@keyframes topIn {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+@keyframes topOut {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes bottomIn {
+    from {
+        transform: translateY(100vh);
+    }
+    to {
+        transform: translateY(calc(100vh - 100%));
+    }
+}
+@keyframes bottomOut {
+    from {
+        transform: translateY(calc(100vh - 100%));
+    }
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+@keyframes leftIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+@keyframes leftOut {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes rightIn {
+    from {
+        transform: translateX(100vw);
+    }
+    to {
+        transform: translateX(calc(100vw - 100%));
+    }
+}
+@keyframes rightOut {
+    from {
+        transform: translateX(calc(100vw - 100%));
+    }
+    to {
+        transform: translateX(100vw);
+    }
 }
 
 .header {
