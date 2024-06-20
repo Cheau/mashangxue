@@ -34,8 +34,6 @@ const locate = (playlists) => {
   return [-1, -1]
 }
 
-const complement = (files = []) => files.map(file => `/audio/e-tcm/${file}`)
-
 export default function ETcm() {
   const player = useRef(null)
   const [fi, setFi] = useState(0)
@@ -52,7 +50,6 @@ export default function ETcm() {
   const playlist = useMemo(() => playlists[pi], [playlists, pi])
   const range = useMemo(() => playlist.ranges[ri], [playlist, ri])
   const { effect, files, icon } = playlist
-  const src = useMemo(() => complement(files), [files])
   const onChange = (key, value) => {
     switch (key) {
       case 'index': setFi(value); break
@@ -93,7 +90,7 @@ export default function ETcm() {
           onChange={onChange}
           onPlaylist={() => setOpen(true)}
           ref={player}
-          src={src}
+          src={files}
         />
       </div>
       <BrowserOnly fallback={<div>Loading...</div>}>

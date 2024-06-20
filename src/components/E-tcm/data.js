@@ -8,6 +8,8 @@ import {
   GiSoundOff,
 } from 'react-icons/gi'
 
+const fullPath = (file) => `/audio/e-tcm/${file}`
+
 export const order = [
     'heart', 'spleen', 'kidney', 'lung', 'liver', 'off',
 ]
@@ -15,7 +17,7 @@ export const order = [
 export const profiles = {
   heart: {
     effect: '舒心',
-    files: ['紫竹调(古筝).mp3'],
+    files: ['紫竹调(古筝).mp3'].map(fullPath),
     icon: <GiHearts />,
     part: '入睡',
     intro: `心脏出问题，常出现失眠、心慌、心胸闷等情况，从而导致胸痛、烦躁等表征。
@@ -24,7 +26,7 @@ export const profiles = {
   },
   spleen: {
     effect: '健脾',
-    files: ['春江花月夜.mp3', '月儿高(古筝).mp3'],
+    files: ['春江花月夜.mp3', '月儿高(古筝).mp3'].map(fullPath),
     icon: <GiJellyBeans />,
     part: '用餐',
     intro: `长期的暴饮暴食、五味过重、思虑过度等都会让脾胃产生不适，腹胀、便稀、肥胖、口唇溃疡、面黄、月经量少色淡、疲乏、胃或子宫下垂都是常见的症状。
@@ -33,7 +35,7 @@ export const profiles = {
   },
   kidney: {
     effect: '补肾',
-    files: ['梅花三弄(古琴).mp3'],
+    files: ['梅花三弄(古琴).mp3'].map(fullPath),
     icon: <GiKidneys />,
     max: 11,
     min: 7,
@@ -43,7 +45,7 @@ export const profiles = {
   },
   lung: {
     effect: '润肺',
-    files: ['阳春白雪(琵琶).mp3'],
+    files: ['阳春白雪(琵琶).mp3'].map(fullPath),
     icon: <GiLungs />,
     max: 19,
     min: 15,
@@ -53,7 +55,7 @@ export const profiles = {
   },
   liver: {
     effect: '养肝',
-    files: ['胡笳十八拍.mp3'],
+    files: ['胡笳十八拍.mp3'].map(fullPath),
     icon: <GiLiver />,
     max: 23,
     min: 19,
