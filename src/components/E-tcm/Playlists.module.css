@@ -9,16 +9,24 @@
 }
 
 .playlist {
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .5);
+    margin-top: calc(gap * 3);
 }
 
 .header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: quarter-gap gap quarter-gap 0;
+}
+.header > span {
+    display: inline-flex;
     align-items: center;
-    padding: quarter-gap gap;
-    font-size: 1.25em;
 }
 .header svg {
     margin-right: quarter-gap;
+}
+.header ion-badge + ion-badge {
+    margin-left: quarter-gap;
 }
 
 .note {
@@ -44,12 +52,12 @@
 .intro {
     display: block;
     font-size: 14px;
-    margin: gap gap calc(gap * 3) gap;
+    margin: gap;
     white-space: pre-line;
 }
 
 .reset {
-    margin-bottom: calc(gap * 3);
+    margin: calc(gap * 3) 0;
 }
 
 ion-alert:global(.ios), ion-alert:global(.md) {

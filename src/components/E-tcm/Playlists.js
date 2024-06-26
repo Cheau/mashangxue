@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 import clsx from 'clsx'
 import { FcMusic } from 'react-icons/fc'
 import {
+  IonBadge,
   IonButton,
   IonContent,
   IonItem,
@@ -29,16 +30,22 @@ function Playlist({
 }) {
   const files = useMemo(() => list.files.map(filename), [list.files])
   const {
-    effect, icon, intro, max, min, onRanges, part, ranges,
+    effect, element, icon, intro, max, min, note, onRanges, part, ranges,
   } = list
   const active = id === pi
   const onAdd = (range) => onRanges([...ranges, range].sort())
   const onDelete = (i) => onRanges([...ranges.slice(0, i), ...ranges.slice(i + 1)])
   const onUpdate = (i) => (range) => onRanges([...ranges.slice(0, i), range, ...ranges.slice(i + 1)])
   return (<>
-      <IonList className={styles.playlist} inset mode="ios">
-        <IonListHeader className={styles.header} color={active ? 'dark' : 'medium'}>
-          {icon}{effect}
+      <IonList className={styles.playlist} mode="ios">
+        <IonListHeader color="dark">
+          <div className={styles.header}>
+            <span>{icon}{effect}</span>
+            <span>
+              <IonBadge color="light">{element}</IonBadge>
+              <IonBadge color="light">{note}</IonBadge>
+            </span>
+          </div>
         </IonListHeader>
         {files.map((file, i) => {
           const isItemActive = active && i === fi
@@ -50,7 +57,7 @@ function Playlist({
               <IonLabel>{file}</IonLabel>
             </IonItem>
         )})}
-        <IonItem>
+        <IonItem lines="none">
           <div className={clsx(styles.ranges)}>
             {ranges.map((range, i) => (
               <Range
