@@ -84,6 +84,12 @@ const config = {
         },
       },
     ],
+    [
+      './src/plugins/e-tcm',
+      {
+        dir: '/static/audio/e-tcm',
+      }
+    ],
   ],
 
   themeConfig:
