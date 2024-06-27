@@ -19,7 +19,7 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
   const { src } = props
   const playlist = useMemo(() => box(src), [src])
   const [opts, setOpts] = useState({})
-  const [index, setIndex] = useState(() => props.index ?? 0, [props.index])
+  const [index, setIndex] = useState(props.index ?? 0)
   const [audio, setAudio] = useState()
   const [elapsed, setElapsed] = useState(0, [audio])
   const [status, setStatus] = useState(() => audio?.state(), [audio])
@@ -81,6 +81,7 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
   }
   useImperativeHandle(ref, () => actions, [audio])
 
+  useEffect(() => setIndex(props.index ?? 0), [props.index])
   useEffect(() => {
     stop()
     setAudio(playlist[index])

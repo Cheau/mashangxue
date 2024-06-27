@@ -1,4 +1,5 @@
 import React, {
+  memo,
   useEffect,
   useMemo,
   useRef,
@@ -89,4 +90,4 @@ function Music(props) {
   )
 }
 
-export default withPlayer(Music, {html5: true})
+export default memo(withPlayer(Music, {html5: true}))

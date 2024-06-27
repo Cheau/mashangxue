@@ -52,7 +52,7 @@ function Playlist({
           const color = isItemActive ? 'light' : undefined
           const classes = clsx(styles.note, { [styles.playing]: isItemActive && playing })
           return (
-            <IonItem key={i} button color={color} detail={false} lines="inset" onClick={() => active && onPick(i)}>
+            <IonItem key={i} button color={color} detail={false} lines="inset" onClick={() => onPick(id, list.files[i])}>
               {isItemActive && <FcMusic className={classes} slot="start" />}
               <IonLabel>{file}</IonLabel>
             </IonItem>

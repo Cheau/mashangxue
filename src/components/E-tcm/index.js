@@ -5,6 +5,7 @@ import React, {
   useState,
 } from 'react'
 import BrowserOnly from '@docusaurus/BrowserOnly'
+import { IonToggle } from '@ionic/react'
 import { GiAlarmClock } from 'react-icons/gi'
 
 import styles from './index.module.css'
@@ -34,21 +35,36 @@ const locate = (playlists) => {
   return [-1, -1]
 }
 
+const index = (files) => files.reduce((indices, file) => {
+  indices[file] = Object.keys(indices).length
+  return indices
+}, {})
+
 export default function ETcm() {
   const player = useRef(null)
-  const [fi, setFi] = useState(0)
+  const [fi, setFi] = useSession('e-tcm.fi', 0)
   const [open, setOpen] = useState(false)
   const [playing, setPlaying] = useState(false)
   const [order, setOrder] = useSession('e-tcm.order', data.order)
   const [ranges, setRanges] = useSession('e-tcm.ranges', data.ranges)
+  const [timed, setTimed] = useSession('e-tcm.timed', true)
   const playlists = useMemo(() => order.map((key) => ({
     ...data.profiles[key],
     ranges: ranges[key],
     onRanges: (value) => setRanges({ ...ranges, [key]: value })
   })), [order, ranges])
-  const [pi, ri] = locate(playlists)
-  const playlist = useMemo(() => playlists[pi], [playlists, pi])
+  const [pi, ri] = timed ? locate(playlists) : []
+  const playlist = useMemo(() => {
+    if (pi === undefined) return {
+      effect: '播放全部',
+      files: playlists.flatMap(({ files }) => files),
+      ranges: [],
+    }
+    return playlists[pi]
+  }, [playlists, pi])
   const range = useMemo(() => playlist.ranges[ri], [playlist, ri])
+  const gis = useMemo(() => index(playlists.flatMap(({ files }) => files)))
+  const pis = useMemo(() => index(playlist.files), [playlist])
   const { effect, files, icon } = playlist
   const onChange = (key, value) => {
     switch (key) {
@@ -61,6 +77,17 @@ export default function ETcm() {
     setOrder(data.order)
     setRanges(data.ranges)
   }
+  const onPick = (id, file) => {
+    if (id !== pi) {
+      setTimed(false)
+      setFi(gis[file])
+    } else {
+      setFi(pis[file])
+    }
+  }
+  useEffect(() => {
+    if (timed) setFi(0)
+  }, [timed])
   const render = useRender()
   useEffect(() => {
     let timeoutId
@@ -79,14 +106,18 @@ export default function ETcm() {
           <span className={styles.iconic}>
             {icon}{effect}
           </span>
-          <span className={styles.iconic}>
+          {timed && <span className={styles.iconic}>
             <GiAlarmClock/>{formatRange(range)}
-          </span>
+          </span>}
+          {!timed && <IonToggle checked={timed} onClick={() => setTimed(!timed)}>
+            按时播放
+          </IonToggle>}
         </div>
         <div className={styles.title}>E-TCM Player</div>
         <div className={styles.subtitle}>听电子中药，享赛博朋克</div>
         <Player
           appearance="music"
+          index={fi}
           onChange={onChange}
           onPlaylist={() => setOpen(true)}
           ref={player}
@@ -101,7 +132,7 @@ export default function ETcm() {
                   current={{ fi, pi, ri, playing, }}
                   data={playlists.filter((list) => list.files.length)}
                   onClose={() => setOpen(false)}
-                  onPick={player.current?.pick}
+                  onPick={onPick}
                   onReset={onReset}
                   open={open}
               />
