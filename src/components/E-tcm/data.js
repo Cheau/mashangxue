@@ -1,4 +1,6 @@
 import React from 'react'
+import { hookstate } from '@hookstate/core'
+import { localstored } from '@hookstate/localstored'
 import {
   GiCheckMark,
   GiHearts,
@@ -8,6 +10,8 @@ import {
   GiLungs,
   GiSoundOff,
 } from 'react-icons/gi'
+
+import { padTime } from './utils'
 
 export const icons = {
   heart: <GiHearts />,
@@ -19,10 +23,6 @@ export const icons = {
   all: <GiCheckMark />,
 }
 
-export const order = [
-    'heart', 'spleen', 'kidney', 'lung', 'liver', 'off', 'all',
-]
-
 export const playlists = {
   heart: ['紫竹调(古筝).mp3'],
   spleen: ['春江花月夜.mp3', '月儿高(古筝).mp3'],
@@ -32,15 +32,6 @@ export const playlists = {
   off: [],
 }
 playlists.all = Object.values(playlists).flat()
-
-export const ranges = {
-  heart: [['12:30', '13:00'], ['22:00', '23:00']],
-  spleen: [['07:00', '09:00'], ['11:00', '13:00'], ['17:00', '19:00']],
-  kidney: [['07:00', '11:00']],
-  lung: [['15:00', '19:00']],
-  liver: [['19:00', '23:00']],
-  off: ['还没到点'],
-}
 
 export const theory = {
   heart: {
@@ -99,10 +90,74 @@ export const theory = {
   }
 }
 
+const store = {
+  file: undefined,
+  list: undefined,
+  order: [
+    'heart', 'spleen', 'kidney', 'lung', 'liver',
+  ],
+  ri: undefined,
+  ranges: {
+    all: [],
+    heart: [['12:30', '13:00'], ['22:00', '23:00']],
+    spleen: [['07:00', '09:00'], ['11:00', '13:00'], ['17:00', '19:00']],
+    kidney: [['07:00', '11:00']],
+    lung: [['15:00', '19:00']],
+    liver: [['19:00', '23:00']],
+    off: ['还没到点'],
+  },
+  timed: true,
+}
+
+export const stored = hookstate(store, localstored({ key: 'e-tcm' }))
+export const restore = () => stored.set(store)
+
+const now = () => {
+  const date = new Date()
+  return `${padTime(date.getHours())}:${padTime(date.getMinutes())}`
+}
+
+const within = (time, [start, end]) => {
+  if (start <= end) return start <= time && time < end
+  return (start <= time && time <= '23:59') || (0 <= time && time < end)
+}
+
+const getListByTime = () => {
+  const { order, ranges, timed } = stored.get()
+  if (!timed) return []
+  const time = now()
+  for (let i = 0; i < order.length; i++) {
+    const arr = ranges[order[i]]
+    for (let j = 0; j < arr.length; j++) {
+      if (within(time, arr[j])) return [order[i], j]
+    }
+  }
+  return ['off', 0]
+}
+
+let timeoutId
+const tick = () => {
+  if (timeoutId) clearTimeout(timeoutId)
+  const [nextList, nextRi] = getListByTime()
+  if (nextList) {
+    const { file, list, ri } = stored.get()
+    const nextFile = nextList === list ? file : playlists[nextList][0]
+    if (nextList !== list || nextFile !== file || nextRi !== ri) {
+      stored.merge({
+        file: nextFile,
+        list: nextList,
+        ri: nextRi,
+      })
+    }
+  }
+  timeoutId = setTimeout(tick, 1000)
+}
+tick()
+
 export default {
   icons,
-  order,
   playlists,
-  ranges,
+  restore,
+  stored,
   theory,
 }

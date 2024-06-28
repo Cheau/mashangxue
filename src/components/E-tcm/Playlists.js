@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import clsx from 'clsx'
+import { useHookstate } from '@hookstate/core'
 import { FcMusic } from 'react-icons/fc'
 import {
   IonBadge,
@@ -15,24 +16,27 @@ import {
 } from '@ionic/react'
 
 import styles from './Playlists.module.css'
+import {
+  icons, playlists, stored, theory } from './data'
 import Drawer from '../Drawer'
 import Range from './Range'
 import RangeAdder from './RangeAdder'
-import { filename } from '../../common/path'
 
 function Playlist({
-  current: {
-    fi, pi, ri, playing,
-  },
   id,
-  list,
   onPick,
+  playing,
 }) {
-  const files = useMemo(() => list.files.map(filename), [list.files])
+  const store = useHookstate(stored)
+  const current = store.get()
+  const files = playlists[id]
+  const icon = icons[id]
+  const ranges = current.ranges[id]
   const {
-    effect, element, icon, intro, max, min, note, onRanges, part, ranges,
-  } = list
-  const active = id === pi
+    effect, element, intro, max, min, note, part,
+  } = theory[id]
+  const active = id === current.list
+  const onRanges = () => {}
   const onAdd = (range) => onRanges([...ranges, range].sort())
   const onDelete = (i) => onRanges([...ranges.slice(0, i), ...ranges.slice(i + 1)])
   const onUpdate = (i) => (range) => onRanges([...ranges.slice(0, i), range, ...ranges.slice(i + 1)])
@@ -48,7 +52,7 @@ function Playlist({
           </div>
         </IonListHeader>
         {files.map((file, i) => {
-          const isItemActive = active && i === fi
+          const isItemActive = active && file === current.file
           const color = isItemActive ? 'light' : undefined
           const classes = clsx(styles.note, { [styles.playing]: isItemActive && playing })
           return (
@@ -62,7 +66,7 @@ function Playlist({
             {ranges.map((range, i) => (
               <Range
                 key={i}
-                active={active && i === ri }
+                active={active && i === current.ri}
                 deletable
                 max={max}
                 min={min}
@@ -80,15 +84,16 @@ function Playlist({
 }
 
 export default function Playlists({
-  current,
-  data = [],
   onClose = () => {},
   onPick = () => {},
   onReset = () => {},
   open,
+  playing,
 }) {
   const [alert] = useIonAlert()
   const [toast] = useIonToast()
+  const store = useHookstate(stored)
+  const { order } = store.get()
   const reset = () => {
     onReset()
     toast({ message: '已恢复', duration: 1500, position: 'top' })
@@ -105,8 +110,8 @@ export default function Playlists({
       <Drawer maxWidth="400px" open={open} onClose={onClose} title="播放列表">
         <div className={styles.playlists}>
           <IonContent color="light">
-            {data.map((list, i) => (
-              <Playlist key={i} current={current} id={i} list={list} onPick={onPick} />
+            {order.map((id) => (
+              <Playlist key={id} id={id} onPick={onPick} playing={playing} />
             ))}
             <IonButton className={styles.reset} color="dark" expand="block" onClick={confirmReset}>
               恢复默认设置
