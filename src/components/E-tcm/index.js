@@ -5,6 +5,9 @@ import React, {
   useState,
 } from 'react'
 import BrowserOnly from '@docusaurus/BrowserOnly'
+import { usePluginData } from '@docusaurus/useGlobalData'
+import { useHookstate } from '@hookstate/core'
+import { localstored } from '@hookstate/localstored'
 import { IonToggle } from '@ionic/react'
 import { GiAlarmClock } from 'react-icons/gi'
 
@@ -41,6 +44,7 @@ const index = (files) => files.reduce((indices, file) => {
 }, {})
 
 export default function ETcm() {
+  const id = usePluginData('ETcm-plugin')
   const player = useRef(null)
   const [fi, setFi] = useSession('e-tcm.fi', 0)
   const [open, setOpen] = useState(false)
