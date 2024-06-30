@@ -20,6 +20,7 @@
     "@easyops-cn/docusaurus-search-local": "^0.40.1",
     "@hookstate/core": "4.0.1",
     "@hookstate/localstored": "4.0.2",
+    "@hookstate/subscribable": "4.0.0",
     "@ionic/react": "^8.2.1",
     "@mdx-js/react": "^3.0.0",
     "@vercel/analytics": "^1.1.1",

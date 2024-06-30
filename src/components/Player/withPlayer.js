@@ -16,10 +16,15 @@ const box = (source) => {
 }
 
 const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(props, ref) {
-  const { src } = props
+  const {
+    defaultValue, onChange = (k, v) => {}, src, value,
+  } = props
   const playlist = useMemo(() => box(src), [src])
   const [opts, setOpts] = useState({})
-  const [index, setIndex] = useState(props.index ?? 0)
+  const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue)
+  const index = defaultValue ? uncontrolledValue : value
+  const setIndex = defaultValue ? setUncontrolledValue : (i) => onChange('index', i)
+  const [playing, setPlaying] = useState(false)
   const [audio, setAudio] = useState()
   const [elapsed, setElapsed] = useState(0, [audio])
   const [status, setStatus] = useState(() => audio?.state(), [audio])
@@ -81,12 +86,17 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
   }
   useImperativeHandle(ref, () => actions, [audio])
 
-  useEffect(() => setIndex(props.index ?? 0), [props.index])
   useEffect(() => {
     stop()
     setAudio(playlist[index])
   }, [playlist, index])
-  useEffect(play, [audio])
+  useEffect(() => {
+    setPlaying(status === 'playing')
+    onChange('status', status)
+  }, [status])
+  useEffect(() => {
+    if (playing) play()
+  }, [audio])
   return <Component
     {...props}
     actions={actions}

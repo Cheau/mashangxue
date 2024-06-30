@@ -1,6 +1,7 @@
 import React from 'react'
-import { hookstate } from '@hookstate/core'
+import { extend, hookstate } from '@hookstate/core'
 import { localstored } from '@hookstate/localstored'
+import { subscribable } from '@hookstate/subscribable'
 import {
   GiCheckMark,
   GiHearts,
@@ -90,13 +91,16 @@ export const theory = {
   }
 }
 
+const clone = (json) => JSON.parse(JSON.stringify(json))
+
 const store = {
   file: undefined,
+  fileIndex: undefined,
   list: undefined,
   order: [
     'heart', 'spleen', 'kidney', 'lung', 'liver',
   ],
-  ri: undefined,
+  rangeIndex: undefined,
   ranges: {
     all: [],
     heart: [['12:30', '13:00'], ['22:00', '23:00']],
@@ -109,9 +113,6 @@ const store = {
   timed: true,
 }
 
-export const stored = hookstate(store, localstored({ key: 'e-tcm' }))
-export const restore = () => stored.set(store)
-
 const now = () => {
   const date = new Date()
   return `${padTime(date.getHours())}:${padTime(date.getMinutes())}`
@@ -122,42 +123,86 @@ const within = (time, [start, end]) => {
   return (start <= time && time <= '23:59') || (0 <= time && time < end)
 }
 
-const getListByTime = () => {
-  const { order, ranges, timed } = stored.get()
-  if (!timed) return []
+const locate = (state) => {
+  const { order, ranges, timed } = state
+  if (!timed) return { list: 'all' }
   const time = now()
   for (let i = 0; i < order.length; i++) {
     const arr = ranges[order[i]]
     for (let j = 0; j < arr.length; j++) {
-      if (within(time, arr[j])) return [order[i], j]
+      if (within(time, arr[j])) return { list: order[i], rangeIndex: j }
     }
   }
-  return ['off', 0]
+  return { list: 'off', rangeIndex: 0 }
 }
+
+const getInitStore = () => {
+  const merged = {
+    ...store,
+    ...locate(store),
+  }
+  return clone(merged)
+}
+
+export const stored = hookstate(getInitStore(), extend(
+    localstored({ key: 'e-tcm' }),
+    subscribable(),
+))
 
 let timeoutId
 const tick = () => {
   if (timeoutId) clearTimeout(timeoutId)
-  const [nextList, nextRi] = getListByTime()
-  if (nextList) {
-    const { file, list, ri } = stored.get()
-    const nextFile = nextList === list ? file : playlists[nextList][0]
-    if (nextList !== list || nextFile !== file || nextRi !== ri) {
-      stored.merge({
-        file: nextFile,
-        list: nextList,
-        ri: nextRi,
-      })
-    }
+  const state = stored.get()
+  const { list, rangeIndex } = locate(state)
+  const patch = {}
+  if (list !== state.list) patch.list = list
+  if (rangeIndex !== state.rangeIndex) patch.rangeIndex = rangeIndex
+  if (playlists[list].indexOf(state.file) < 0) {
+    patch.file = playlists[list][0]
+    patch.fileIndex = 0
   }
+  stored.merge(patch)
   timeoutId = setTimeout(tick, 1000)
 }
 tick()
 
+const pick = (pickedList, pickedFile) => {
+  const state = stored.get({ noproxy: true })
+  const timed = state.timed && pickedList === state.list
+  const { list, rangeIndex } = locate({ ...state, timed })
+  const fileIndex = playlists[list].indexOf(pickedFile)
+  if (fileIndex < 0) return
+  stored.merge({
+    file: pickedFile,
+    fileIndex,
+    list,
+    rangeIndex,
+    timed,
+  })
+}
+
+const playByTime = () => {
+  const state = stored.get({ noproxy: true })
+  const timed = true
+  const { list, rangeIndex } = locate({ ...state, timed })
+  const file = playlists[list][0]
+  stored.merge({
+    file,
+    fileIndex: 0,
+    list,
+    rangeIndex,
+    timed,
+  })
+}
+
+const restore = () => stored.set(getInitStore())
+
+export const actions = { pick, playByTime, restore }
+
 export default {
+  actions,
   icons,
   playlists,
-  restore,
   stored,
   theory,
 }

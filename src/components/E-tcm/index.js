@@ -1,18 +1,16 @@
 import React, {
-  useEffect,
   useMemo,
   useRef,
   useState,
 } from 'react'
 import BrowserOnly from '@docusaurus/BrowserOnly'
-import { usePluginData } from '@docusaurus/useGlobalData'
 import { useHookstate } from '@hookstate/core'
 import { IonToggle } from '@ionic/react'
 import { GiAlarmClock } from 'react-icons/gi'
 
 import styles from './index.module.css'
 import {
-  icons, playlists, stored, restore, theory,
+  actions, icons, playlists, stored, theory,
 } from './data'
 import Player from '../Player'
 import { formatRange } from './utils'
@@ -20,29 +18,25 @@ import { formatRange } from './utils'
 const fullPath = (file) => `/audio/e-tcm/${file}`
 
 export default function ETcm() {
-  const id = usePluginData('ETcm-plugin')
   const player = useRef(null)
   const store = useHookstate(stored)
   const {
-    file, list, ri, ranges, timed,
+    fileIndex, list, rangeIndex, ranges, timed,
   } = store.get()
   const playlist = useMemo(() => playlists[list].map(fullPath), [list])
-  const index = useMemo(() => playlist.indexOf(file), [playlist, file])
   const { effect } = theory[list]
   const icon = icons[list]
-  const range = ranges[list][ri]
+  const range = ranges[list][rangeIndex]
   const [open, setOpen] = useState(false)
   const [playing, setPlaying] = useState(false)
+  const { pick, playByTime } = actions
   const onChange = (key, value) => {
     switch (key) {
+      case 'index': pick(list, playlists[list][value])
       case 'status': setPlaying(value === 'playing'); break
       default: break
     }
   }
-  const onPick = (nextList, nextFile) => store.merge({
-    file: nextFile,
-    timed: timed ? nextList === list : false,
-  })
   return (
     <>
       <div className={styles.etcm}>
@@ -53,7 +47,7 @@ export default function ETcm() {
           {timed && <span className={styles.iconic}>
             <GiAlarmClock/>{formatRange(range)}
           </span>}
-          {!timed && <IonToggle checked={timed} onClick={() => setTimed(!timed)}>
+          {!timed && <IonToggle checked={timed} onClick={playByTime}>
             按时播放
           </IonToggle>}
         </div>
@@ -61,11 +55,11 @@ export default function ETcm() {
         <div className={styles.subtitle}>听电子中药，享赛博朋克</div>
         <Player
           appearance="music"
-          index={index}
           onChange={onChange}
           onPlaylist={() => setOpen(true)}
           ref={player}
           src={playlist}
+          value={fileIndex}
         />
       </div>
       <BrowserOnly fallback={<div>Loading...</div>}>
@@ -74,8 +68,7 @@ export default function ETcm() {
           return (
               <Playlists
                   onClose={() => setOpen(false)}
-                  onPick={onPick}
-                  onReset={restore}
+                  onPick={pick}
                   open={open}
                   playing={playing}
               />
