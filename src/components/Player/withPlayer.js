@@ -19,12 +19,12 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
   const {
     defaultValue, onChange = (k, v) => {}, src, value,
   } = props
+  const [mounted, setMounted] = useState(false)
   const playlist = useMemo(() => box(src), [src])
   const [opts, setOpts] = useState({})
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue)
   const index = defaultValue ? uncontrolledValue : value
   const setIndex = defaultValue ? setUncontrolledValue : (i) => onChange('index', i)
-  const [playing, setPlaying] = useState(false)
   const [audio, setAudio] = useState()
   const [elapsed, setElapsed] = useState(0, [audio])
   const [status, setStatus] = useState(() => audio?.state(), [audio])
@@ -90,12 +90,14 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
     stop()
     setAudio(playlist[index])
   }, [playlist, index])
+  useEffect(() => onChange('status', status), [status])
   useEffect(() => {
-    setPlaying(status === 'playing')
-    onChange('status', status)
-  }, [status])
-  useEffect(() => {
-    if (playing) play()
+    if (!audio) return
+    if (!mounted) {
+      setMounted(true)
+      return
+    }
+    if (mounted) play()
   }, [audio])
   return <Component
     {...props}

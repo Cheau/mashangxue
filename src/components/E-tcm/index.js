@@ -21,7 +21,7 @@ export default function ETcm() {
   const player = useRef(null)
   const store = useHookstate(stored)
   const {
-    fileIndex, list, rangeIndex, ranges, timed,
+    file, fileIndex, list, rangeIndex, ranges, timed,
   } = store.get()
   const playlist = useMemo(() => playlists[list].map(fullPath), [list])
   const { effect } = theory[list]
@@ -30,9 +30,13 @@ export default function ETcm() {
   const [open, setOpen] = useState(false)
   const [playing, setPlaying] = useState(false)
   const { pick, playByTime } = actions
+  const play = (pickedList, pickedFile) => {
+    if ((!timed || pickedList === list) && pickedFile === file) player.current.play()
+    else pick(pickedList, pickedFile)
+  }
   const onChange = (key, value) => {
     switch (key) {
-      case 'index': pick(list, playlists[list][value])
+      case 'index': play(list, playlists[list][value])
       case 'status': setPlaying(value === 'playing'); break
       default: break
     }
@@ -68,7 +72,7 @@ export default function ETcm() {
           return (
               <Playlists
                   onClose={() => setOpen(false)}
-                  onPick={pick}
+                  onPick={play}
                   open={open}
                   playing={playing}
               />
