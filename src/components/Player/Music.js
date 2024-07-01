@@ -48,9 +48,9 @@ function Music(props) {
   const [modeText, modeIcon] = modes[mode]
   const { groups: { name } } = path.exec(src[index] ?? '') ?? { groups: { name: '' } }
   const onMode = () => setMode(tick(modes, mode))
-  const onPrevious = () => pick(tick(src, index, false))
+  const onPrevious = (e) => pick(e, tick(src, index, false))
   const onToggle = playing ? pause : play
-  const onNext = () => pick(tick(src, index))
+  const onNext = (e) => pick(e, tick(src, index))
   useEffect(() => setOpts({ loop: mode === 1 }), [mode])
   useEffect(() => {
     if (status === 'ended') {

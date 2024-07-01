@@ -1,11 +1,12 @@
 import React, {
+  useEffect,
   useMemo,
   useRef,
   useState,
 } from 'react'
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import { useHookstate } from '@hookstate/core'
-import { IonToggle } from '@ionic/react'
+import { IonToggle, useIonToast } from '@ionic/react'
 import { GiAlarmClock } from 'react-icons/gi'
 
 import styles from './index.module.css'
@@ -19,9 +20,10 @@ const fullPath = (file) => `/audio/e-tcm/${file}`
 
 export default function ETcm() {
   const player = useRef(null)
+  const [toast] = useIonToast()
   const store = useHookstate(stored)
   const {
-    file, fileIndex, list, rangeIndex, ranges, timed,
+    fileIndex, list, rangeIndex, ranges, timed,
   } = store.get()
   const playlist = useMemo(() => playlists[list].map(fullPath), [list])
   const { effect } = theory[list]
@@ -30,17 +32,20 @@ export default function ETcm() {
   const [open, setOpen] = useState(false)
   const [playing, setPlaying] = useState(false)
   const { pick, playByTime } = actions
-  const play = (pickedList, pickedFile) => {
-    if ((!timed || pickedList === list) && pickedFile === file) player.current.play()
-    else pick(pickedList, pickedFile)
+  const play = (event, pickedList, pickedFile) => {
+    pick(pickedList, pickedFile)
+    player.current.play(event)
   }
   const onChange = (key, value) => {
     switch (key) {
-      case 'index': play(list, playlists[list][value])
+      case 'index': pick(list, playlists[list][value]); break
       case 'status': setPlaying(value === 'playing'); break
       default: break
     }
   }
+  useEffect(() => store.timed.subscribe((v) => {
+    if (!v) toast({ message: '关闭按时播放', duration: 1000, position: 'top' })
+  }), [])
   return (
     <>
       <div className={styles.etcm}>
