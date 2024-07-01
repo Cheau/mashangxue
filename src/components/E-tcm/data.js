@@ -1,5 +1,9 @@
 import React from 'react'
+import { extend, hookstate } from '@hookstate/core'
+import { localstored } from '@hookstate/localstored'
+import { subscribable } from '@hookstate/subscribable'
 import {
+  GiCheckMark,
   GiHearts,
   GiJellyBeans,
   GiKidneys,
@@ -8,18 +12,32 @@ import {
   GiSoundOff,
 } from 'react-icons/gi'
 
-const fullPath = (file) => `/audio/e-tcm/${file}`
+import { padTime } from './utils'
 
-export const order = [
-    'heart', 'spleen', 'kidney', 'lung', 'liver', 'off',
-]
+export const icons = {
+  heart: <GiHearts />,
+  spleen: <GiJellyBeans />,
+  kidney: <GiKidneys />,
+  lung: <GiLungs />,
+  liver: <GiLiver />,
+  off: <GiSoundOff />,
+  all: <GiCheckMark />,
+}
 
-export const profiles = {
+export const playlists = {
+  heart: ['紫竹调(古筝).mp3'],
+  spleen: ['春江花月夜.mp3', '月儿高(古筝).mp3'],
+  kidney: ['梅花三弄(古琴).mp3'],
+  lung: ['阳春白雪(琵琶).mp3'],
+  liver: ['胡笳十八拍.mp3'],
+  off: [],
+}
+playlists.all = Object.values(playlists).flat()
+
+export const theory = {
   heart: {
     effect: '舒心',
     element: '火',
-    files: ['紫竹调(古筝).mp3'].map(fullPath),
-    icon: <GiHearts />,
     note: '徵',
     part: '入睡',
     intro: `心脏出问题，常出现失眠、心慌、心胸闷等情况，从而导致胸痛、烦躁等表征。
@@ -29,8 +47,6 @@ export const profiles = {
   spleen: {
     effect: '健脾',
     element: '土',
-    files: ['春江花月夜.mp3', '月儿高(古筝).mp3'].map(fullPath),
-    icon: <GiJellyBeans />,
     note: '宫',
     part: '用餐',
     intro: `长期的暴饮暴食、五味过重、思虑过度等都会让脾胃产生不适，腹胀、便稀、肥胖、口唇溃疡、面黄、月经量少色淡、疲乏、胃或子宫下垂都是常见的症状。
@@ -40,8 +56,6 @@ export const profiles = {
   kidney: {
     effect: '补肾',
     element: '水',
-    files: ['梅花三弄(古琴).mp3'].map(fullPath),
-    icon: <GiKidneys />,
     max: 11,
     min: 7,
     note: '羽',
@@ -52,8 +66,6 @@ export const profiles = {
   lung: {
     effect: '润肺',
     element: '金',
-    files: ['阳春白雪(琵琶).mp3'].map(fullPath),
-    icon: <GiLungs />,
     max: 19,
     min: 15,
     note: '商',
@@ -64,8 +76,6 @@ export const profiles = {
   liver: {
     effect: '养肝',
     element: '木',
-    files: ['胡笳十八拍.mp3'].map(fullPath),
-    icon: <GiLiver />,
     max: 23,
     min: 19,
     note: '角',
@@ -75,22 +85,124 @@ export const profiles = {
   },
   off: {
     effect: '休息一下',
-    files: [],
-    icon: <GiSoundOff />,
   },
+  all: {
+    effect: '播放全部',
+  }
 }
 
-export const ranges = {
-  heart: [['12:30', '13:00'], ['22:00', '23:00']],
-  spleen: [['07:00', '09:00'], ['11:00', '13:00'], ['17:00', '19:00']],
-  kidney: [['07:00', '11:00']],
-  lung: [['15:00', '19:00']],
-  liver: [['19:00', '23:00']],
-  off: ['还没到点'],
+const clone = (json) => JSON.parse(JSON.stringify(json))
+
+const store = {
+  file: undefined,
+  fileIndex: undefined,
+  list: undefined,
+  order: [
+    'heart', 'spleen', 'kidney', 'lung', 'liver',
+  ],
+  rangeIndex: undefined,
+  ranges: {
+    all: [],
+    heart: [['12:30', '13:00'], ['22:00', '23:00']],
+    spleen: [['07:00', '09:00'], ['11:00', '13:00'], ['17:00', '19:00']],
+    kidney: [['07:00', '11:00']],
+    lung: [['15:00', '19:00']],
+    liver: [['19:00', '23:00']],
+    off: ['还没到点'],
+  },
+  timed: true,
 }
+
+const now = () => {
+  const date = new Date()
+  return `${padTime(date.getHours())}:${padTime(date.getMinutes())}`
+}
+
+const within = (time, [start, end]) => {
+  if (start <= end) return start <= time && time < end
+  return (start <= time && time <= '23:59') || (0 <= time && time < end)
+}
+
+const locate = (state) => {
+  const { order, ranges, timed } = state
+  if (!timed) return { list: 'all' }
+  const time = now()
+  for (let i = 0; i < order.length; i++) {
+    const arr = ranges[order[i]]
+    for (let j = 0; j < arr.length; j++) {
+      if (within(time, arr[j])) return { list: order[i], rangeIndex: j }
+    }
+  }
+  return { list: 'off', rangeIndex: 0 }
+}
+
+const getInitStore = () => {
+  const merged = {
+    ...store,
+    ...locate(store),
+  }
+  return clone(merged)
+}
+
+export const stored = hookstate(getInitStore(), extend(
+    localstored({ key: 'e-tcm' }),
+    subscribable(),
+))
+
+let timeoutId
+const tick = () => {
+  if (timeoutId) clearTimeout(timeoutId)
+  const state = stored.get()
+  const { list, rangeIndex } = locate(state)
+  const patch = {}
+  if (list !== state.list) patch.list = list
+  if (rangeIndex !== state.rangeIndex) patch.rangeIndex = rangeIndex
+  if (playlists[list].indexOf(state.file) < 0) {
+    patch.file = playlists[list][0]
+    patch.fileIndex = 0
+  }
+  stored.merge(patch)
+  timeoutId = setTimeout(tick, 1000)
+}
+tick()
+
+const pick = (pickedList, pickedFile) => {
+  const state = stored.get({ noproxy: true })
+  const timed = state.timed && pickedList === state.list
+  const { list, rangeIndex } = locate({ ...state, timed })
+  const fileIndex = playlists[list].indexOf(pickedFile)
+  if (fileIndex < 0) return
+  stored.merge({
+    file: pickedFile,
+    fileIndex,
+    list,
+    rangeIndex,
+    timed,
+  })
+}
+
+const playByTime = () => {
+  const state = stored.get({ noproxy: true })
+  const timed = true
+  const { list, rangeIndex } = locate({ ...state, timed })
+  const file = playlists[list][0]
+  stored.merge({
+    file,
+    fileIndex: 0,
+    list,
+    rangeIndex,
+    timed,
+  })
+}
+
+const restore = () => stored.set(getInitStore())
+
+export const actions = { pick, playByTime, restore }
 
 export default {
-  order,
-  profiles,
-  ranges,
+  actions,
+  icons,
+  playlists,
+  stored,
+  theory,
 }
