@@ -32,9 +32,9 @@ export default function ETcm() {
   const [open, setOpen] = useState(false)
   const [playing, setPlaying] = useState(false)
   const { pick, playByTime } = actions
-  const play = (event, pickedList, pickedFile) => {
+  const play = (pickedList, pickedFile) => {
     pick(pickedList, pickedFile)
-    player.current.play(event)
+    player.current.setAutoplay(true)
   }
   const onChange = (key, value) => {
     switch (key) {
@@ -43,9 +43,9 @@ export default function ETcm() {
       default: break
     }
   }
-  useEffect(() => store.timed.subscribe((v) => {
-    if (!v) toast({ message: '关闭按时播放', duration: 1000, position: 'top' })
-  }), [])
+  useEffect(() => {
+    if (!timed) toast({ message: '按时播放已关闭', duration: 1000, position: 'top' })
+  }, [timed])
   return (
     <>
       <div className={styles.etcm}>

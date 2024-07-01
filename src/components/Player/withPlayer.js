@@ -80,6 +80,7 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
     play,
     pick,
     seek,
+    setAutoplay,
     stop,
   }
   useImperativeHandle(ref, () => actions, [audio])
