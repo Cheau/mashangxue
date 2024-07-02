@@ -27,8 +27,8 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
   const setIndex = defaultValue ? setUncontrolledValue : (i) => onChange('index', i)
   const [audio, setAudio] = useState()
   const [elapsed, setElapsed] = useState(0)
-  const [status, setStatus] = useState(() => audio?.state())
-  const duration = audio?.howl?.duration()
+  const [status, setStatus] = useState(() => audio?.howl.state())
+  const duration = audio?.howl?.state() === 'loaded' ? audio.howl.duration() : undefined
 
   const step = useCallback(() => {
     const sound = audio?.howl
