@@ -32,7 +32,7 @@ export default function Progress({ max, onChange, value }) {
   return (
       <IonRange
           className={styles.progress}
-          max={max} mode="md"
+          max={max ?? 100} mode="md"
           onIonChange={({ detail }) => {
             clear = true
             onChange(detail.value)

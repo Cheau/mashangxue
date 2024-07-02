@@ -29,7 +29,7 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
   const [audio, setAudio] = useState()
   const [elapsed, setElapsed] = useState(0)
   const [status, setStatus] = useState(() => audio?.state())
-  const duration = audio?.howl?.duration() || 0
+  const duration = audio?.howl?.duration()
 
   const step = useCallback(() => {
     const sound = audio?.howl
