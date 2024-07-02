@@ -62,6 +62,7 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
       const sound = new Howl(options)
       audio.howl = sound
       if (sound.state() === 'unloaded') sound.load()
+      setStatus(sound.state())
       sound.once('load', sound.play)
     }
   }

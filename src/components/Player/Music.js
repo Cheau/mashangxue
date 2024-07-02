@@ -15,7 +15,7 @@ import {
   BsRepeat,
   BsRepeat1,
 } from 'react-icons/bs'
-import { IonToast } from '@ionic/react'
+import { IonSpinner, IonToast } from '@ionic/react'
 
 import styles from './Music.module.css'
 import Progress from './Progress'
@@ -73,7 +73,8 @@ function Music(props) {
           <BiSkipPrevious/>
         </span>
         <span className={clsx(styles.main)} onClick={onToggle}>
-          {playing ? <BiPause title="暂停" /> : <BiPlay title="播放" />}
+          {status === 'loading' ? <IonSpinner className={styles.spinner} name="dots" />
+            : (playing ? <BiPause title="暂停" /> : <BiPlay title="播放" />)}
         </span>
         <span className={clsx(styles.main)} onClick={onNext} title="下一首">
           <BiSkipNext/>
@@ -86,4 +87,4 @@ function Music(props) {
   )
 }
 
-export default memo(withPlayer(Music, {html5: true}))
+export default memo(withPlayer(Music, {html5: false}))
