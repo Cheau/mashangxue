@@ -33,7 +33,10 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
 
   const step = useCallback(() => {
     const sound = audio?.howl
-    if (!sound) return
+    if (!sound) {
+      setElapsed(0)
+      return
+    }
     setElapsed(Math.trunc(sound.seek() * 10) / 10)
     if (sound.playing()) requestAnimationFrame(step)
   }, [audio])
@@ -45,9 +48,7 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
       setAutoplay(play)
     }
     if (!audio) return
-    if (audio.howl) {
-      func(audio.howl, ...args)
-    } else if (create) {
+    if (!audio.howl && create) {
       const options = {
         preload: false,
         ...typedOpts,
@@ -59,16 +60,19 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
         onseek: () => requestAnimationFrame(step),
         onstop: () => setStatus('stopped'),
       }
-      const sound = new Howl(options)
-      audio.howl = sound
-      if (sound.state() === 'unloaded') sound.load()
-      setStatus(sound.state())
-      sound.once('load', sound.play)
+      audio.howl = new Howl(options)
     }
+    if (audio.howl) func(audio.howl, ...args)
   }
   const pause = preprocess((sound) => sound.pause())
   const play = preprocess((sound) => {
-    if (!sound.playing()) sound.play()
+    if (sound.state() === 'unloaded') {
+      sound.load()
+      sound.once('load', sound.play)
+      setStatus(sound.state())
+    } else if (!sound.playing()) {
+      sound.play()
+    }
   }, { create: true, play: true })
   const stop = preprocess((sound) => sound.stop())
   const pick = (event, i) => {
@@ -90,10 +94,9 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
     stop()
     setAudio(playlist[index])
   }, [playlist, index])
-  useEffect(function() {
-    if (!status) return
+  useEffect(() => {
+    step()
     onChange('status', status)
-    requestAnimationFrame(step)
   }, [status])
   useEffect(() => {
     if (!audio) return
