@@ -144,10 +144,9 @@ const getInitStore = () => {
   return clone(merged)
 }
 
-export const stored = hookstate(getInitStore(), extend(
-    localstored({ key: 'e-tcm' }),
-    subscribable(),
-))
+const extensions = [subscribable()]
+if (typeof window !== 'undefined') extensions.push(localstored({ key: 'e-tcm' }))
+export const stored = hookstate(getInitStore(), extend(...extensions))
 
 let timeoutId
 const tick = () => {
