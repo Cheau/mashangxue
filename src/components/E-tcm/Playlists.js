@@ -98,7 +98,12 @@ export default function Playlists({
   const { order } = store.get()
   const reset = () => {
     restore()
-    toast({ message: '已恢复', duration: 1500, position: 'top' })
+    toast({
+      color: 'success',
+      duration: 1500,
+      message: '默认设置已恢复',
+      position: 'top',
+    })
   }
   const confirmReset = () => alert({
     header: '恢复默认设置',

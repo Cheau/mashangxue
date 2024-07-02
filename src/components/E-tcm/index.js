@@ -44,7 +44,12 @@ export default function ETcm() {
     }
   }
   useEffect(() => {
-    if (!timed) toast({ message: '按时播放已关闭', duration: 1000, position: 'top' })
+    if (!timed) toast({
+      color: 'warning',
+      duration: 1500,
+      message: '按时播放已关闭',
+      position: 'top',
+    })
   }, [timed])
   return (
     <>
