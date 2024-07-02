@@ -22,7 +22,6 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
   } = props
   const [autoplay, setAutoplay] = useState(props.autoplay)
   const playlist = useMemo(() => box(src), [src])
-  const [opts, setOpts] = useState({})
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue)
   const index = defaultValue ? uncontrolledValue : value
   const setIndex = defaultValue ? setUncontrolledValue : (i) => onChange('index', i)
@@ -52,7 +51,6 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
       const options = {
         preload: false,
         ...typedOpts,
-        ...opts,
         src: audio.src,
         onend: () => setStatus('ended'),
         onpause: () => setStatus('paused'),
@@ -108,7 +106,6 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
     duration={duration}
     elapsed={elapsed}
     index={index}
-    setOpts={setOpts}
     status={status}
   />
 })
