@@ -38,7 +38,7 @@ const modes = [
 function Music(props) {
   const ref = useRef(null)
   const {
-    actions, duration, elapsed, index, setOpts, src = [], status, onPlaylist = () => {},
+    actions, duration, elapsed, index, src = [], status, onPlaylist = () => {},
   } = props
   const {
     pause, pick, play, seek,
@@ -51,10 +51,10 @@ function Music(props) {
   const onPrevious = (e) => pick(e, tick(src, index, false))
   const onToggle = playing ? pause : play
   const onNext = (e) => pick(e, tick(src, index))
-  useEffect(() => setOpts({ loop: mode === 1 }), [mode])
   useEffect(() => {
     if (status === 'ended') {
       if (mode === 0) onNext()
+      else if (mode === 1) play()
     }
   }, [status])
   return (
