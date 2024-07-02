@@ -56,7 +56,6 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
         onpause: () => setStatus('paused'),
         onplay: () => setStatus('playing'),
         onseek: () => requestAnimationFrame(step),
-        onstop: () => setStatus('stopped'),
       }
       audio.howl = new Howl(options)
     }
@@ -72,7 +71,10 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
       sound.play()
     }
   }, { create: true, play: true })
-  const stop = preprocess((sound) => sound.stop())
+  const stop = preprocess((sound) => {
+    sound.stop()
+    setStatus('stopped')
+  })
   const pick = (event, i) => {
     if (event) setAutoplay(true)
     setIndex(i)
