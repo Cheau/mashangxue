@@ -19,6 +19,8 @@ import { IonSpinner, IonToast } from '@ionic/react'
 
 import styles from './Music.module.css'
 import Progress from './Progress'
+import Rate from './Rate'
+import Volume from './Volume'
 import withPlayer from './withPlayer'
 import { useSession } from '../../common/hooks'
 
@@ -38,10 +40,11 @@ const modes = [
 function Music(props) {
   const ref = useRef(null)
   const {
-    actions, duration, elapsed, index, src = [], status, onPlaylist = () => {},
+    actions, duration, elapsed, index, mute, rate, src = [], status, volume,
+    onPlaylist = () => {},
   } = props
   const {
-    pause, pick, play, seek,
+    pause, pick, play, seek, setMute, setRate, setVolume,
   } = actions
   const [mode, setMode] = useSession('music.mode', 0)
   const playing = status === 'playing'
@@ -81,6 +84,14 @@ function Music(props) {
         </span>
         <span onClick={onPlaylist} title="播放列表">
           <BiSolidPlaylist/>
+        </span>
+      </div>
+      <div className={clsx('options', styles.options)}>
+        <span className={clsx(styles.rate)}>
+          <Rate onChange={setRate} value={rate} />
+        </span>
+        <span className={clsx(styles.volume)}>
+          <Volume mute={mute} onMute={setMute} onVolume={setVolume} value={volume} />
         </span>
       </div>
     </div>

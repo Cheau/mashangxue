@@ -10,25 +10,42 @@ import { Howl } from 'howler'
 
 import { filename } from '../../common/path'
 
-const box = (source) => {
-  if (typeof source === 'string') return [{ howl: null, src: source, title: filename(source) }]
-  if (Array.isArray(source)) return source.map((src) => ({ howl: null, src, title: filename(src) }))
-  return []
-}
-
 const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(props, ref) {
   const {
     defaultValue, onChange = (k, v) => {}, src, value,
   } = props
   const [autoplay, setAutoplay] = useState(props.autoplay)
-  const playlist = useMemo(() => box(src), [src])
   const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue)
   const index = defaultValue ? uncontrolledValue : value
   const setIndex = defaultValue ? setUncontrolledValue : (i) => onChange('index', i)
   const [audio, setAudio] = useState()
   const [elapsed, setElapsed] = useState(0)
   const [status, setStatus] = useState(() => audio?.howl.state())
+  const [mute, setMute] = useState(false)
+  const [rate, setRate] = useState(1)
+  const [volume, setVolume] = useState(1)
   const duration = audio?.howl?.state() === 'loaded' ? audio.howl.duration() : undefined
+
+  const box = (src) => {
+    return typeof src !== 'string' ? src : {
+      howl: new Howl({
+        preload: false,
+        ...typedOpts,
+        src,
+        onend: () => setStatus('ended'),
+        onpause: () => setStatus('paused'),
+        onplay: () => setStatus('playing'),
+        onseek: () => requestAnimationFrame(step),
+      }),
+      src,
+      title: filename(src),
+    }
+  }
+  const playlist = useMemo(() => {
+    if (typeof src === 'string') return [box(src)]
+    if (Array.isArray(src)) return src.map(box)
+    return []
+  }, [src])
 
   const step = useCallback(() => {
     const sound = audio?.howl
@@ -40,26 +57,14 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
     if (sound.playing()) requestAnimationFrame(step)
   }, [audio])
 
-  const preprocess = (func, { create = false, play = false } = {}) => (...args) => {
+  const preprocess = (func, { play = false } = {}) => (...args) => {
     const e = args[0]
     if (typeof e === 'object' && typeof e.stopPropagation === 'function') {
       e.stopPropagation()
       setAutoplay(play)
     }
     if (!audio) return
-    if (!audio.howl && create) {
-      const options = {
-        preload: false,
-        ...typedOpts,
-        src: audio.src,
-        onend: () => setStatus('ended'),
-        onpause: () => setStatus('paused'),
-        onplay: () => setStatus('playing'),
-        onseek: () => requestAnimationFrame(step),
-      }
-      audio.howl = new Howl(options)
-    }
-    if (audio.howl) func(audio.howl, ...args)
+    func(audio.howl, ...args)
   }
   const pause = preprocess((sound) => sound.pause())
   const play = preprocess((sound) => {
@@ -70,7 +75,7 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
     } else if (!sound.playing()) {
       sound.play()
     }
-  }, { create: true, play: true })
+  }, { play: true })
   const stop = preprocess((sound) => {
     sound.stop()
     setStatus('stopped')
@@ -86,6 +91,9 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
     pick,
     seek,
     setAutoplay,
+    setMute,
+    setRate,
+    setVolume: (v) => setVolume(v / 100),
     stop,
   }
   useImperativeHandle(ref, () => actions, [audio])
@@ -99,16 +107,26 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
     onChange('status', status)
   }, [status])
   useEffect(() => {
-    if (!audio) return
     if (autoplay) play()
   }, [audio])
+  useEffect(() => {
+    if (!audio) return
+    const { howl } = audio
+    howl.mute(mute)
+    howl.rate(rate)
+    howl.volume(volume)
+  }, [audio, mute, rate, volume])
+
   return <Component
     {...props}
     actions={actions}
     duration={duration}
     elapsed={elapsed}
     index={index}
+    mute={mute}
+    rate={rate}
     status={status}
+    volume={Math.trunc(volume * 100)}
   />
 })
 
