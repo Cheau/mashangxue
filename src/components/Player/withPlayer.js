@@ -82,6 +82,7 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
   })
   const pick = (event, i) => {
     if (event) setAutoplay(true)
+    if (i === index && autoplay) play()
     setIndex(i)
   }
   const seek = preprocess((sound, value) => sound.seek(value))
