@@ -124,8 +124,10 @@ const within = (time, [start, end]) => {
 }
 
 const locate = (state) => {
-  const { order, ranges, timed } = state
-  if (!timed) return { list: 'all' }
+  const {
+    list, order, rangeIndex, ranges, timed,
+  } = state
+  if (!timed) return { list, rangeIndex }
   const time = now()
   for (let i = 0; i < order.length; i++) {
     const arr = ranges[order[i]]
@@ -168,7 +170,7 @@ tick()
 const pick = (pickedList, pickedFile) => {
   const state = stored.get({ noproxy: true })
   const timed = state.timed && pickedList === state.list
-  const { list, rangeIndex } = locate({ ...state, timed })
+  const { list, rangeIndex } = timed ? locate(state) : { list: pickedList }
   const fileIndex = playlists[list].indexOf(pickedFile)
   if (fileIndex < 0) return
   stored.merge({
@@ -182,15 +184,14 @@ const pick = (pickedList, pickedFile) => {
 
 const playByTime = () => {
   const state = stored.get({ noproxy: true })
-  const timed = true
-  const { list, rangeIndex } = locate({ ...state, timed })
+  const { list, rangeIndex } = locate(state)
   const file = playlists[list][0]
   stored.merge({
     file,
     fileIndex: 0,
     list,
     rangeIndex,
-    timed,
+    timed: true,
   })
 }
 
