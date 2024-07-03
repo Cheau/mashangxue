@@ -69,8 +69,8 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
   const pause = preprocess((sound) => sound.pause())
   const play = preprocess((sound) => {
     if (sound.state() === 'unloaded') {
-      sound.load()
       sound.once('load', sound.play)
+      sound.load()
       setStatus(sound.state())
     } else if (!sound.playing()) {
       sound.play()
