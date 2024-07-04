@@ -36,7 +36,7 @@ export default function ETcm() {
   const { effect } = theory[mappedList]
   const range = ranges[list][rangeIndex]
   const [open, setOpen] = useState(false)
-  const [playing, setPlaying] = useState(false)
+  const [status, setStatus] = useState(false)
   const { pick, playByTime } = actions
   const withPlay = (func) => (e, ...args) => {
     func.apply(this, args)
@@ -46,7 +46,7 @@ export default function ETcm() {
   const onChange = (key, value) => {
     switch (key) {
       case 'index': pick(list, playlists[list][value]); break
-      case 'status': setPlaying(value === 'playing'); break
+      case 'status': setStatus(value); break
       default: break
     }
   }
@@ -96,7 +96,7 @@ export default function ETcm() {
                   onClose={() => setOpen(false)}
                   onPick={withPlay(pick)}
                   open={open}
-                  playing={playing}
+                  status={status}
               />
           )
         }}

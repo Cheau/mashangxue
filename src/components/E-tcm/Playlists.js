@@ -11,6 +11,7 @@ import {
   IonList,
   IonListHeader,
   IonNote,
+  IonSpinner,
   useIonAlert,
   useIonToast,
 } from '@ionic/react'
@@ -25,7 +26,7 @@ import RangeAdder from './RangeAdder'
 function Playlist({
   id,
   onPick,
-  playing,
+  status,
 }) {
   const store = useHookstate(stored)
   const {
@@ -56,10 +57,10 @@ function Playlist({
         {playlist.map((item, i) => {
           const isItemActive = (active || list === 'all') && item === file
           const color = isItemActive ? 'light' : undefined
-          const classes = clsx(styles.note, { [styles.playing]: isItemActive && playing })
+          const classes = clsx(styles.note, { [styles.playing]: isItemActive && status === 'playing' })
           return (
             <IonItem key={i} button color={color} detail={false} lines="inset" onClick={(e) => onPick(e, id, item)}>
-              {isItemActive && <FcMusic className={classes} slot="start" />}
+              {isItemActive && (status === 'loading' ? <IonSpinner name="dots" style={{ marginRight: '12px' }} /> : <FcMusic className={classes} slot="start" />)}
               <IonLabel>{item}</IonLabel>
             </IonItem>
         )})}
@@ -89,7 +90,7 @@ export default function Playlists({
   onClose = () => {},
   onPick = () => {},
   open,
-  playing,
+  status,
 }) {
   const { restore } = actions
   const [alert] = useIonAlert()
@@ -118,7 +119,7 @@ export default function Playlists({
         <div className={styles.playlists}>
           <IonContent color="light">
             {order.map((id) => (
-              <Playlist key={id} id={id} onPick={onPick} playing={playing} />
+              <Playlist key={id} id={id} onPick={onPick} status={status} />
             ))}
             <IonButton className={styles.reset} color="dark" expand="block" onClick={confirmReset}>
               恢复默认设置
