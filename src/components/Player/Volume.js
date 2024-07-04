@@ -20,8 +20,12 @@ export default function Volume({
   value = 100,
 }) {
   const Icon = getIcon(mute, value)
+  const setVolume = (v) => {
+    if (mute) onMute(false)
+    onVolume(v)
+  }
   return (
-    <IonRange onIonInput={({ detail }) => onVolume(detail.value)} value={value}>
+    <IonRange onIonInput={({ detail }) => setVolume(detail.value)} value={value}>
       <span slot="start" onClick={() => onMute(!mute)} title="切换静音"><Icon /></span>
       <span slot="end">{value}</span>
     </IonRange>
