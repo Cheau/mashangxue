@@ -184,14 +184,15 @@ const pick = (pickedList, pickedFile) => {
 
 const playByTime = () => {
   const state = stored.get({ noproxy: true })
-  const { list, rangeIndex } = locate(state)
+  const timed = true
+  const { list, rangeIndex } = locate({ ...state, timed })
   const file = playlists[list][0]
   stored.merge({
     file,
     fileIndex: 0,
     list,
     rangeIndex,
-    timed: true,
+    timed,
   })
 }
 
