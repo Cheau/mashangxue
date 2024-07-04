@@ -7,6 +7,8 @@ import {
   BiVolumeMute,
 } from 'react-icons/bi'
 
+import styles from './Volume.module.css'
+
 const getIcon = (mute, volume) => {
   if (mute || volume === 0) return BiVolumeMute
   if (volume === 100) return BiVolumeFull
@@ -26,8 +28,8 @@ export default function Volume({
   }
   return (
     <IonRange onIonInput={({ detail }) => setVolume(detail.value)} value={value}>
-      <span slot="start" onClick={() => onMute(!mute)} title="切换静音"><Icon /></span>
-      <span slot="end">{value}</span>
+      <span className={styles.icon} slot="start" onClick={() => onMute(!mute)} title="切换静音"><Icon /></span>
+      <span className={styles.label} slot="end">{value}</span>
     </IonRange>
   )
 }

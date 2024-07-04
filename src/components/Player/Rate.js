@@ -6,8 +6,8 @@ export default function Rate({ onChange, value }) {
   const rates = [1.2, 1.1, '1.0', 0.9, 0.8]
   return (
     <IonSelect
-      fill="outline"
       interface="popover"
+      mode="ios"
       onIonChange={({ detail }) => onChange(detail.value)}
       value={value}
     >

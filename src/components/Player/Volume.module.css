@@ -1,0 +1,11 @@
+.icon, .label {
+    display: inline-flex;
+}
+
+.icon {
+    font-size: 1.25rem;
+}
+
+.label {
+    font-size: 1rem;
+}
