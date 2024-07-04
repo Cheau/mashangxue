@@ -62,7 +62,7 @@ export default function ETcm() {
     <>
       <div className={styles.etcm}>
         <div className={styles.desc}>
-          <IonSegment style={{ width: '200px' }} mode="ios" onClick={console.log} value={list}>
+          <IonSegment style={{ width: '150px' }} mode="ios" onClick={console.log} value={list}>
             <IonSegmentButton onClick={(e) => pickAndPlay(e, mappedList, file)} value={mappedList}>
               <IonLabel className={styles.iconic}>{icons[mappedList]}{effect}</IonLabel>
             </IonSegmentButton>
