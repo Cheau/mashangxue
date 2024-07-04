@@ -32,9 +32,9 @@ export default function ETcm() {
   const [open, setOpen] = useState(false)
   const [playing, setPlaying] = useState(false)
   const { pick, playByTime } = actions
-  const play = (pickedList, pickedFile) => {
-    pick(pickedList, pickedFile)
-    player.current.setAutoplay(true)
+  const withPlay = (func) => (e, ...args) => {
+    func.apply(this, args)
+    player.current.play(e)
   }
   const onChange = (key, value) => {
     switch (key) {
@@ -61,7 +61,7 @@ export default function ETcm() {
           {timed && <span className={styles.iconic}>
             <GiAlarmClock/>{formatRange(range)}
           </span>}
-          {!timed && <IonToggle checked={timed} onClick={playByTime}>
+          {!timed && <IonToggle checked={timed} onClick={withPlay(playByTime)}>
             按时播放
           </IonToggle>}
         </div>
@@ -82,7 +82,7 @@ export default function ETcm() {
           return (
               <Playlists
                   onClose={() => setOpen(false)}
-                  onPick={play}
+                  onPick={withPlay(pick)}
                   open={open}
                   playing={playing}
               />
