@@ -3,7 +3,7 @@ import { extend, hookstate } from '@hookstate/core'
 import { localstored } from '@hookstate/localstored'
 import { subscribable } from '@hookstate/subscribable'
 import {
-  GiCheckMark,
+  GiChecklist,
   GiHearts,
   GiJellyBeans,
   GiKidneys,
@@ -21,7 +21,7 @@ export const icons = {
   lung: <GiLungs />,
   liver: <GiLiver />,
   off: <GiSoundOff />,
-  all: <GiCheckMark />,
+  all: <GiChecklist />,
 }
 
 export const playlists = {
@@ -32,6 +32,12 @@ export const playlists = {
   liver: ['胡笳十八拍.mp3'],
   off: [],
 }
+
+export const mapping = Object.entries(playlists).reduce((accumulator, [key, list]) => {
+  list.forEach((item) => accumulator[item] = key)
+  return accumulator
+}, {})
+
 playlists.all = Object.values(playlists).flat()
 
 export const theory = {
@@ -203,6 +209,7 @@ export const actions = { pick, playByTime, restore }
 export default {
   actions,
   icons,
+  mapping,
   playlists,
   stored,
   theory,

@@ -6,12 +6,18 @@ import React, {
 } from 'react'
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import { useHookstate } from '@hookstate/core'
-import { IonToggle, useIonToast } from '@ionic/react'
+import {
+  IonLabel,
+  IonSegment,
+  IonSegmentButton,
+  IonToggle,
+  useIonToast,
+} from '@ionic/react'
 import { GiAlarmClock } from 'react-icons/gi'
 
 import styles from './index.module.css'
 import {
-  actions, icons, playlists, stored, theory,
+  actions, icons, mapping, playlists, stored, theory,
 } from './data'
 import Player from '../Player'
 import { formatRange } from './utils'
@@ -23,11 +29,11 @@ export default function ETcm() {
   const [toast] = useIonToast()
   const store = useHookstate(stored)
   const {
-    fileIndex, list, rangeIndex, ranges, timed,
+    file, fileIndex, list, rangeIndex, ranges, timed,
   } = store.get()
   const playlist = useMemo(() => playlists[list].map(fullPath), [list])
-  const { effect } = theory[list]
-  const icon = icons[list]
+  const mappedList = list === 'all' ? mapping[file] : list
+  const { effect } = theory[mappedList]
   const range = ranges[list][rangeIndex]
   const [open, setOpen] = useState(false)
   const [playing, setPlaying] = useState(false)
@@ -36,6 +42,7 @@ export default function ETcm() {
     func.apply(this, args)
     player.current.play(e)
   }
+  const pickAndPlay = withPlay(pick)
   const onChange = (key, value) => {
     switch (key) {
       case 'index': pick(list, playlists[list][value]); break
@@ -55,9 +62,14 @@ export default function ETcm() {
     <>
       <div className={styles.etcm}>
         <div className={styles.desc}>
-          <span className={styles.iconic}>
-            {icon}{effect}
-          </span>
+          <IonSegment style={{ width: '200px' }} mode="ios" onClick={console.log} value={list}>
+            <IonSegmentButton onClick={(e) => pickAndPlay(e, mappedList, file)} value={mappedList}>
+              <IonLabel className={styles.iconic}>{icons[mappedList]}{effect}</IonLabel>
+            </IonSegmentButton>
+            <IonSegmentButton onClick={(e) => pickAndPlay(e, 'all', file)} value="all">
+              <IonLabel className={styles.iconic}>{icons.all}全部</IonLabel>
+            </IonSegmentButton>
+          </IonSegment>
           {timed && <span className={styles.iconic}>
             <GiAlarmClock/>{formatRange(range)}
           </span>}
