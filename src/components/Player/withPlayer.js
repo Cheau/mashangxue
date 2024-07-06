@@ -58,14 +58,17 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
     if (sound.playing()) requestAnimationFrame(step)
   }, [audio])
 
-  const pause = () => audio.howl.pause()
-  const play = (indexOrNow = true) => {
+  const withHowl = (func) => (...args) => {
+    if (!audio) return
+    func(audio.howl, ...args)
+  }
+  const pause = withHowl((howl) => howl.pause())
+  const play = withHowl((howl, indexOrNow = true) => {
     if (indexOrNow === false) return
     if (typeof indexOrNow === 'number' && indexOrNow !== index) {
       setIndex(indexOrNow)
       return
     }
-    const { howl } = audio
     if (howl.state() === 'unloaded') {
       howl.once('load', play)
       howl.load()
@@ -73,13 +76,13 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
     } else if (!howl.playing()) {
       howl.play()
     }
-  }
-  const stop = () => {
-    audio.howl.off('load', play)
-    audio.howl.stop()
+  })
+  const stop = withHowl((howl) => {
+    howl.off('load', play)
+    howl.stop()
     setStatus('stopped')
-  }
-  const seek = (value) => audio.howl.seek(value)
+  })
+  const seek = withHowl((howl, value) => howl.seek(value))
   const withAutoplay = (func, play) => (...args) => {
     setAutoplay(play)
     func(...args)
@@ -107,6 +110,7 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
     if (autoplay) play()
   }, [audio])
   useEffect(() => {
+    if (!audio) return
     const { howl } = audio
     howl.mute(mute)
     howl.rate(rate)
