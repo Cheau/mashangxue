@@ -59,7 +59,7 @@ function Playlist({
           const color = isItemActive ? 'light' : undefined
           const classes = clsx(styles.note, { [styles.playing]: isItemActive && status === 'playing' })
           return (
-            <IonItem key={i} button color={color} detail={false} lines="inset" onClick={(e) => onPick(e, id, item)}>
+            <IonItem key={i} button color={color} detail={false} lines="inset" onClick={() => onPick(id, item)}>
               {isItemActive && (status === 'loading' ? <IonSpinner name="dots" style={{ marginRight: '12px' }} /> : <FcMusic className={classes} slot="start" />)}
               <IonLabel>{item}</IonLabel>
             </IonItem>

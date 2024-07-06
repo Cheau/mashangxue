@@ -12,19 +12,8 @@ import { filename } from '../../common/path'
 
 const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(props, ref) {
   const {
-    defaultValue, onChange = (k, v) => {}, src, value,
+    initial, onChange = () => {}, src,
   } = props
-  const [autoplay, setAutoplay] = useState(props.autoplay)
-  const [uncontrolledValue, setUncontrolledValue] = useState(defaultValue)
-  const index = defaultValue ? uncontrolledValue : value
-  const setIndex = defaultValue ? setUncontrolledValue : (i) => onChange('index', i)
-  const [audio, setAudio] = useState()
-  const [elapsed, setElapsed] = useState(0)
-  const [status, setStatus] = useState(() => audio?.howl.state())
-  const [mute, setMute] = useState(false)
-  const [rate, setRate] = useState(1)
-  const [volume, setVolume] = useState(1)
-  const duration = audio?.howl?.state() === 'loaded' ? audio.howl.duration() : undefined
 
   const box = (src) => {
     return typeof src !== 'string' ? src : {
@@ -47,6 +36,18 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
     return []
   }, [src])
 
+  const [autoplay, setAutoplay] = useState(props.autoplay)
+  const [innerIndex, setInnerIndex] = useState(initial)
+  const index = initial !== undefined ? innerIndex : (props.index ?? 0)
+  const setIndex = initial !== undefined ? setInnerIndex : (i) => onChange('index', i)
+  const [audio, setAudio] = useState(playlist[index])
+  const [elapsed, setElapsed] = useState(0)
+  const [status, setStatus] = useState(() => audio.howl.state())
+  const [mute, setMute] = useState(false)
+  const [rate, setRate] = useState(1)
+  const [volume, setVolume] = useState(1)
+  const duration = audio.howl.state() === 'loaded' ? audio.howl.duration() : undefined
+
   const step = useCallback(() => {
     const sound = audio?.howl
     if (!sound) {
@@ -57,45 +58,40 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
     if (sound.playing()) requestAnimationFrame(step)
   }, [audio])
 
-  const preprocess = (func, { play = false } = {}) => (...args) => {
-    const e = args[0]
-    if (typeof e === 'object' && typeof e.stopPropagation === 'function') {
-      e.stopPropagation()
-      setAutoplay(play)
+  const pause = () => audio.howl.pause()
+  const play = (indexOrNow = true) => {
+    if (indexOrNow === false) return
+    if (typeof indexOrNow === 'number' && indexOrNow !== index) {
+      setIndex(indexOrNow)
+      return
     }
-    if (!audio) return
-    func(audio.howl, ...args)
+    const { howl } = audio
+    if (howl.state() === 'unloaded') {
+      howl.once('load', play)
+      howl.load()
+      setStatus(howl.state())
+    } else if (!howl.playing()) {
+      howl.play()
+    }
   }
-  const pause = preprocess((sound) => sound.pause())
-  const play = preprocess((sound) => {
-    if (sound.state() === 'unloaded') {
-      sound.once('load', sound.play)
-      sound.load()
-      setStatus(sound.state())
-    } else if (!sound.playing()) {
-      sound.play()
-    }
-  }, { play: true })
-  const stop = preprocess((sound) => {
-    sound.stop()
+  const stop = () => {
+    audio.howl.off('load', play)
+    audio.howl.stop()
     setStatus('stopped')
-  })
-  const pick = (event, i) => {
-    if (event) setAutoplay(true)
-    if (i === index && autoplay) play()
-    setIndex(i)
   }
-  const seek = preprocess((sound, value) => sound.seek(value))
+  const seek = (value) => audio.howl.seek(value)
+  const withAutoplay = (func, play) => (...args) => {
+    setAutoplay(play)
+    func(...args)
+  }
   const actions = {
-    pause,
-    play,
-    pick,
+    pause: withAutoplay(pause, false),
+    play: withAutoplay(play, true),
     seek,
-    setAutoplay,
     setMute,
     setRate,
     setVolume: (v) => setVolume(v / 100),
-    stop,
+    stop: withAutoplay(stop, false),
   }
   useImperativeHandle(ref, () => actions, [audio])
 
@@ -111,7 +107,6 @@ const withPlayer = (Component, typedOpts = {}) => forwardRef(function Player(pro
     if (autoplay) play()
   }, [audio])
   useEffect(() => {
-    if (!audio) return
     const { howl } = audio
     howl.mute(mute)
     howl.rate(rate)

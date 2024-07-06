@@ -38,9 +38,11 @@ export default function ETcm() {
   const [open, setOpen] = useState(false)
   const [status, setStatus] = useState(false)
   const { pick, playByTime } = actions
-  const withPlay = (func) => (e, ...args) => {
+  const withPlay = (func) => (...args) => {
     func.apply(this, args)
-    player.current.play(e)
+    const nextState = store.get()
+    const now = nextState.list === list && nextState.fileIndex === fileIndex
+    player.current.play(now)
   }
   const pickAndPlay = withPlay(pick)
   const onChange = (key, value) => {
@@ -63,10 +65,10 @@ export default function ETcm() {
       <div className={styles.etcm}>
         <div className={styles.desc}>
           <IonSegment style={{ width: '150px' }} mode="ios" onClick={console.log} value={list}>
-            <IonSegmentButton onClick={(e) => pickAndPlay(e, mappedList, file)} value={mappedList}>
+            <IonSegmentButton onClick={() => pickAndPlay(mappedList, file)} value={mappedList}>
               <IonLabel className={styles.iconic}>{icons[mappedList]}{effect}</IonLabel>
             </IonSegmentButton>
-            <IonSegmentButton onClick={(e) => pickAndPlay(e, 'all', file)} value="all">
+            <IonSegmentButton onClick={() => pickAndPlay('all', file)} value="all">
               <IonLabel className={styles.iconic}>{icons.all}全部</IonLabel>
             </IonSegmentButton>
           </IonSegment>
@@ -81,11 +83,11 @@ export default function ETcm() {
         <div className={styles.subtitle}>听电子中药，享赛博朋克</div>
         <Player
           appearance="music"
+          index={fileIndex}
           onChange={onChange}
           onPlaylist={() => setOpen(true)}
           ref={player}
           src={playlist}
-          value={fileIndex}
         />
       </div>
       <BrowserOnly fallback={<div>Loading...</div>}>
@@ -94,7 +96,7 @@ export default function ETcm() {
           return (
               <Playlists
                   onClose={() => setOpen(false)}
-                  onPick={withPlay(pick)}
+                  onPick={pickAndPlay}
                   open={open}
                   status={status}
               />

@@ -44,16 +44,16 @@ function Music(props) {
     onPlaylist = () => {},
   } = props
   const {
-    pause, pick, play, seek, setMute, setRate, setVolume,
+    pause, play, seek, setMute, setRate, setVolume,
   } = actions
   const [mode, setMode] = useSession('music.mode', 0)
   const playing = status === 'playing'
   const [modeText, modeIcon] = modes[mode]
   const { groups: { name } } = path.exec(src[index] ?? '') ?? { groups: { name: '' } }
   const onMode = () => setMode(tick(modes, mode))
-  const onPrevious = (e) => pick(e, tick(src, index, false))
+  const onPrevious = () => play(tick(src, index, false))
   const onToggle = playing ? pause : play
-  const onNext = (e) => pick(e, tick(src, index))
+  const onNext = () => play(tick(src, index))
   useEffect(() => {
     if (status === 'ended') {
       if (mode === 0) onNext()
