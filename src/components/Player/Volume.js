@@ -16,7 +16,9 @@ const getIcon = (mute, volume) => {
 }
 
 export default function Volume({
+  focusing,
   mute = false,
+  onFocus,
   onMute = () => {},
   onVolume = () => {},
   value = 100,
@@ -26,8 +28,13 @@ export default function Volume({
     if (mute) onMute(false)
     onVolume(v)
   }
+  if (!focusing) return (
+    <span className={styles.label}>
+      <Icon className={styles.icon} onClick={onFocus} />{value}
+    </span>
+  )
   return (
-    <IonRange onIonInput={({ detail }) => setVolume(detail.value)} value={value}>
+    <IonRange mode="ios" onIonInput={({ detail }) => setVolume(detail.value)} value={value}>
       <span className={styles.icon} slot="start" onClick={() => onMute(!mute)} title="切换静音"><Icon /></span>
       <span className={styles.label} slot="end">{value}</span>
     </IonRange>

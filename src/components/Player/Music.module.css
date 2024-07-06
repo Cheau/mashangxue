@@ -53,10 +53,6 @@
     width: 1.5em;
 }
 
-.rate {
-}
-
-.volume {
-    flex-grow: 2;
-    margin: 0 1em;
+.options > * + * {
+    margin-left: 1rem;
 }

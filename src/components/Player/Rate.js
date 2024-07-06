@@ -1,19 +1,25 @@
 import React from 'react'
 
-import { IonSelect, IonSelectOption } from '@ionic/react'
+import { IonRange } from '@ionic/react'
 
-export default function Rate({ onChange, value }) {
-  const rates = [1.2, 1.1, '1.0', 0.9, 0.8]
+export default function Rate({
+  focusing, onChange, onFocus, value,
+}) {
+  const label = value === 1 ? '倍速' : `${value}x`
+  if (!focusing) return <span onClick={onFocus}>{label}</span>
   return (
-    <IonSelect
-      interface="popover"
+    <IonRange
+      max={1.5}
+      min={0.5}
       mode="ios"
-      onIonChange={({ detail }) => onChange(detail.value)}
+      onIonInput={({ detail }) => onChange(detail.value)}
+      snaps={true}
+      step={0.1}
+      ticks={true}
       value={value}
     >
-      {rates.map((rate) => (
-        <IonSelectOption key={rate} value={Number(rate)}>{rate}x</IonSelectOption>
-      ))}
-    </IonSelect>
+      <span slot="start">倍速</span>
+      <span slot="end" style={{ width: '32px' }}>{value === 1 ? '1.0' : value}x</span>
+    </IonRange>
   )
 }

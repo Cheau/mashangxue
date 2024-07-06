@@ -2,6 +2,7 @@ import React, {
   memo,
   useEffect,
   useRef,
+  useState,
 } from 'react'
 import clsx from 'clsx'
 import {
@@ -47,6 +48,7 @@ function Music(props) {
     pause, play, seek, setMute, setRate, setVolume,
   } = actions
   const [mode, setMode] = useSession('music.mode', 0)
+  const [option, setOption] = useState(1)
   const playing = status === 'playing'
   const [modeText, modeIcon] = modes[mode]
   const { groups: { name } } = path.exec(src[index] ?? '') ?? { groups: { name: '' } }
@@ -87,15 +89,18 @@ function Music(props) {
         </span>
       </div>
       <div className={clsx('options', styles.options)}>
-        <span className={clsx(styles.rate)}>
-          <Rate onChange={setRate} value={rate} />
-        </span>
-        <span className={clsx(styles.volume)}>
-          <Volume mute={mute} onMute={setMute} onVolume={setVolume} value={volume} />
-        </span>
+        <Rate focusing={option === 0} onChange={setRate} onFocus={() => setOption(0)} value={rate} />
+        <Volume
+            focusing={option === 1}
+            mute={mute}
+            onFocus={() => setOption(1)}
+            onMute={setMute}
+            onVolume={setVolume}
+            value={volume}
+        />
       </div>
     </div>
   )
 }
 
-export default memo(withPlayer(Music, {html5: false}))
+export default memo(withPlayer(Music, { html5: false }))
