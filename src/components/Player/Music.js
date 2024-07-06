@@ -21,6 +21,7 @@ import { IonSpinner, IonToast } from '@ionic/react'
 import styles from './Music.module.css'
 import Progress from './Progress'
 import Rate from './Rate'
+import Timer from './Timer'
 import Volume from './Volume'
 import withPlayer from './withPlayer'
 import { useSession } from '../../common/hooks'
@@ -45,10 +46,17 @@ function Music(props) {
     onPlaylist = () => {},
   } = props
   const {
-    pause, play, seek, setMute, setRate, setVolume,
+    pause, play, seek, setMute, setRate, setVolume, stop,
   } = actions
   const [mode, setMode] = useSession('music.mode', 0)
-  const [option, setOption] = useState(1)
+  const [timer, setTimer] = useSession('e-tcm.timer', 0)
+  const [option, setOption] = useState(-1)
+  const [blurId, setBlurId] = useState()
+  const blur = (func) => (...args) => {
+    func(...args)
+    if (blurId) clearTimeout(blurId)
+    setBlurId(setTimeout(() => setOption(-1), 5000))
+  }
   const playing = status === 'playing'
   const [modeText, modeIcon] = modes[mode]
   const { groups: { name } } = path.exec(src[index] ?? '') ?? { groups: { name: '' } }
@@ -89,14 +97,26 @@ function Music(props) {
         </span>
       </div>
       <div className={clsx('options', styles.options)}>
-        <Rate focusing={option === 0} onChange={setRate} onFocus={() => setOption(0)} value={rate} />
+        <Rate
+            focusing={option === 0}
+            onChange={blur(setRate)}
+            onFocus={blur(() => setOption(0))}
+            value={rate}
+        />
         <Volume
             focusing={option === 1}
             mute={mute}
-            onFocus={() => setOption(1)}
-            onMute={setMute}
-            onVolume={setVolume}
+            onFocus={blur(() => setOption(1))}
+            onMute={blur(setMute)}
+            onVolume={blur(setVolume)}
             value={volume}
+        />
+        <Timer
+            focusing={option === 2}
+            onChange={blur(setTimer)}
+            onFocus={blur(() => setOption(2))}
+            onTimeout={stop}
+            value={timer}
         />
       </div>
     </div>
