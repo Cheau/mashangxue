@@ -90,7 +90,7 @@ export const theory = {
 `,
   },
   off: {
-    effect: '休息一下',
+    effect: '休息',
   },
   all: {
     effect: '播放全部',
