@@ -177,10 +177,10 @@ const pick = (pickedList, pickedFile) => {
   const state = stored.get({ noproxy: true })
   const timed = state.timed && pickedList === state.list
   const { list, rangeIndex } = timed ? locate(state) : { list: pickedList }
-  const fileIndex = playlists[list].indexOf(pickedFile)
-  if (fileIndex < 0) return
+  let fileIndex = playlists[list].indexOf(pickedFile)
+  if (fileIndex < 0) fileIndex = 0
   stored.merge({
-    file: pickedFile,
+    file: playlists[list][fileIndex],
     fileIndex,
     list,
     rangeIndex,
