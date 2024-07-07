@@ -7,20 +7,15 @@ import React, {
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import { useHookstate } from '@hookstate/core'
 import {
-  IonLabel,
-  IonSegment,
-  IonSegmentButton,
-  IonToggle,
   useIonToast,
 } from '@ionic/react'
-import { GiAlarmClock } from 'react-icons/gi'
 
 import styles from './index.module.css'
 import {
-  actions, icons, mapping, playlists, stored, theory,
+  actions, playlists, stored,
 } from './data'
+import Nav from './Nav'
 import Player from '../Player'
-import { formatRange } from './utils'
 
 const fullPath = (file) => `/audio/e-tcm/${file}`
 
@@ -29,15 +24,12 @@ export default function ETcm() {
   const [toast] = useIonToast()
   const store = useHookstate(stored)
   const {
-    file, fileIndex, list, rangeIndex, ranges, timed,
+    fileIndex, list, timed,
   } = store.get()
   const playlist = useMemo(() => playlists[list].map(fullPath), [list])
-  const mappedList = list === 'all' ? mapping[file] : list
-  const { effect } = theory[mappedList]
-  const range = ranges[list][rangeIndex]
   const [open, setOpen] = useState(false)
   const [status, setStatus] = useState(false)
-  const { pick, playByTime } = actions
+  const { pick } = actions
   const withPlay = (func) => (...args) => {
     func.apply(this, args)
     const nextState = store.get()
@@ -63,22 +55,7 @@ export default function ETcm() {
   return (
     <>
       <div className={styles.etcm}>
-        <div className={styles.desc}>
-          <IonSegment style={{ width: '150px' }} mode="ios" onClick={console.log} value={list}>
-            <IonSegmentButton onClick={() => pickAndPlay(mappedList, file)} value={mappedList}>
-              <IonLabel className={styles.iconic}>{icons[mappedList]}{effect}</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton onClick={() => pickAndPlay('all', file)} value="all">
-              <IonLabel className={styles.iconic}>{icons.all}全部</IonLabel>
-            </IonSegmentButton>
-          </IonSegment>
-          {timed && <span className={styles.iconic}>
-            <GiAlarmClock/>{formatRange(range)}
-          </span>}
-          {!timed && <IonToggle checked={timed} onClick={withPlay(playByTime)}>
-            按时播放
-          </IonToggle>}
-        </div>
+        <Nav withPlay={withPlay} />
         <div className={styles.title}>E-TCM Player</div>
         <div className={styles.subtitle}>听电子中药，享赛博朋克</div>
         <Player

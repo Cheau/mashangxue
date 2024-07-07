@@ -1,0 +1,21 @@
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.list {
+    padding: 0 .5em;
+    border: 1px solid black;
+    border-radius: .5em;
+}
+
+.iconic {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 0;
+}
+.iconic svg {
+    font-size: 2em;
+    margin-right: 5px;
+}
