@@ -10,6 +10,17 @@ import Gallery from '@site/src/components/Gallery'
 
 import styles from './index.module.css';
 
+const pages = {
+  ad: [{
+    description: '一键开启中医五音疗法的正确养生模式',
+    image: '/img/e-tcm/player.png',
+    keywords: ['电子中药', '养生音乐', '心肝脾肺肾'],
+    link: '/e-tcm',
+    rate: 3,
+    title: 'E-TCM Player'
+  }]
+}
+
 function Subtitle() {
   const { siteConfig } = useDocusaurusContext()
   const tagline = useHookstate(true)
@@ -54,6 +65,7 @@ export default function Home({ recommend }) {
       <HomepageHeader data={random} />
       <main>
         <Landscape />
+        <Gallery data={pages} />
         <Gallery data={latest} />
       </main>
     </Layout>

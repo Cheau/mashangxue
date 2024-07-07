@@ -8,18 +8,19 @@ import Placard from './Placard'
 function assemble(data) {
   return Object.entries(data).map(([dir, value]) => ({
     ...config[dir],
-    Player: require(`@site/src/components/Frame/${dir}`).default,
-    data: value.map(({ id, ...rest }) => ({
-      image: `/img/${dir}/${id}.svg`,
-      link: `/docs/${dir}/${id}`,
-      order: Number(id),
+    data: value.map(({
+      id, image, link, ...rest
+    }) => ({
+      image: image ?? `/img/${dir}/${id}.svg`,
+      link: link ?? `/docs/${dir}/${id}`,
+      order: id === undefined ? undefined : Number(id),
       ...rest,
     })),
   }))
 }
 
 function make(group) {
-  const { data, ...ctx} = group
+  const { data, tool, ...ctx} = group
   const { icon, title } = ctx
   const cards = data.map((datum, i) => (
     <div key={i} className={clsx('col', 'col--4')}>
@@ -28,7 +29,7 @@ function make(group) {
         ctx={ctx}
         rounded
         shadowed
-        tool
+        tool={tool}
       />
     </div>))
   return (
