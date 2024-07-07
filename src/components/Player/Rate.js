@@ -17,7 +17,7 @@ export default function Rate({
   )
   return (
     <IonRange
-      max={1.5}
+      max={2}
       min={0.5}
       mode="ios"
       onIonInput={({ detail }) => onChange(detail.value)}
