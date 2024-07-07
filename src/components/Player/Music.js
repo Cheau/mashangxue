@@ -97,27 +97,27 @@ function Music(props) {
         </span>
       </div>
       <div className={clsx('options', styles.options)}>
-        <Rate
+        {(option === -1 || option === 0) && <Rate
             focusing={option === 0}
             onChange={blur(setRate)}
             onFocus={blur(() => setOption(0))}
             value={rate}
-        />
-        <Volume
+        />}
+        {(option === -1 || option === 1) && <Volume
             focusing={option === 1}
             mute={mute}
             onFocus={blur(() => setOption(1))}
             onMute={blur(setMute)}
             onVolume={blur(setVolume)}
             value={volume}
-        />
-        <Timer
+        />}
+        {(option === -1 || option === 2) && <Timer
             focusing={option === 2}
             onChange={blur(setTimer)}
             onFocus={blur(() => setOption(2))}
             onTimeout={stop}
             value={timer}
-        />
+        />}
       </div>
     </div>
   )

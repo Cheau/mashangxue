@@ -13,7 +13,7 @@ const toTime = (minutes = 0) => {
     remain = remain - hour * 60
   }
   minute = Math.floor(remain)
-  return `${padTime(hour)}:${padTime(minute)}`
+  return `${padTime(hour)}时${padTime(minute)}分`
 }
 
 export default function Timer({
@@ -48,7 +48,7 @@ export default function Timer({
 
   if (!focusing) return (
       <span className={styles.label} onClick={onFocus}>
-        {remain ? <><BsStopFill className={styles.icon} />{toTime(remain)}</> : '限时'}
+        {remain ? <><BsStopFill className={styles.icon} />{toTime(remain)}</> : '定时关闭'}
       </span>
   )
   return (
@@ -60,7 +60,7 @@ export default function Timer({
         onIonInput={({ detail }) => onChange({ minutes: detail.value })}
         value={minutes}
       >
-        <span className={styles.icon} slot="start" title="停止播放"><BsStopFill /></span>
+        <span className={styles.icon} slot="start" title="停止"><BsStopFill /></span>
         <span className={styles.label} slot="end">{toTime(minutes)}</span>
       </IonRange>
   )
