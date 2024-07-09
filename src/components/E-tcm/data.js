@@ -101,7 +101,6 @@ const clone = (json) => JSON.parse(JSON.stringify(json))
 
 const store = {
   file: undefined,
-  fileIndex: undefined,
   list: undefined,
   order: [
     'heart', 'spleen', 'kidney', 'lung', 'liver',
@@ -166,7 +165,6 @@ const tick = () => {
   if (rangeIndex !== state.rangeIndex) patch.rangeIndex = rangeIndex
   if (playlists[list].indexOf(state.file) < 0) {
     patch.file = playlists[list][0]
-    patch.fileIndex = 0
   }
   stored.merge(patch)
   timeoutId = setTimeout(tick, 1000)
@@ -177,11 +175,8 @@ const pick = (pickedList, pickedFile) => {
   const state = stored.get({ noproxy: true })
   const timed = state.timed && pickedList === state.list
   const { list, rangeIndex } = timed ? locate(state) : { list: pickedList }
-  let fileIndex = playlists[list].indexOf(pickedFile)
-  if (fileIndex < 0) fileIndex = 0
   stored.merge({
-    file: playlists[list][fileIndex],
-    fileIndex,
+    file: pickedFile ?? playlists[list][0],
     list,
     rangeIndex,
     timed,
@@ -195,7 +190,6 @@ const playByTime = () => {
   const file = playlists[list][0]
   stored.merge({
     file,
-    fileIndex: 0,
     list,
     rangeIndex,
     timed,

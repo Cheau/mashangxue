@@ -24,22 +24,24 @@ export default function ETcm() {
   const [toast] = useIonToast()
   const store = useHookstate(stored)
   const {
-    fileIndex, list, timed,
+    file, list, timed,
   } = store.get()
-  const playlist = useMemo(() => playlists[list].map(fullPath), [list])
+  const playlist = useMemo(() => playlists[list], [list])
+  const src = useMemo(() => playlist.map(fullPath), [playlist])
+  const fileIndex = useMemo(() => playlist.indexOf(file), [playlist, file])
   const [open, setOpen] = useState(false)
   const [status, setStatus] = useState(false)
   const { pick } = actions
   const withPlay = (func) => (...args) => {
     func.apply(this, args)
     const nextState = store.get()
-    const now = nextState.list === list && nextState.fileIndex === fileIndex
+    const now = nextState.list === list && nextState.file === file
     player.current.play(now)
   }
   const pickAndPlay = withPlay(pick)
   const onChange = (key, value) => {
     switch (key) {
-      case 'index': pick(list, playlists[list][value]); break
+      case 'index': pick(list, playlist[value]); break
       case 'status': setStatus(value); break
       default: break
     }
@@ -64,7 +66,7 @@ export default function ETcm() {
           onChange={onChange}
           onPlaylist={() => setOpen(true)}
           ref={player}
-          src={playlist}
+          src={src}
         />
       </div>
       <BrowserOnly fallback={<div>Loading...</div>}>
