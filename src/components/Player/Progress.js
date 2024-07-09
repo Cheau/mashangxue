@@ -29,9 +29,11 @@ export default function Progress({ max, onChange, value }) {
       <IonRange
           className={styles.progress}
           max={max ?? 100} mode="md"
-          onIonChange={({ detail }) => onChange(detail.value)}
+          onIonChange={({ detail }) => {
+            setMoving(false)
+            onChange(detail.value)
+          }}
           onIonInput={({ detail }) => setKnob(detail.value)}
-          onIonKnobMoveEnd={() => setMoving(false)}
           onIonKnobMoveStart={() => setMoving(true)}
           pin
           pinFormatter={toTime}
