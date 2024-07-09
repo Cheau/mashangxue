@@ -27,7 +27,7 @@
 .placard .bar {
   display: flex;
   flex-direction: column;
-  padding: calc(gap / 2);
+  padding: calc(gap / 2) gap;
 }
 
 .placard .icon {
@@ -60,14 +60,24 @@
   width: 100%;
 }
 
+.tags {
+  margin: 0 gap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tags > * + * {
+  margin-left: calc(gap / 2);
+}
+
 .main {
   font-weight: bold;
 }
 
 .main, .sub {
-  display: inline-flex;
-  align-items: center;
-  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .icon {

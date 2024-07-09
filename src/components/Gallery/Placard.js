@@ -1,8 +1,8 @@
 import React, {
-  memo, useEffect, useMemo, useState,
+  memo, useMemo, useState,
 } from 'react'
 import clsx from 'clsx'
-import { FcInspection } from 'react-icons/fc'
+import { IonBadge } from '@ionic/react'
 import { FaStamp, FaVideo } from 'react-icons/fa'
 
 import styles from './Placard.module.css'
@@ -26,7 +26,7 @@ const Slides = memo(function Slides({ children }) {
 
 export default function Placard(props) {
   const {
-    bg = 'white', ctx, hints, image, keywords, link, order,
+    bg = 'white', ctx, description, hints, image, keywords, link, order,
     rate, ratio = 1, rounded = false, shadowed = false, title, tool = false, x, y,
   } = props
   const presenting = usePresenting()
@@ -54,13 +54,15 @@ export default function Placard(props) {
         >
           <Slides>{presenting.value && hovering && hints}</Slides>
           <div className={clsx(styles.footer)}>
-            <div className={styles.rate} title={`难度：${difficulties[rate]}`}>
+            {rate && <div className={styles.rate} title={`难度：${difficulties[rate]}`}>
               <Rate max={3} value={rate} />
+            </div>}
+            <div className={styles.tags}>
+              {keywords.map((keyword, i) => <IonBadge key={i} color="dark">{keyword}</IonBadge>)}
             </div>
-            {keywords && <div className={clsx(styles.bar, styles.blur)}>
+            {description && <div className={clsx(styles.bar, styles.blur)}>
               <div className={styles.main}>
-                <span className={styles.icon}><FcInspection /></span>
-                <span>{keywords.join(', ')}</span>
+                <span>{description}</span>
               </div>
             </div>}
           </div>

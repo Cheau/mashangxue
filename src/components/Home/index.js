@@ -12,12 +12,11 @@ import styles from './index.module.css';
 
 const pages = {
   ad: [{
-    description: '一键开启中医五音疗法的正确养生模式',
+    description: '让中医五音治疗更自动、更合身',
     image: '/img/e-tcm/player.png',
-    keywords: ['电子中药', '养生音乐', '心肝脾肺肾'],
+    keywords: ['养生音乐', '心肝脾肺肾'],
     link: '/e-tcm',
-    rate: 3,
-    title: 'E-TCM Player'
+    title: '电子中药播放器'
   }]
 }
 
