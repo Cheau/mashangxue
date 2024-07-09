@@ -123,4 +123,4 @@ function Music(props) {
   )
 }
 
-export default memo(withPlayer(Music, { html5: true }))
+export default memo(withPlayer(Music, { html5: true, preload: 'metadata' }))
