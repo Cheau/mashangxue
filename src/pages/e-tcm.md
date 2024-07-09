@@ -1,6 +1,7 @@
 ---
 title: E-TCM Player
 description: 一个让中医五音治疗更自动、更合身的养生音乐播放器！
+image: /img/e-tcm/player.png
 keywords:
   - 电子中药
   - 中医
