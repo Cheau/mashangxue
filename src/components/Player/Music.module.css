@@ -11,8 +11,9 @@
 }
 
 .disc {
-    margin: 1em;
-    text-align: center;
+    display: flex;
+    margin: 1rem;
+    justify-content: center;
 }
 
 .disc img {
