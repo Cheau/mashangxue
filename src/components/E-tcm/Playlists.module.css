@@ -9,7 +9,7 @@
 }
 
 .playlist {
-    margin-top: calc(gap * 3);
+    margin-top: gap;
 }
 
 .header {
@@ -57,7 +57,7 @@
 }
 
 .reset {
-    margin: calc(gap * 3) 0;
+    margin: calc(gap * 2) 0;
 }
 
 ion-alert:global(.ios), ion-alert:global(.md) {
