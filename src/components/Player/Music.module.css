@@ -17,6 +17,7 @@
 }
 
 .disc img {
+    width: 150px;
     animation-name: rotation;
     animation-duration: 23s;
     animation-timing-function: linear;
