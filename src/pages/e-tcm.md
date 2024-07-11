@@ -19,7 +19,7 @@ import Icon from '@site/src/components/mdx/Icon'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-## [E-TCM Player](#e-tcm命名由来) <small>电子中药播放器</small>
+## [E-TCM Player](#e-tcm命名由来)<small>电子中药播放器</small>
 点击<Icon Component={BiPlay}></Icon>，即刻[尊享](#全契合) [全自动](#全自动) [五行音乐疗养](#五音疗法)
 
 <ETcm></ETcm>
