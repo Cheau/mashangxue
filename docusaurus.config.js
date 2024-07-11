@@ -149,15 +149,11 @@ const config = {
             ],
           },
           {
-            title: 'More',
+            title: '发现精彩',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: '电子中药播放器',
+                to: '/e-tcm',
               },
             ],
           },
