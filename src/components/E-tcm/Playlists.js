@@ -118,6 +118,7 @@ export default function Playlists({
       <Drawer maxWidth="400px" open={open} onClose={onClose} title="播放列表">
         <div className={styles.playlists}>
           <IonContent color="light">
+            <IonNote className={styles.intro}>点击乐曲可播放，点击时段可调整</IonNote>
             {order.map((id) => (
               <Playlist key={id} id={id} onPick={onPick} status={status} />
             ))}
