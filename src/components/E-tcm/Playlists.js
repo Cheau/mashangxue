@@ -1,10 +1,12 @@
 import React from 'react'
 import clsx from 'clsx'
 import { useHookstate } from '@hookstate/core'
+import { BsGear, BsGearFill } from 'react-icons/bs'
 import { FcMusic } from 'react-icons/fc'
 import {
   IonBadge,
   IonButton,
+  IonCheckbox,
   IonContent,
   IonItem,
   IonLabel,
@@ -22,20 +24,24 @@ import {
 import Drawer from '../Drawer'
 import Range from './Range'
 import RangeAdder from './RangeAdder'
+import { halt } from '../../common/event'
 import { filename } from '../../common/path'
 
 function Playlist({
   id,
   onPick,
+  showSettng,
   status,
 }) {
+  const { set } = actions
   const store = useHookstate(stored)
   const {
-    file, list, ranges: allRanges, rangeIndex,
+    file, list, ranges: allRanges, rangeIndex, settings,
   } = store.get({ noproxy: true })
   const playlist = playlists[id]
   const icon = icons[id]
   const ranges = allRanges[id]
+  const listSetting = settings[list] ?? {}
   const {
     effect, element, intro, max, min, note, part,
   } = theory[id]
@@ -59,10 +65,15 @@ function Playlist({
           const isItemActive = (active || list === 'all') && item === file
           const color = isItemActive ? 'light' : undefined
           const classes = clsx(styles.note, { [styles.playing]: isItemActive && status === 'playing' })
+          const fileSetting = listSetting[item] ?? {}
+          const { disabled } = fileSetting
           return (
-            <IonItem key={i} button color={color} detail={false} lines="inset" onClick={() => onPick(id, item)}>
+            <IonItem key={i} button color={color} detail={false} lines="inset" onClick={halt}>
               {isItemActive && (status === 'loading' ? <IonSpinner name="dots" style={{ marginRight: '12px' }} /> : <FcMusic className={classes} slot="start" />)}
-              <IonLabel>{filename(item)}</IonLabel>
+              <IonLabel className={clsx({ [styles.disabled]: !showSettng && disabled })} onClick={() => onPick(id, item)}>
+                {filename(item)}
+              </IonLabel>
+              {showSettng && <IonCheckbox slot="end" checked={!disabled} onIonChange={() => set(list, item, 'disabled', !disabled)} />}
             </IonItem>
         )})}
         <IonItem lines="none">
@@ -96,6 +107,8 @@ export default function Playlists({
   const { restore } = actions
   const [alert] = useIonAlert()
   const [toast] = useIonToast()
+  const setting = useHookstate(false)
+  const showSettng = setting.get()
   const store = useHookstate(stored)
   const { order } = store.get()
   const reset = () => {
@@ -119,9 +132,17 @@ export default function Playlists({
       <Drawer maxWidth="400px" open={open} onClose={onClose} title="播放列表">
         <div className={styles.playlists}>
           <IonContent color="light">
-            <IonNote className={styles.intro}>点击乐曲可播放，点击时段可调整</IonNote>
+            <IonNote className={styles.intro}>
+              点击乐曲可播放，点击时段可调整
+              <span
+                className={clsx(styles.setting, { [styles.active]: showSettng })}
+                onClick={() => setting.set(!showSettng)}
+              >
+                {showSettng ? <BsGear /> : <BsGearFill />}显示设置
+              </span>
+            </IonNote>
             {order.map((id) => (
-              <Playlist key={id} id={id} onPick={onPick} status={status} />
+              <Playlist key={id} id={id} onPick={onPick} showSettng={showSettng} status={status} />
             ))}
             <IonButton className={styles.reset} color="dark" expand="block" onClick={confirmReset}>
               恢复默认设置

@@ -115,6 +115,7 @@ const store = {
     liver: [['19:00', '23:00']],
     off: ['还没到点'],
   },
+  settings: {},
   timed: true,
 }
 
@@ -198,7 +199,18 @@ const playByTime = () => {
 
 const restore = () => stored.set(getInitStore())
 
-export const actions = { pick, playByTime, restore }
+const set = (list, file, option, value) => {
+  const { settings } = stored
+  if (!settings[list]) settings.merge({ [list]: {} })
+  const listData = settings[list]
+  if (!listData[file]) listData.merge({ [file]: {} })
+  const fileData = listData[file]
+  fileData.merge({ [option]: value })
+}
+
+export const actions = {
+   pick, playByTime, restore, set,
+}
 
 export default {
   actions,

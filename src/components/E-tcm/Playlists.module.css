@@ -8,6 +8,24 @@
     display: block;
 }
 
+.setting {
+    display: inline-flex;
+    align-items: center;
+    float: right;
+    padding: 0 .25em;
+    color: var(--ion-color-dark);
+    font-weight: bold;
+}
+.setting.active {
+    background: var(--ion-color-dark);
+    border-radius: .25em;
+    color: white;
+    font-weight: lighter;
+}
+.setting svg {
+    margin-right: .25em;
+}
+
 .playlist {
     margin-top: gap;
 }
@@ -27,6 +45,10 @@
 }
 .header ion-badge + ion-badge {
     margin-left: quarter-gap;
+}
+
+.disabled {
+    text-decoration: line-through;
 }
 
 .note {
