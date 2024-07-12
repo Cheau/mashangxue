@@ -22,6 +22,7 @@ import {
 import Drawer from '../Drawer'
 import Range from './Range'
 import RangeAdder from './RangeAdder'
+import { filename } from '../../common/path'
 
 function Playlist({
   id,
@@ -61,7 +62,7 @@ function Playlist({
           return (
             <IonItem key={i} button color={color} detail={false} lines="inset" onClick={() => onPick(id, item)}>
               {isItemActive && (status === 'loading' ? <IonSpinner name="dots" style={{ marginRight: '12px' }} /> : <FcMusic className={classes} slot="start" />)}
-              <IonLabel>{item}</IonLabel>
+              <IonLabel>{filename(item)}</IonLabel>
             </IonItem>
         )})}
         <IonItem lines="none">
