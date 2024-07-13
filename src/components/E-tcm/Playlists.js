@@ -36,12 +36,12 @@ function Playlist({
   const { set } = actions
   const store = useHookstate(stored)
   const {
-    file, list, ranges: allRanges, rangeIndex, settings,
+    file, list, ranges: allRanges, rangeIndex, settings = {},
   } = store.get({ noproxy: true })
   const playlist = playlists[id]
   const icon = icons[id]
   const ranges = allRanges[id]
-  const listSetting = settings[list] ?? {}
+  const listSetting = settings[id] ?? {}
   const {
     effect, element, intro, max, min, note, part,
   } = theory[id]
@@ -73,7 +73,7 @@ function Playlist({
               <IonLabel className={clsx({ [styles.disabled]: !showSettng && disabled })} onClick={() => onPick(id, item)}>
                 {filename(item)}
               </IonLabel>
-              {showSettng && <IonCheckbox slot="end" checked={!disabled} onIonChange={() => set(list, item, 'disabled', !disabled)} />}
+              {showSettng && <IonCheckbox slot="end" checked={!disabled} onIonChange={() => set(id, item, 'disabled', !disabled)} />}
             </IonItem>
         )})}
         <IonItem lines="none">

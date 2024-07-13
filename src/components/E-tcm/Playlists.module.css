@@ -14,13 +14,14 @@
     float: right;
     padding: 0 .25em;
     color: var(--ion-color-dark);
+    cursor: pointer;
     font-weight: bold;
 }
 .setting.active {
     background: var(--ion-color-dark);
     border-radius: .25em;
     color: white;
-    font-weight: lighter;
+    font-weight: normal;
 }
 .setting svg {
     margin-right: .25em;

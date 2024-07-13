@@ -115,7 +115,7 @@ const store = {
     liver: [['19:00', '23:00']],
     off: ['还没到点'],
   },
-  settings: {},
+  settings: undefined,
   timed: true,
 }
 
@@ -164,7 +164,7 @@ const tick = () => {
   const patch = {}
   if (list !== state.list) patch.list = list
   if (rangeIndex !== state.rangeIndex) patch.rangeIndex = rangeIndex
-  if (playlists[list].indexOf(state.file) < 0) {
+  if (playlists[list].indexOf(state.file) < 0 && patch.file !== playlists[list][0]) {
     patch.file = playlists[list][0]
   }
   stored.merge(patch)
@@ -201,6 +201,7 @@ const restore = () => stored.set(getInitStore())
 
 const set = (list, file, option, value) => {
   const { settings } = stored
+  if (!settings.get()) settings.set({})
   if (!settings[list]) settings.merge({ [list]: {} })
   const listData = settings[list]
   if (!listData[file]) listData.merge({ [file]: {} })
