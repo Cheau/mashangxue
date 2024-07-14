@@ -12,12 +12,10 @@ import {
 
 import styles from './index.module.css'
 import {
-  actions, playlists, stored,
+  actions, noproxy, playlists, stored,
 } from './data'
 import Nav from './Nav'
 import Player from '../Player'
-
-const noproxy = { noproxy: true }
 
 const fullPath = (file) => `/audio/e-tcm/${file}`
 
@@ -30,19 +28,17 @@ export default function ETcm() {
   const player = useRef(null)
   const [toast] = useIonToast()
   const store = useHookstate(stored)
-  const order = useHookstate(stored.order)
-  const settings = useHookstate(stored.settings)
   const {
     file, list, timed,
   } = store.get(noproxy)
-  const playlist = useMemo(() => playlists[list], [list])
+  const setting = useMemo(() => {
+    const data = store.settings.get(noproxy) ?? {}
+    if (list === 'all') return store.order.flatMap((o) => toArray(data[o], playlists[o]))
+    return toArray(data[list], playlists[list])
+  }, [list, store.order, store.settings])
+  const playlist = useMemo(() => playlists[list].filter((item, i) => !setting[i]?.disabled), [list, setting])
   const src = useMemo(() => playlist.map(fullPath), [playlist])
   const fileIndex = useMemo(() => playlist.indexOf(file), [playlist, file])
-  const setting = useMemo(() => {
-    const data = settings.get(noproxy) ?? {}
-    if (list === 'all') return order.get().flatMap((o) => toArray(data[o], playlists[o]))
-    return toArray(data[list], playlists[list])
-  }, [list, order, settings])
   const [open, setOpen] = useState(false)
   const [status, setStatus] = useState(false)
   const { pick } = actions
@@ -60,6 +56,9 @@ export default function ETcm() {
       default: break
     }
   }
+  useEffect(() => {
+    if (fileIndex < 0) pick(list, playlist[0])
+  }, [fileIndex, playlist])
   useEffect(() => {
     if (!timed) toast({
       color: 'warning',

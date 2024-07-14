@@ -119,6 +119,8 @@ const store = {
   timed: true,
 }
 
+export const noproxy = { noproxy: true }
+
 const now = () => {
   const date = new Date()
   return `${padTime(date.getHours())}:${padTime(date.getMinutes())}`
@@ -155,6 +157,13 @@ const getInitStore = () => {
 const extensions = [subscribable()]
 if (typeof window !== 'undefined') extensions.push(localstored({ key: 'e-tcm' }))
 export const stored = hookstate(getInitStore(), extend(...extensions))
+export const derived = hookstate()
+
+stored.settings.subscribe((s) => console.log(s))
+
+const merge = (obj) => {
+  Object.entries(obj).forEach(([key, value]) => stored[key].set(value))
+}
 
 let timeoutId
 const tick = () => {
@@ -167,16 +176,16 @@ const tick = () => {
   if (playlists[list].indexOf(state.file) < 0 && patch.file !== playlists[list][0]) {
     patch.file = playlists[list][0]
   }
-  stored.merge(patch)
+  merge(patch)
   timeoutId = setTimeout(tick, 1000)
 }
 tick()
 
 const pick = (pickedList, pickedFile) => {
-  const state = stored.get({ noproxy: true })
+  const state = stored.get(noproxy)
   const timed = state.timed && pickedList === state.list
   const { list, rangeIndex } = timed ? locate(state) : { list: pickedList }
-  stored.merge({
+  merge({
     file: pickedFile ?? playlists[list][0],
     list,
     rangeIndex,
@@ -185,11 +194,11 @@ const pick = (pickedList, pickedFile) => {
 }
 
 const playByTime = () => {
-  const state = stored.get({ noproxy: true })
+  const state = stored.get(noproxy)
   const timed = true
   const { list, rangeIndex } = locate({ ...state, timed })
   const file = playlists[list][0]
-  stored.merge({
+  merge({
     file,
     list,
     rangeIndex,
@@ -200,13 +209,11 @@ const playByTime = () => {
 const restore = () => stored.set(getInitStore())
 
 const set = (list, file, option, value) => {
-  const { settings } = stored
-  if (!settings.get()) settings.set({})
-  if (!settings[list]) settings.merge({ [list]: {} })
-  const listData = settings[list]
-  if (!listData[file]) listData.merge({ [file]: {} })
-  const fileData = listData[file]
-  fileData.merge({ [option]: value })
+  const { settings = {} } = stored.get(noproxy)
+  if (!settings[list]) settings[list] = {}
+  if (!settings[list][file]) settings[list][file] = {}
+  settings[list][file][option] = value
+  merge({ settings })
 }
 
 export const actions = {
