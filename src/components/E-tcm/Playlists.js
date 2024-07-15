@@ -70,7 +70,7 @@ function Playlist({
           return (
             <IonItem key={i} button color={color} detail={false} lines="inset" onClick={halt}>
               {isItemActive && (status === 'loading' ? <IonSpinner name="dots" style={{ marginRight: '12px' }} /> : <FcMusic className={classes} slot="start" />)}
-              <IonLabel className={clsx({ [styles.disabled]: !showSettng && disabled })} onClick={() => onPick(id, item)}>
+              <IonLabel className={clsx({ [styles.disabled]: disabled })} onClick={() => onPick(id, item)}>
                 {filename(item)}
               </IonLabel>
               {showSettng && <IonCheckbox slot="end" checked={!disabled} onIonChange={() => set(id, item, 'disabled', !disabled)} />}

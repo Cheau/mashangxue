@@ -12,31 +12,23 @@ import {
 
 import styles from './index.module.css'
 import {
-  actions, noproxy, playlists, stored,
-} from './data'
+  actions, derived, stored,
+} from './data/index'
+import { noproxy } from './data/stored'
 import Nav from './Nav'
 import Player from '../Player'
 
 const fullPath = (file) => `/audio/e-tcm/${file}`
 
-const toArray = (obj, keys) => {
-  if (typeof obj !== 'object') return keys.map(() => undefined)
-  return keys.map((key) => obj[key])
-}
-
 export default function ETcm() {
   const player = useRef(null)
   const [toast] = useIonToast()
+  const computed = useHookstate(derived)
   const store = useHookstate(stored)
+  const { playlist, settings } = computed.get(noproxy)
   const {
     file, list, timed,
   } = store.get(noproxy)
-  const setting = useMemo(() => {
-    const data = store.settings.get(noproxy) ?? {}
-    if (list === 'all') return store.order.flatMap((o) => toArray(data[o], playlists[o]))
-    return toArray(data[list], playlists[list])
-  }, [list, store.order, store.settings])
-  const playlist = useMemo(() => playlists[list].filter((item, i) => !setting[i]?.disabled), [list, setting])
   const src = useMemo(() => playlist.map(fullPath), [playlist])
   const fileIndex = useMemo(() => playlist.indexOf(file), [playlist, file])
   const [open, setOpen] = useState(false)
@@ -79,6 +71,7 @@ export default function ETcm() {
           onChange={onChange}
           onPlaylist={() => setOpen(true)}
           ref={player}
+          settings={settings}
           src={src}
         />
       </div>

@@ -157,9 +157,23 @@ const getInitStore = () => {
 const extensions = [subscribable()]
 if (typeof window !== 'undefined') extensions.push(localstored({ key: 'e-tcm' }))
 export const stored = hookstate(getInitStore(), extend(...extensions))
-export const derived = hookstate()
+export const derived = hookstate({ playlist: undefined, settings: undefined })
 
-stored.settings.subscribe((s) => console.log(s))
+const toArray = (obj, keys) => {
+  if (typeof obj !== 'object') return keys.map(() => undefined)
+  return keys.map((key) => obj[key])
+}
+const compute = () => {
+  const { list, order, settings: data = {} } = stored.get(noproxy)
+  const settings = list === 'all' ?
+    order.flatMap((o) => toArray(data[o], playlists[o])) :
+    toArray(data[list], playlists[list])
+  const playlist = playlists[list].filter((item, i) => !settings[i]?.disabled)
+  derived.merge({ playlist, settings: settings.filter((item) => !item?.disabled) })
+}
+stored.list.subscribe(compute)
+stored.order.subscribe(compute)
+stored.settings.subscribe(compute)
 
 const merge = (obj) => {
   Object.entries(obj).forEach(([key, value]) => stored[key].set(value))
@@ -222,6 +236,7 @@ export const actions = {
 
 export default {
   actions,
+  derived,
   icons,
   mapping,
   playlists,
