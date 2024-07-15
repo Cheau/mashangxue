@@ -4,13 +4,12 @@ import { GiAlarmClock } from 'react-icons/gi'
 import { IonSelect, IonSelectOption, IonToggle } from '@ionic/react'
 
 import styles from './Nav.module.css'
-import {
-  actions, icons, stored, theory,
-} from './data'
+import data from './data'
 import { formatRange } from './utils'
 
 export default function Nav(props) {
   const { withPlay } = props
+  const { actions, fixed: { icons, theory }, stored } = data
   const store = useHookstate(stored)
   const {
     list, order, rangeIndex, ranges, timed,

@@ -2,6 +2,8 @@ import { extend, hookstate } from '@hookstate/core'
 import { localstored } from '@hookstate/localstored'
 import { subscribable } from '@hookstate/subscribable'
 
+import { padTime } from '../utils'
+
 const clone = (json) => JSON.parse(JSON.stringify(json))
 
 const store = {

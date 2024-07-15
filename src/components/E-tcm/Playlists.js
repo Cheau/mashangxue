@@ -19,8 +19,7 @@ import {
 } from '@ionic/react'
 
 import styles from './Playlists.module.css'
-import {
-  actions, icons, playlists, stored, theory } from './data'
+import data from './data'
 import Drawer from '../Drawer'
 import Range from './Range'
 import RangeAdder from './RangeAdder'
@@ -33,6 +32,9 @@ function Playlist({
   showSettng,
   status,
 }) {
+  const {
+    actions, fixed: { icons, playlists, theory }, stored,
+  }  = data
   const { set } = actions
   const store = useHookstate(stored)
   const {
@@ -104,7 +106,7 @@ export default function Playlists({
   open,
   status,
 }) {
-  const { restore } = actions
+  const { actions: { restore }, stored } = data
   const [alert] = useIonAlert()
   const [toast] = useIonToast()
   const setting = useHookstate(false)

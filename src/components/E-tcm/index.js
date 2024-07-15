@@ -11,9 +11,7 @@ import {
 } from '@ionic/react'
 
 import styles from './index.module.css'
-import {
-  actions, derived, stored,
-} from './data/index'
+import data from './data'
 import { noproxy } from './data/stored'
 import Nav from './Nav'
 import Player from '../Player'
@@ -21,16 +19,23 @@ import Player from '../Player'
 const fullPath = (file) => `/audio/e-tcm/${file}`
 
 export default function ETcm() {
+  const {
+    actions, derived, stored,
+  } = data
   const player = useRef(null)
   const [toast] = useIonToast()
-  const computed = useHookstate(derived)
+  const derivation = useHookstate(derived)
   const store = useHookstate(stored)
-  const { playlist, settings } = computed.get(noproxy)
+  const { fileIndex, playlists = {}, settings } = derivation.get(noproxy)
   const {
-    file, list, timed,
+    file, list, order, timed,
   } = store.get(noproxy)
+  const playlist = useMemo(() => {
+    const value = list === 'all' ? order.flatMap((o) => playlists[o]) : playlists[list]
+    return value ?? []
+  }, [list])
+  const setting = useMemo(() => list === 'all' ? order.flatMap((o) => settings[o]) : settings[list], [list, settings])
   const src = useMemo(() => playlist.map(fullPath), [playlist])
-  const fileIndex = useMemo(() => playlist.indexOf(file), [playlist, file])
   const [open, setOpen] = useState(false)
   const [status, setStatus] = useState(false)
   const { pick } = actions
@@ -71,7 +76,7 @@ export default function ETcm() {
           onChange={onChange}
           onPlaylist={() => setOpen(true)}
           ref={player}
-          settings={settings}
+          settings={setting}
           src={src}
         />
       </div>

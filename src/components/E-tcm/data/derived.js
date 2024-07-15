@@ -1,44 +1,50 @@
-import { playlists } from './fixed'
+import { hookstate } from '@hookstate/core'
+import { subscribable } from '@hookstate/subscribable'
+
+import fixed from './fixed'
 import stored, { noproxy } from './stored'
 
-const derived = hookstate({
-  fileIndex: undefined,
-  playlists: undefined,
-  settings: undefined,
-})
-
-export default derived
-
-const fileIndex = () => {
+const getFileIndex = (playlists) => {
   const { file, list } = stored.get(noproxy)
-  const { playlists } = derived.get(noproxy)
-  const value = playlists[list].indexOf(file)
-  derived.fileIndex.set(value)
+  if (!playlists || !list) return
+  return playlists[list].indexOf(file)
 }
 
-const playlists = () => {
-  const { settings } = stored.get(noproxy)
-  const value = Object.entries(playlists).reduce((accumulator, [list, files]) => {
+const getPlaylists = () => {
+  const { settings = {} } = stored.get(noproxy)
+  return Object.entries(fixed.playlists).reduce((accumulator, [list, files]) => {
     const setting = settings[list] ?? {}
     accumulator[list] = files.filter((f) => !setting[f]?.disabled)
     return accumulator
   }, {})
-  derived.playlists.set(value)
 }
 
-const settings = () => {
-  const { settings } = stored.get(noproxy)
-  const value = Object.entries(settings).reduce((accumulator, [list, setting]) => {
-    accumulator[list] = setting.filter((s) => !s?.disabled)
+const getSettings = (playlists) => {
+  const { order, settings = {} } = stored.get(noproxy)
+  return order.reduce((accumulator, list) => {
+    accumulator[list] = playlists[list].map((f) => (settings[list] ?? {})[f])
     return accumulator
   }, {})
-  derived.settings.set(value)
 }
 
-export const computers = {
-  fileIndex, playlists, settings,
+const init = () => {
+  const initial = {}
+  initial.playlists = getPlaylists()
+  initial.settings = getSettings(initial.playlists)
+  initial.fileIndex = getFileIndex(initial.playlists)
+  return initial
 }
 
-playlists()
-settings()
-fileIndex()
+const derived = hookstate(init(), subscribable())
+
+export default derived
+
+const setPlaylists = () => derived.playlists.set(getPlaylists())
+const setSettings = () => derived.settings.set(getSettings(derived.playlists.get()))
+const setFileIndex = () => derived.fileIndex.set(getFileIndex(derived.playlists.get()))
+
+stored.settings.subscribe(setPlaylists)
+stored.settings.subscribe(setSettings)
+stored.file.subscribe(setFileIndex)
+stored.list.subscribe(setFileIndex)
+derived.playlists.subscribe(setFileIndex)
