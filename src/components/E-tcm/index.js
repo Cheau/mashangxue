@@ -28,17 +28,14 @@ export default function ETcm() {
   const store = useHookstate(stored)
   const { fileIndex, playlists = {}, settings } = derivation.get(noproxy)
   const {
-    file, list, order, timed,
+    file, list, timed,
   } = store.get(noproxy)
-  const playlist = useMemo(() => {
-    const value = list === 'all' ? order.flatMap((o) => playlists[o]) : playlists[list]
-    return value ?? []
-  }, [list])
-  const setting = useMemo(() => list === 'all' ? order.flatMap((o) => settings[o]) : settings[list], [list, settings])
+  const playlist = playlists[list]
+  const setting = settings[list]
   const src = useMemo(() => playlist.map(fullPath), [playlist])
   const [open, setOpen] = useState(false)
   const [status, setStatus] = useState(false)
-  const { pick } = actions
+  const { pick, tick, untick } = actions
   const withPlay = (func) => (...args) => {
     func.apply(this, args)
     const nextState = store.get()
@@ -53,6 +50,10 @@ export default function ETcm() {
       default: break
     }
   }
+  useEffect(() => {
+    tick()
+    return untick
+  }, [])
   useEffect(() => {
     if (fileIndex < 0) pick(list, playlist[0])
   }, [fileIndex, playlist])

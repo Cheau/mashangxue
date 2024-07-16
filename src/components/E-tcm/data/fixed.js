@@ -28,8 +28,6 @@ export const playlists = {
   off: [],
 }
 
-playlists.all = Object.values(playlists).flat()
-
 export const theory = {
   heart: {
     effect: '舒心',
