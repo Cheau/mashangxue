@@ -9,25 +9,13 @@
 }
 
 .setting {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    float: right;
-    padding: 0 .25em;
-    color: var(--ion-color-dark);
-    cursor: pointer;
-    font-weight: bold;
-}
-.setting.active {
-    background: var(--ion-color-dark);
-    border-radius: .25em;
-    color: white;
-    font-weight: normal;
-}
-.setting svg {
-    margin-right: .25em;
+    justify-content: space-between;
+    margin: 0 gap;
 }
 
-.playlist {
+.playlist + .playlist {
     margin-top: gap;
 }
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
 import { useHookstate } from '@hookstate/core'
-import { BsGear, BsGearFill } from 'react-icons/bs'
 import { FcMusic } from 'react-icons/fc'
 import {
   IonBadge,
@@ -13,6 +12,8 @@ import {
   IonList,
   IonListHeader,
   IonNote,
+  IonSelect,
+  IonSelectOption,
   IonSpinner,
   useIonAlert,
   useIonToast,
@@ -29,7 +30,7 @@ import { filename } from '../../common/path'
 function Playlist({
   id,
   onPick,
-  showSettng,
+  setting,
   status,
 }) {
   const {
@@ -75,7 +76,9 @@ function Playlist({
               <IonLabel className={clsx({ [styles.disabled]: disabled })} onClick={() => onPick(id, item)}>
                 {filename(item)}
               </IonLabel>
-              {showSettng && <IonCheckbox slot="end" checked={!disabled} onIonChange={() => set(id, item, 'disabled', !disabled)} />}
+              {setting === 'disabled' && (
+                <IonCheckbox slot="end" checked={!disabled} onIonChange={() => set(id, item, 'disabled', !disabled)} />
+              )}
             </IonItem>
         )})}
         <IonItem lines="none">
@@ -109,8 +112,7 @@ export default function Playlists({
   const { actions: { restore }, stored } = data
   const [alert] = useIonAlert()
   const [toast] = useIonToast()
-  const setting = useHookstate(false)
-  const showSettng = setting.get()
+  const setting = useHookstate('none')
   const store = useHookstate(stored)
   const { order } = store.get()
   const reset = () => {
@@ -134,17 +136,24 @@ export default function Playlists({
       <Drawer maxWidth="400px" open={open} onClose={onClose} title="播放列表">
         <div className={styles.playlists}>
           <IonContent color="light">
-            <IonNote className={styles.intro}>
-              点击乐曲可播放，点击时段可调整
-              <span
-                className={clsx(styles.setting, { [styles.active]: showSettng })}
-                onClick={() => setting.set(!showSettng)}
-              >
-                {showSettng ? <BsGear /> : <BsGearFill />}显示设置
+            <IonNote className={styles.setting}>
+              <span>点击乐曲可播放，点击时段可调整</span>
+              <span>
+                <IonSelect
+                  interface="popover"
+                  mode="ios"
+                  onIonChange={({ detail }) => setting.set(detail.value)}
+                  value={setting.get()}
+                >
+                  <IonSelectOption value="none">关闭设置</IonSelectOption>
+                  <IonSelectOption value="disabled">播放设置</IonSelectOption>
+                  <IonSelectOption value="vol">音量设置</IonSelectOption>
+                  <IonSelectOption value="rate">倍速设置</IonSelectOption>
+                </IonSelect>
               </span>
             </IonNote>
             {order.map((id) => (
-              <Playlist key={id} id={id} onPick={onPick} showSettng={showSettng} status={status} />
+              <Playlist key={id} id={id} onPick={onPick} setting={setting.get()} status={status} />
             ))}
             <IonButton className={styles.reset} color="dark" expand="block" onClick={confirmReset}>
               恢复默认设置
