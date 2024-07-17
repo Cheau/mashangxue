@@ -13,6 +13,7 @@ import {
 import styles from './index.module.css'
 import data from './data'
 import { noproxy } from './data/stored'
+import Actions from './Actions'
 import Nav from './Nav'
 import Player from '../Player'
 
@@ -73,6 +74,7 @@ export default function ETcm() {
         <div className={styles.subtitle}>听电子中药，享赛博朋克</div>
         <Player
           appearance="music"
+          aside={<Actions />}
           index={fileIndex}
           onChange={onChange}
           onPlaylist={() => setOpen(true)}

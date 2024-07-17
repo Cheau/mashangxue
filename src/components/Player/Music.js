@@ -42,7 +42,7 @@ const modes = [
 function Music(props) {
   const ref = useRef(null)
   const {
-    actions, duration, elapsed, index, mute, rate, src = [], status, volume,
+    actions, aside, duration, elapsed, index, mute, rate, src = [], status, volume,
     onPlaylist = () => {},
   } = props
   const {
@@ -75,7 +75,10 @@ function Music(props) {
       <div className={styles.disc}>
         <img className={clsx({[styles.paused]: !playing})} alt="logo" src="/img/logo.png"/>
       </div>
-      <div className={clsx('title', styles.title)}>{name}</div>
+      <div className={clsx('title', styles.title)}>
+        {name}
+        <span>{aside}</span>
+      </div>
       <Progress max={duration} onChange={(value) => seek(value)} value={elapsed}/>
       <div className={clsx('actions', styles.actions)}>
         <span id="mode" className={clsx('mode')} onClick={onMode} title={modeText}>
