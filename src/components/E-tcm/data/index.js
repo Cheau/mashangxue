@@ -4,5 +4,5 @@ import fixed from './fixed'
 import stored from './stored'
 
 export default {
-    actions, derived, fixed, stored,
+  actions, derived, fixed, stored,
 }
