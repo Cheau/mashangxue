@@ -76,7 +76,7 @@ function Music(props) {
         <img className={clsx({[styles.paused]: !playing})} alt="logo" src="/img/logo.png"/>
       </div>
       <div className={clsx('title', styles.title)}>
-        {name}
+        <span>{name}</span>
         <span>{aside}</span>
       </div>
       <Progress max={duration} onChange={(value) => seek(value)} value={elapsed}/>

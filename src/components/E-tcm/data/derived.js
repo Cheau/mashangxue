@@ -5,29 +5,35 @@ import fixed from './fixed'
 import stored, { noproxy, patch } from './stored'
 
 const getFileIndex = (playlists) => {
-  const { file, list } = stored.get(noproxy)
-  if (!playlists || !list) return
-  return playlists[list].indexOf(file)
+  const {
+    all, file, list, order,
+  } = stored.get(noproxy)
+  if (!playlists || !list || !file) return
+  let base = 0
+  if (all) {
+    order.slice(0, order.indexOf(list)).every((o) => base += playlists[o].length)
+  }
+  return base + playlists[list].indexOf(file)
 }
 
 const getPlaylists = () => {
-  const { order, settings = {} } = stored.get(noproxy)
+  const { all, order, settings = {} } = stored.get(noproxy)
   const value = Object.entries(fixed.playlists).reduce((accumulator, [list, files]) => {
     const setting = settings[list] ?? {}
     accumulator[list] = files.filter((f) => !setting[f]?.disabled)
     return accumulator
   }, {})
-  value.all = order.flatMap((o) => value[o])
+  if (all) value.all = order.flatMap((o) => value[o])
   return value
 }
 
 const getSettings = (playlists) => {
-  const { order, settings = {} } = stored.get(noproxy)
+  const { all, order, settings = {} } = stored.get(noproxy)
   const value = order.reduce((accumulator, list) => {
     accumulator[list] = playlists[list].map((f) => (settings[list] ?? {})[f])
     return accumulator
   }, {})
-  value.all = order.flatMap((o) => value[o])
+  if (all) value.all = order.flatMap((o) => value[o])
   return value
 }
 
@@ -47,14 +53,12 @@ const setFileIndex = () => {
   if (fileIndex < 0) patch({ file: undefined })
 }
 
-stored.order.subscribe(() => {
-  setPlaylists()
-  setSettings()
-})
+stored.all.subscribe(setPlaylists)
+stored.order.subscribe(setPlaylists)
 stored.settings.subscribe(setPlaylists)
-stored.settings.subscribe(setSettings)
 stored.file.subscribe(setFileIndex)
 stored.list.subscribe(setFileIndex)
+derived.playlists.subscribe(setSettings)
 derived.playlists.subscribe(setFileIndex)
 
 setPlaylists()

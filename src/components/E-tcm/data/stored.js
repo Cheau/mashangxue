@@ -7,6 +7,7 @@ import { padTime } from '../utils'
 const clone = (json) => JSON.parse(JSON.stringify(json))
 
 const store = {
+  all: false,
   file: undefined,
   list: undefined,
   order: [
@@ -14,7 +15,6 @@ const store = {
   ],
   rangeIndex: undefined,
   ranges: {
-    all: [],
     heart: [['12:30', '13:00'], ['22:00', '23:00']],
     spleen: [['07:00', '09:00'], ['11:00', '13:00'], ['17:00', '19:00']],
     kidney: [['07:00', '11:00']],
@@ -40,9 +40,9 @@ const within = (time, [start, end]) => {
 
 export const locate = (state) => {
   const {
-    list, order, rangeIndex, ranges, timed,
+    order, ranges, timed,
   } = state
-  if (!timed) return { list, rangeIndex }
+  if (!timed) return undefined
   const time = now()
   for (let i = 0; i < order.length; i++) {
     const arr = ranges[order[i]]
@@ -53,7 +53,7 @@ export const locate = (state) => {
   return { list: 'off', rangeIndex: 0 }
 }
 
-const getInitStore = () => {
+export const getInitStore = () => {
   const merged = {
     ...store,
     ...locate(store),

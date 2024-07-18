@@ -1,13 +1,37 @@
 import derived from './derived'
-import stored, { locate, noproxy, patch } from './stored'
+import stored, {
+  getInitStore,
+  locate,
+  noproxy,
+  patch,
+} from './stored'
 
-const pick = (pickedList, pickedFile) => {
-  const state = stored.get(noproxy)
+const pick = (pickedList, fileOrIndex) => {
+  const all = pickedList === 'all'
+  const store = stored.get(noproxy)
+  const timed = store.timed && pickedList === store.list
+  let { list, rangeIndex } = timed ? locate(store) : {}
   const { playlists } = derived.get(noproxy)
-  const timed = state.timed && pickedList === state.list
-  const { list, rangeIndex } = timed ? locate(state) : { list: pickedList }
+  if (list === undefined) {
+    const getList = () => {
+      if (!all) return pickedList
+      const { order } = store
+      if (typeof fileOrIndex !== 'number') return store.file ? store.list : order[0]
+      let sum = 0
+      return order.find((o) => {
+        sum += playlists[o].length
+        return sum > fileOrIndex
+      })
+    }
+    list = getList()
+  }
+  let file
+  if (fileOrIndex === undefined) file = all ? store.file : playlists[pickedList][0]
+  if (typeof fileOrIndex === 'number') file = playlists[pickedList][fileOrIndex]
+  if (typeof fileOrIndex === 'string') file = fileOrIndex
   patch({
-    file: pickedFile ?? playlists[list][0],
+    all,
+    file,
     list,
     rangeIndex,
     timed,
@@ -15,12 +39,13 @@ const pick = (pickedList, pickedFile) => {
 }
 
 const playByTime = () => {
-  const state = stored.get(noproxy)
+  const store = stored.get(noproxy)
   const { playlists } = derived.get(noproxy)
   const timed = true
-  const { list, rangeIndex } = locate({ ...state, timed })
+  const { list, rangeIndex } = locate({ ...store, timed })
   const file = playlists[list][0]
   patch({
+    all: false,
     file,
     list,
     rangeIndex,
@@ -41,16 +66,18 @@ const set = (list, file, option, value) => {
 let timeoutId
 
 const tick = () => {
-  const { playlists } = derived.get(noproxy)
-  const state = stored.get()
-  const { list, rangeIndex } = locate(state)
-  const value = {}
-  if (list !== state.list) value.list = list
-  if (rangeIndex !== state.rangeIndex) value.rangeIndex = rangeIndex
-  if (playlists[list].indexOf(state.file) < 0 && playlists[list].length) {
-    value.file = playlists[list][0]
+  const store = stored.get(noproxy)
+  if (store.timed) {
+    const { playlists } = derived.get(noproxy)
+    const { list, rangeIndex } = locate(store)
+    const value = {}
+    if (list !== store.list) value.list = list
+    if (rangeIndex !== store.rangeIndex) value.rangeIndex = rangeIndex
+    if (playlists[list].indexOf(store.file) < 0 && playlists[list].length) {
+      value.file = playlists[list][0]
+    }
+    patch(value)
   }
-  patch(value)
   timeoutId = setTimeout(tick, 1000)
 }
 

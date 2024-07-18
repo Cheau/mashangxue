@@ -19,11 +19,11 @@ export default function Actions() {
       message: '禁播后可打开播放列表的设置来恢复',
       buttons: [
         { text: '取消', role: 'cancel' },
-        { text: '确认', role: 'confirm', handler: set(list, file, 'disabled', true) },
+        { text: '确认', role: 'confirm', handler: () => set(list, file, 'disabled', true) },
       ]
     })
   }
-  return (
+  return !file ? null : (
     <>
       <FcDislike onClick={disable} title="不再播放" />
     </>

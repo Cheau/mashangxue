@@ -12,9 +12,10 @@ export default function Nav(props) {
   const { actions, fixed: { icons, theory }, stored } = data
   const store = useHookstate(stored)
   const {
-    list, order, rangeIndex, ranges, timed,
+    all, order, rangeIndex, ranges, timed,
   } = store.get()
-  const range = ranges[list][rangeIndex]
+  const list = all ? 'all' : store.list.get()
+  const range = !timed ? undefined : ranges[list][rangeIndex]
   const { pick, playByTime } = actions
   const pickAndPlay = withPlay(pick)
   return (
