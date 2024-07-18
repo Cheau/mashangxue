@@ -53,13 +53,27 @@ const setFileIndex = () => {
   if (fileIndex < 0) patch({ file: undefined })
 }
 
-stored.all.subscribe(setPlaylists)
-stored.order.subscribe(setPlaylists)
-stored.settings.subscribe(setPlaylists)
-stored.file.subscribe(setFileIndex)
-stored.list.subscribe(setFileIndex)
-derived.playlists.subscribe(setSettings)
-derived.playlists.subscribe(setFileIndex)
+const queue = []
+
+let timeoutId
+const push = (func) => {
+  if (queue.indexOf(func) < 0) queue.push(func)
+  if (timeoutId) clearTimeout(timeoutId)
+  timeoutId = setTimeout(() => {
+    while (queue.length) {
+      const f = queue.pop()
+      f()
+    }
+  })
+}
+
+stored.all.subscribe(() => push(setPlaylists))
+stored.order.subscribe(() => push(setPlaylists))
+stored.settings.subscribe(() => push(setPlaylists))
+stored.file.subscribe(() => push(setFileIndex))
+stored.list.subscribe(() => push(setFileIndex))
+derived.playlists.subscribe(() => push(setSettings))
+derived.playlists.subscribe(() => push(setFileIndex))
 
 setPlaylists()
 setSettings()
