@@ -1,6 +1,7 @@
 import { hookstate } from '@hookstate/core'
 import { subscribable } from '@hookstate/subscribable'
 
+import { pick } from './actions'
 import fixed from './fixed'
 import stored, { noproxy, patch } from './stored'
 
@@ -48,9 +49,17 @@ export default derived
 const setPlaylists = () => derived.playlists.set(getPlaylists())
 const setSettings = () => derived.settings.set(getSettings(derived.playlists.get()))
 const setFileIndex = () => {
-  const fileIndex = getFileIndex(derived.playlists.get())
-  derived.fileIndex.set(fileIndex)
-  if (fileIndex < 0) patch({ file: undefined })
+  const { fileIndex, playlists } = derived.get(noproxy)
+  const value = getFileIndex(playlists)
+  if (typeof value !== 'number') return
+  if (value < 0) {
+    const { all, list } = stored.get(noproxy)
+    const pickedList = all ? 'all' : list
+    const playlist = playlists[pickedList]
+    pick(pickedList, fileIndex < playlist.length ? fileIndex : playlist.length - 1)
+  } else {
+    derived.fileIndex.set(value)
+  }
 }
 
 const queue = []

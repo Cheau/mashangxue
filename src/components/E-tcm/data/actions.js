@@ -6,7 +6,7 @@ import stored, {
   patch,
 } from './stored'
 
-const pick = (pickedList, fileOrIndex) => {
+export const pick = (pickedList, fileOrIndex) => {
   const all = pickedList === 'all'
   const store = stored.get(noproxy)
   const timed = store.timed && pickedList === store.list
@@ -38,7 +38,7 @@ const pick = (pickedList, fileOrIndex) => {
   })
 }
 
-const playByTime = () => {
+export const playByTime = () => {
   const store = stored.get(noproxy)
   const { playlists } = derived.get(noproxy)
   const timed = true
@@ -53,9 +53,9 @@ const playByTime = () => {
   })
 }
 
-const restore = () => stored.set(getInitStore())
+export const restore = () => stored.set(getInitStore())
 
-const set = (list, file, option, value) => {
+export const set = (list, file, option, value) => {
   const { settings = {} } = stored.get(noproxy)
   if (!settings[list]) settings[list] = {}
   if (!settings[list][file]) settings[list][file] = {}
@@ -65,7 +65,7 @@ const set = (list, file, option, value) => {
 
 let timeoutId
 
-const tick = () => {
+export const tick = () => {
   const store = stored.get(noproxy)
   if (store.timed) {
     const { playlists } = derived.get(noproxy)
@@ -81,7 +81,7 @@ const tick = () => {
   timeoutId = setTimeout(tick, 1000)
 }
 
-const untick = () => {
+export const untick = () => {
   if (timeoutId) clearTimeout(timeoutId)
 }
 
