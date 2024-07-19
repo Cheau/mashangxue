@@ -12,8 +12,6 @@ import {
   IonList,
   IonListHeader,
   IonNote,
-  IonSelect,
-  IonSelectOption,
   IonSpinner,
   useIonAlert,
   useIonToast,
