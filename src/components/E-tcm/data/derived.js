@@ -3,7 +3,7 @@ import { subscribable } from '@hookstate/subscribable'
 
 import { pick } from './actions'
 import fixed from './fixed'
-import stored, { noproxy, patch } from './stored'
+import stored, { noproxy } from './stored'
 
 const getFileIndex = (playlists) => {
   const {

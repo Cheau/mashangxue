@@ -76,7 +76,7 @@ function Playlist({
               <IonLabel className={clsx({ [styles.disabled]: disabled })} onClick={() => onPick(id, item)}>
                 {filename(item)}
               </IonLabel>
-              {setting === 'disabled' && (
+              {setting && (
                 <IonCheckbox slot="end" checked={!disabled} onIonChange={() => set(id, item, 'disabled', !disabled)} />
               )}
             </IonItem>
@@ -112,7 +112,7 @@ export default function Playlists({
   const { actions: { restore }, stored } = data
   const [alert] = useIonAlert()
   const [toast] = useIonToast()
-  const setting = useHookstate('none')
+  const setting = useHookstate(false)
   const store = useHookstate(stored)
   const { order } = store.get()
   const reset = () => {
@@ -137,19 +137,10 @@ export default function Playlists({
         <div className={styles.playlists}>
           <IonContent color="light">
             <IonNote className={styles.setting}>
-              <span>点击乐曲可播放，点击时段可调整</span>
+              <span>点击乐曲播放，点击时段调整</span>
               <span>
-                <IonSelect
-                  interface="popover"
-                  mode="ios"
-                  onIonChange={({ detail }) => setting.set(detail.value)}
-                  value={setting.get()}
-                >
-                  <IonSelectOption value="none">关闭设置</IonSelectOption>
-                  <IonSelectOption value="disabled">播放设置</IonSelectOption>
-                  <IonSelectOption value="vol">音量设置</IonSelectOption>
-                  <IonSelectOption value="rate">倍速设置</IonSelectOption>
-                </IonSelect>
+                显示播放选项&nbsp;
+                <IonCheckbox onIonChange={() => setting.set(!setting.get())} />
               </span>
             </IonNote>
             {order.map((id) => (

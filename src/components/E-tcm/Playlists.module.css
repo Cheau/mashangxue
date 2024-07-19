@@ -12,7 +12,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 gap;
+    margin: gap;
+    font-size: 14px;
+}
+.setting > span {
+    display: inline-flex;
+    align-items: center;
 }
 
 .playlist + .playlist {

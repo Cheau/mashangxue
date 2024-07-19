@@ -9,6 +9,7 @@ import { noproxy } from './data/stored'
 
 export default function Actions() {
   const [alert] = useIonAlert()
+  const style = { cursor: 'pointer' }
   const { actions: { set }, stored } = data
   const store = useHookstate(stored)
   const { file, list } = store.get(noproxy)
@@ -16,7 +17,7 @@ export default function Actions() {
     alert({
       header: '不再播放',
       subHeader: filename(file),
-      message: '禁播后可打开播放列表的设置来恢复',
+      message: '可在播放列表勾选播放选项来恢复',
       buttons: [
         { text: '取消', role: 'cancel' },
         { text: '确认', role: 'confirm', handler: () => set(list, file, 'disabled', true) },
@@ -25,7 +26,7 @@ export default function Actions() {
   }
   return !file ? null : (
     <>
-      <FcDislike onClick={disable} title="不再播放" />
+      <FcDislike onClick={disable} style={style} title="不再播放" />
     </>
   )
 }
